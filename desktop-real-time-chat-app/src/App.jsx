@@ -1,15 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import ForgetPassword from './components/ForgetPassword/ForgetPassword';
 import Verification from './components/Verification/Verification';
 import Submission from './components/Submission/Submission';
+import ChatLayout from './components/Chat/ChatLayout';
+import Chat from './components/Chat/Chat';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <div className="app">
         <Routes>
           <Route path="/" element={<SignIn />} />
@@ -17,10 +19,12 @@ function App() {
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/verification" element={<Verification />} />
           <Route path="/submission" element={<Submission />} />
+          <Route path="/chat" element={<ChatLayout />} />
+          <Route path="/chat-old" element={<Chat />} />
         </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

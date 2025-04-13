@@ -1,12 +1,10 @@
-.card-container {
+.signin-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 2rem;
   background: transparent;
-  overflow: hidden;
-  width: 100%;
 }
 
 .card {
@@ -16,101 +14,150 @@
   width: 100%;
   max-width: 480px;
   box-shadow: 0 20px 40px rgba(184, 58, 207, 0.1);
-  position: relative;
-  max-height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  gap: 20px;
 }
 
 .signin-title {
-  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
   color: #b83acf;
-  font-size: 28px;
-  margin-bottom: 24px;
-  animation: fadeIn 0.5s ease-out forwards;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.social-button {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.social-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: #b83acf;
+}
+
+.social-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.social-button.google:hover {
+  border-color: #4285f4;
+}
+
+.social-button.facebook:hover {
+  border-color: #1877f2;
+}
+
+.social-button.twitter:hover {
+  border-color: #1da1f2;
 }
 
 .divider {
+  display: flex;
+  align-items: center;
   text-align: center;
-  margin: 24px 0;
-  position: relative;
-  animation: fadeIn 0.5s ease-out forwards;
-  opacity: 0;
-  animation-delay: 0.2s;
+  color: #666;
+  font-size: 14px;
+  margin: 20px 0;
 }
 
 .divider::before,
 .divider::after {
   content: '';
-  position: absolute;
-  top: 50%;
-  width: calc(50% - 70px);
-  height: 1px;
-  background-color: #e0e0e0;
-}
-
-.divider::before {
-  left: 0;
-}
-
-.divider::after {
-  right: 0;
+  flex: 1;
+  border-bottom: 1px solid #eee;
 }
 
 .divider span {
-  background: white;
-  padding: 0 20px;
-  color: #666;
-  font-size: 14px;
+  padding: 0 10px;
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 100%;
+  gap: 16px;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 100%;
-  opacity: 0;
-  animation: fadeIn 0.5s ease-out forwards;
 }
 
 .input-group label {
-  color: #b83acf;
   font-size: 14px;
   font-weight: 500;
+  color: #b83acf;
 }
 
-.input-field {
+.input-group input {
   width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #e0e0e0;
+  padding: 12px 16px;
+  border: 1px solid #eee;
   border-radius: 8px;
   font-size: 14px;
   transition: all 0.3s ease;
+  background: #f8f8f8;
+  color: #333;
+}
+
+.input-group input::placeholder {
+  color: #999;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #b83acf;
+  box-shadow: 0 0 0 3px rgba(184, 58, 207, 0.1);
   background: white;
 }
 
-.input-field:focus {
-  outline: none;
-  border-color: #b83acf;
-  box-shadow: 0 0 0 2px rgba(184, 58, 207, 0.1);
-}
-
-.password-field {
+.password-input {
   position: relative;
   width: 100%;
 }
 
-.password-field .input-field {
-  padding-right: 45px;
+.password-input input {
+  width: 100%;
+  padding: 12px 16px;
+  padding-right: 46px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #f8f8f8;
+  color: #333;
+}
+
+.password-input input::placeholder {
+  color: #999;
+}
+
+.password-input input:focus {
+  outline: none;
+  border-color: #b83acf;
+  box-shadow: 0 0 0 3px rgba(184, 58, 207, 0.1);
+  background: white;
 }
 
 .toggle-password {
@@ -120,68 +167,45 @@
   transform: translateY(-50%);
   background: none;
   border: none;
-  cursor: pointer;
   padding: 0;
+  cursor: pointer;
+  color: #666;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.toggle-password:hover svg path {
-  fill: #b83acf;
+  width: 24px;
+  height: 24px;
 }
 
 .options-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 0 4px;
+  margin-top: 10px;
 }
 
-.keep-logged {
+.remember-me {
   display: flex;
   align-items: center;
   gap: 8px;
   color: #666;
   font-size: 14px;
-  cursor: pointer;
 }
 
-.keep-logged input[type="checkbox"] {
+.remember-me input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  margin: 0;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
   border: 2px solid #b83acf;
   border-radius: 4px;
-  position: relative;
-  background: white;
-  transition: all 0.3s ease;
-}
-
-.keep-logged input[type="checkbox"]:checked {
-  background: #b83acf;
-}
-
-.keep-logged input[type="checkbox"]:checked::after {
-  content: "✓";
-  position: absolute;
-  color: white;
-  font-size: 14px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  cursor: pointer;
+  margin: 0;
 }
 
 .forgot-password {
   color: #b83acf;
   text-decoration: none;
-  font-size: 14px;
   font-weight: 500;
+  font-size: 14px;
   margin-left: 20px;
   transition: all 0.3s ease;
 }
@@ -194,14 +218,13 @@
   background: #b83acf;
   color: white;
   border: none;
-  padding: 14px;
   border-radius: 8px;
+  padding: 14px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 10px;
-  width: 100%;
 }
 
 .submit-button:hover {
@@ -212,59 +235,28 @@
 
 .signup-prompt {
   text-align: center;
-  margin-top: 20px;
-  font-size: 14px;
   color: #666;
+  font-size: 14px;
+  margin-top: 20px;
 }
 
-.signup-link {
+.signup-prompt a {
   color: #b83acf;
   text-decoration: none;
-  margin-left: 8px;
   font-weight: 500;
+  margin-left: 4px;
 }
 
-.signup-link:hover {
+.signup-prompt a:hover {
   text-decoration: underline;
 }
 
-.input-group:nth-child(1) { animation-delay: 0.3s; }
-.input-group:nth-child(2) { animation-delay: 0.4s; }
-.options-row { animation: fadeIn 0.5s ease-out forwards; animation-delay: 0.5s; opacity: 0; }
-.submit-button { animation: fadeIn 0.5s ease-out forwards; animation-delay: 0.6s; opacity: 0; }
-.signup-prompt { animation: fadeIn 0.5s ease-out forwards; animation-delay: 0.7s; opacity: 0; }
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 640px) {
-  .card-container {
-    padding: 15px;
+@media (max-width: 520px) {
+  .signin-container {
+    padding: 1rem;
   }
 
   .card {
-    padding: 30px 25px;
-  }
-
-  .form-container {
-    gap: 16px;
-  }
-
-  .options-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .forgot-password {
-    margin-left: 4px;
+    padding: 30px 20px;
   }
 } 
