@@ -1,0 +1,112 @@
+.submission-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: transparent;
+  overflow: hidden;
+  width: 100%;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 40px rgba(184, 58, 207, 0.1);
+  position: relative;
+  max-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: #b83acf;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 40px;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: iconAppear 0.5s ease-out forwards;
+}
+
+.submission-title {
+  text-align: center;
+  color: #b83acf;
+  font-size: 28px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.submit-button {
+  background: #b83acf;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.submit-button:hover {
+  background: #a235b8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(184, 58, 207, 0.2);
+}
+
+.animate-1 { animation-delay: 0.2s; }
+.animate-2 { animation-delay: 0.4s; }
+.animate-3 { animation-delay: 0.6s; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes iconAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .submission-container {
+    padding: 15px;
+  }
+
+  .card {
+    padding: 30px 25px;
+  }
+
+  .success-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+  }
+} 

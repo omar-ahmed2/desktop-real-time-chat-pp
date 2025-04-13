@@ -1,0 +1,45 @@
+.submit-button {
+  width: 100%;
+  padding: 12px 20px;
+  background: #b83acf;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: buttonAppear 0.8s ease-out forwards;
+  animation-delay: 0.9s;
+  box-shadow: 0 4px 15px rgba(184, 58, 207, 0.3);
+}
+
+.submit-button:hover {
+  background: #a235b7;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(184, 58, 207, 0.4);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(184, 58, 207, 0.3);
+}
+
+@keyframes buttonAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .submit-button {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+} 
