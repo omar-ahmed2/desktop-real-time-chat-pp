@@ -1,0 +1,15 @@
+.navfilterBtn {
+    padding: 0.3rem .6rem;
+    color: black;
+    background-color: rgb(241, 241, 241);
+    border-radius: 40%;
+    transform: scale(0.9);
+    
+}
+
+.navfiltercontainer {
+padding: 10px 0 ;
+display: flex;
+justify-content: space-around;
+}
+    

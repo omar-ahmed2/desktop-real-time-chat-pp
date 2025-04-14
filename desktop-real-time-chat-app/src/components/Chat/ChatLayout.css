@@ -35,7 +35,7 @@
   background: #1a1d21;
   height: 100%;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
-  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .main-content {
@@ -47,14 +47,17 @@
 }
 
 .right-sidebar {
-  background: #f8f9fa;
+  background: white;
   height: 100%;
   border-left: 1px solid #eee;
   overflow-y: auto;
 }
 
 .gradiat-text {
-  color: linear-gradient(45deg, #b83acf, #6c5dd3)}
+  color: linear-gradient(45deg, #b83acf, #6c5dd3)
+ 
+};
+  
 
 /* Animations */
 .animate-fade-in {

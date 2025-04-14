@@ -6,7 +6,7 @@ const ChatUserCard = () => {
     <div className="chat-user-card">
       <div className="user-header animate-fade-in">
         <img
-          src="https://via.placeholder.com/80"
+          src="/images/picProfile.png"
           alt="Sarah Parker"
           className="user-avatar"
         />

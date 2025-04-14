@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+
+
 html, body {
   height: 100%;
   width: 100%;
@@ -61,3 +63,48 @@ body {
 .read-the-docs {
   color: #888;
 }
+
+                                              /*---------------- utilities -----------------------*/
+
+.flex {
+  display: flex;
+}
+
+
+.pleft {
+  padding-left: 1rem;
+}
+
+.pright {
+  padding-right: 1rem;
+}
+
+.p1 {
+  padding: 1rem;
+}
+
+.nowrap {
+  flex-wrap: nowrap;
+}
+
+.content-fit {
+  width: fit-content;
+  height: fit-content;
+}
+
+.scale-8 {
+  transform: scale(0.8);
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.fullwidth {
+  width: 100%;
+}
+
+.align-self-center {
+  align-self: center;
+}
+

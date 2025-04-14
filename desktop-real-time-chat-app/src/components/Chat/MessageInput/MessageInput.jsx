@@ -3,34 +3,27 @@ import './MessageInput.css';
 
 const MessageInput = () => {
   return (
-    <div className="message-input-container animate-slide-up">
-      <div className="message-input-wrapper">
-        <button className="attachment-btn">
-          <span className="action-icon">📎</span>
+    <>
+      <div className='flex justify-center animate-slide-up ' >
+        <button className="action-btn scale-8 align-self-center">
+          <img src="/images/attachment.png"  />
         </button>
-        
-        <div className="input-area">
-          <input
-            type="text"
-            placeholder="Type your message..."
-            className="message-input"
-          />
-          <div className="input-actions">
-            <button className="action-btn">
-              <span className="action-icon">😊</span>
-            </button>
-            <button className="action-btn">
-              <span className="action-icon">🎤</span>
-            </button>
-          </div>
-        </div>
 
-        <button className="send-button">
-          <span className="action-icon">📤</span>
+        <form action="" className="flex ">
+          <input type="text" placeholder="Type your message..." className="message-input" />
+        </form>
+
+        <button className="action-btn scale-8 align-self-center  ">
+          <img src="/images/camera.png"  />
+        </button>
+
+        <button className="action-btn scale-8 align-self-center  ">
+          <img src="/images/microphone.png"  />
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
 export default MessageInput; 
+

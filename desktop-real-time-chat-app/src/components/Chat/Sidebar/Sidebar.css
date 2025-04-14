@@ -128,6 +128,30 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
+
+
+.inputWithButton {
+  position: relative;
+  height: 100px;
+  width : 200px;
+}
+
+.inputWithButton input{
+    width:100%;
+    height: 40px;
+    padding-right: 60px;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.inputWithButton button {
+  position: absolute;
+  right: 1px;
+border-radius: 25px;
+  padding: .4rem ;
+  background-color: white;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
