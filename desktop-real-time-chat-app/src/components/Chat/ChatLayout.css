@@ -53,6 +53,9 @@
   overflow-y: auto;
 }
 
+.gradiat-text {
+  color: linear-gradient(45deg, #b83acf, #6c5dd3)}
+
 /* Animations */
 .animate-fade-in {
   opacity: 0;

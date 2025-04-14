@@ -3,12 +3,12 @@ import './Sidebar.css';
 
 const Sidebar = () => {
   const menuItems = [
-    { id: 1, icon: '🏠', label: 'Dashboard', active: false },
-    { id: 2, icon: '💬', label: 'Messages', active: true },
-    { id: 3, icon: '👥', label: 'Groups', active: false },
-    { id: 4, icon: '⭐', label: 'Favourites', active: false },
-    { id: 5, icon: '📅', label: 'Calendar', active: false },
-    { id: 6, icon: '📁', label: 'Files', active: false },
+    { id: 2, icon: <img src="/images/i chats.png" style={{ transform: 'scale(0.7)' }}/>, label: 'Messages', active: true },
+    { id: 3, icon: <img src="/images/i group.png" style={{ transform: 'scale(0.7)' }}/>, label: 'Groups', active: false },
+    { id: 4, icon: <img src="/images/fav.png" style={{ transform: 'scale(0.7)' }}/>, label: 'Favourites', active: false },
+    { id: 5, icon: <img src="/images/i chats.png" style={{ transform: 'scale(0.7)' }}/>, label: 'Calendar', active: false },
+    { id: 6, icon: <img src="/images/i chats.png" style={{ transform: 'scale(0.7)' }}/>, label: 'Files', active: false },
+    { id: 7, icon: <img src="/images/settings.png" style={{ transform: 'scale(0.7)' }}/>, label: 'Settings', active: false },
   ];
 
   return (
@@ -16,10 +16,26 @@ const Sidebar = () => {
       <div className="sidebar-header animate-fade-in">
         <div className="logo">
           <span className="logo-icon">💬</span>
-          <span className="logo-text">ChatApp</span>
+          <span className="logo-text">Chatty</span>
         </div>
       </div>
 
+
+
+          {/* profile status */}
+      <div className="sidebar-footer animate-fade-in">
+        <div className="user-profile">
+          <img 
+            src="/images/picProfile.png" 
+            alt="User" 
+            className="user-avatar"
+          />
+          <div className="user-info">
+            <span className="user-name">John Doe</span>
+            <span className="user-status">Online</span>
+          </div>
+        </div>
+      </div>
       <nav className="sidebar-nav">
         {menuItems.map((item, index) => (
           <div 
@@ -34,19 +50,7 @@ const Sidebar = () => {
         ))}
       </nav>
 
-      <div className="sidebar-footer animate-fade-in">
-        <div className="user-profile">
-          <img 
-            src="https://via.placeholder.com/40" 
-            alt="User" 
-            className="user-avatar"
-          />
-          <div className="user-info">
-            <span className="user-name">John Doe</span>
-            <span className="user-status">Online</span>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 };

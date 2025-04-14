@@ -5,6 +5,7 @@ import MessageList from './MessageList/MessageList';
 import MessageInput from './MessageInput/MessageInput';
 import ChatUserCard from './ChatUserCard/ChatUserCard';
 import './ChatLayout.css';
+import ChatList from './chatList';
 
 const ChatLayout = () => {
   return (
@@ -20,7 +21,8 @@ const ChatLayout = () => {
             <MessageInput />
           </div>
           <div className="right-sidebar animate-slide-left">
-            <ChatUserCard />
+            <h2 className='gradiat-text'>Messages</h2>
+            <ChatList />
           </div>
         </div>
       </div>

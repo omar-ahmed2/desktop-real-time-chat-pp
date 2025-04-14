@@ -7,7 +7,6 @@
 }
 
 .sidebar-header {
-  padding-bottom: 2rem;
   opacity: 0;
   animation: fadeIn 0.5s ease-out forwards;
 }

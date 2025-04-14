@@ -6,7 +6,7 @@ const MessageList = () => {
     {
       id: 1,
       user: 'Sarah Parker',
-      avatar: 'https://via.placeholder.com/40',
+      avatar: <img src="/images/picProfile.png" />,
       message: 'Hey team! I\'ve finished the initial designs for the new project. Take a look when you can.',
       time: '10:32 AM',
       isOwn: false
@@ -14,7 +14,7 @@ const MessageList = () => {
     {
       id: 2,
       user: 'John Doe',
-      avatar: 'https://via.placeholder.com/40',
+      avatar: <img src="/images/picProfile.png" />,
       message: 'Great work Sarah! The color scheme looks perfect 👍',
       time: '10:35 AM',
       isOwn: true
@@ -22,7 +22,7 @@ const MessageList = () => {
     {
       id: 3,
       user: 'Sarah Parker',
-      avatar: 'https://via.placeholder.com/40',
+      avatar: <img src="/images/picProfile.png" />,
       message: 'Thanks! I was thinking we could add some subtle animations to make it more engaging.',
       time: '10:36 AM',
       isOwn: false
