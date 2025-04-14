@@ -3,25 +3,22 @@ import './MessageInput.css';
 
 const MessageInput = () => {
   return (
-    <>
-      <div className='flex justify-center animate-slide-up ' >
-        <button className="action-btn scale-8 align-self-center">
-          <img src="/images/attachment.png"  />
+    <div className="message-input-container">
+      <div className="message-input-wrapper">
+        <button className="attachment-btn">
+          <img src="/images/attachment.png" alt="Attach file" />
         </button>
-
-        <form action="" className="flex ">
-          <input type="text" placeholder="Type your message..." className="message-input" />
-        </form>
-
-        <button className="action-btn scale-8 align-self-center  ">
-          <img src="/images/camera.png"  />
-        </button>
-
-        <button className="action-btn scale-8 align-self-center  ">
-          <img src="/images/microphone.png"  />
+        <input 
+          type="text" 
+          placeholder="Type your message..." 
+          className="message-input" 
+        />
+        <button className="send-btn">
+          <img src="/images/send.png" alt="Send message" />
+          Send
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

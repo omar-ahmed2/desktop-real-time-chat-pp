@@ -62,7 +62,7 @@
 /* Own messages styling */
 .own-message {
   flex-direction: row-reverse;
-  justify-content: flex-end;
+  
 }
 
 .own-message .message-content {

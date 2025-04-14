@@ -20,22 +20,6 @@ const Sidebar = () => {
         </div>
       </div>
 
-
-
-          {/* profile status */}
-      <div className="sidebar-footer animate-fade-in">
-        <div className="user-profile">
-          <img 
-            src="/images/picProfile.png" 
-            alt="User" 
-            className="user-avatar"
-          />
-          <div className="user-info">
-            <span className="user-name">John Doe</span>
-            <span className="user-status">Online</span>
-          </div>
-        </div>
-      </div>
       <nav className="sidebar-nav">
         {menuItems.map((item, index) => (
           <div 
@@ -50,7 +34,19 @@ const Sidebar = () => {
         ))}
       </nav>
 
-
+      <div className="sidebar-footer animate-fade-in">
+        <div className="user-profile">
+          <img 
+            src="/images/picProfile.png" 
+            alt="User" 
+            className="user-avatar"
+          />
+          <div className="user-info">
+            <span className="user-name">John Doe</span>
+            <span className="user-status">Online</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
