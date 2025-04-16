@@ -1,0 +1,227 @@
+/* إعدادات الكارد الرئيسية */
+.profile-settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 50vw;
+  max-width: 700px;
+  min-height: 500px; 
+  margin: auto;
+  transition: all 0.3s ease;
+  overflow: hidden; 
+  position: relative;
+}
+
+.profile-settings:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* تنسيق الهيدر واسم المستخدم */
+.profile-header {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* تنسيق الصورة الشخصية */
+.profile-pic {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.profile-pic:hover img {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+/* تنسيق زر تغيير الصورة */
+.change-img-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 0 0 50% 50%;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.profile-pic:hover .change-img-label {
+  opacity: 1;
+}
+
+/* تنسيق العنوان (الاسم) */
+h3 {
+  margin: 10px 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* تنسيق الوصف (الحالة) */
+p {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* تنسيق الحقول القابلة للتعديل */
+.profile-fields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto; /* التأكد من أن الحقول لا تخرج عن الكارد */
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 90%;
+  margin: auto;
+}
+
+.editable-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.editable-field input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  flex-grow: 1;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.editable-field input:focus {
+  border-color: #007bff;
+}
+
+/* تنسيق الأيقونات */
+
+
+/* تنسيق زر تسجيل الخروج */
+.logout-btn {
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  width: 50%;
+  margin: auto;
+}
+
+.logout-btn:hover {
+  background-color: #0056b3;
+}
+
+.logout-btn svg {
+  font-size: 18px;
+}
+
+/* التنسيق الخاص بالشاشات الصغيرة */
+@media (max-width: 768px) {
+  .profile-settings {
+    width: 90vw;
+    padding: 20px;
+  }
+
+  .profile-header {
+    font-size: 20px;
+  }
+
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .editable-field input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .logout-btn {
+    width: 70%;
+    font-size: 14px;
+  }
+}
+
+/* التنسيق الخاص بالشاشات الكبيرة */
+@media (min-width: 1024px) {
+  .profile-settings {
+    width: 40vw;
+  }
+
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+  }
+
+  .profile-header {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .editable-field input {
+    font-size: 18px;
+    padding: 14px;
+  }
+
+  .logout-btn {
+    font-size: 18px;
+    width: 60%;
+  }
+}

@@ -1,0 +1,77 @@
+.privacy-settings{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: fadeInWrapper 1.4s ease forwards;
+}
+
+.privacy-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .privacy-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* المسافة بين العناصر */
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .privacy-section h3 {
+    color: #1a1a1a;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .privacy-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .privacy-item:hover {
+    background-color: #e3e3e3;
+  }
+  
+  .privacy-item .icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  .privacy-item .item-text {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .privacy-item .item-action {
+    font-size: 14px;
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .privacy-item .item-action:hover {
+    text-decoration: underline;
+  }
+  
