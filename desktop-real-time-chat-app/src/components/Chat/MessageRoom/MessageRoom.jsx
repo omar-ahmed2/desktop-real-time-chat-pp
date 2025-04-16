@@ -1,7 +1,7 @@
 import React from 'react';
-import './MessageList.css';
+import './MessageRoom.css';
 
-const MessageList = () => {
+const MessageRoom = () => {
   const messages = [
     {
       id: 1,
@@ -57,4 +57,4 @@ const MessageList = () => {
   );
 };
 
-export default MessageList; 
+export default MessageRoom; 

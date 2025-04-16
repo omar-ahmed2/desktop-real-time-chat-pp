@@ -1,12 +1,18 @@
 import React from 'react';
 import Sidebar from './Sidebar/Sidebar';
 import Header from './Header/Header';
-import MessageList from './MessageList/MessageList';
+import MessageRoom from './MessageRoom/MessageRoom';
 import MessageInput from './MessageInput/MessageInput';
 import './ChatLayout.css';
 import ChatList from './chatList';
 import SearchBar from './searchbar/Searchbar';
 import NavFilter from './chatfilternav/navfilter';
+
+
+
+
+
+
 
 const ChatLayout = () => {
   return (         
@@ -22,7 +28,7 @@ const ChatLayout = () => {
 
           <div className="main-content animate-fade-in">
             <Header />
-            <MessageList />
+            <MessageRoom />
             <MessageInput />
           </div>
                                               

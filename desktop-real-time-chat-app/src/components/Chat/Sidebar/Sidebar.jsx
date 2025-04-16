@@ -8,9 +8,7 @@ const Sidebar = () => {
   const menuItems = [
     { id: 2, icon: <img src="/images/i chats.png" style={{ transform: 'scale(0.7)' }} />, label: 'Messages', path: '/messages', active: true },
     { id: 3, icon: <img src="/images/i group.png" style={{ transform: 'scale(0.7)' }} />, label: 'Groups', path: '/groups', active: false },
-    { id: 4, icon: <img src="/images/fav.png" style={{ transform: 'scale(0.7)' }} />, label: 'Favourites', path: '/favourites', active: false },
     { id: 5, icon: <img src="/images/i chats.png" style={{ transform: 'scale(0.7)' }} />, label: 'Calendar', path: '/calendar', active: false },
-    { id: 6, icon: <img src="/images/i chats.png" style={{ transform: 'scale(0.7)' }} />, label: 'Files', path: '/files', active: false },
     { id: 7, icon: <img src="/images/settings.png" style={{ transform: 'scale(0.7)' }} />, label: 'Settings', path: '/settings', active: false },
   ];
 
