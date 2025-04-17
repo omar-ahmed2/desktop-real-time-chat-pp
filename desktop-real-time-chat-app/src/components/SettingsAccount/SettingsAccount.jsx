@@ -41,7 +41,7 @@ const SettingsAccount = ({ onSelectSection }) => {
       setPhoneNumber(newPhoneNumber);
       setNewPhoneNumber("");
       setPhoneUpdated(true);
-      setTimeout(() => setPhoneUpdated(false), 3000); // الرسالة تختفي بعد ٣ ثواني
+      setTimeout(() => setPhoneUpdated(false), 3000);      
     }
   };
 

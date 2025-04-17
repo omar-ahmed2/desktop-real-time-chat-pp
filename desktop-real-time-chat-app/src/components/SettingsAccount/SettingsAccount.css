@@ -197,3 +197,40 @@
 .no-btn:hover {
   background-color: #95a5a6;
 }
+
+.success-message{
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #2ecc71;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #e6f4ea;
+  border: 1px solid #b6dfc1;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  text-align: start;
+  height: 50px;
+}
+
+.success-message span{
+  font-weight: bold;
+  margin-right: 10px;
+  color: #27ae60;
+}
+
+.success-icon{
+  font-size: 24px;
+  margin-right: 10px;
+  color: #2ecc71;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e6f4ea;
+  margin: 10px;
+  padding: 5px; 
+}
