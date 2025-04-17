@@ -135,7 +135,7 @@ p {
 /* log out button*/
 .logout-btn {
   padding: 12px 20px;
-  background-color: #007bff;
+  background-color: #b83acf;
   color: white;
   border: none;
   border-radius: 8px;
@@ -150,8 +150,8 @@ p {
   margin: auto;
 }
 
-.logout-btn:hover {
-  background-color: #0056b3;
+.logout-btn:active {
+  background-color: #9b2a8d;
 }
 
 .logout-btn svg {
