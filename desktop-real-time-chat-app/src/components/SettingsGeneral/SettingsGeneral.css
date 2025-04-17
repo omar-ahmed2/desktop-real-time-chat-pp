@@ -133,6 +133,7 @@
   border-radius: 8px;
   border: 1px solid #ddd;
   background-color: #f0eeff;
+  margin-left: -2px;
 }
 
 .input-field:focus {

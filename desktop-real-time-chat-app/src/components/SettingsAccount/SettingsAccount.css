@@ -58,7 +58,6 @@
 /* === Dropdown & Content === */
 .setting-content,
 .privacy-dropdown {
-  margin-top: 10px;
   margin-left: 40px;
   padding: 15px;
   background-color: #ffffff;
@@ -69,9 +68,12 @@
   gap: 10px;
 }
 
+.privacy-dropdown input[type="checkbox"] {
+  margin-top: -4px;
+}
+
 .setting-content input,
 .setting-content select {
-  width: 10px;
   width: 18px;
   height: 18px;
   border: 2px solid #b83acf;
@@ -90,6 +92,11 @@
   color: #2c3e50;
   transition: border-color 0.3s ease;
   box-shadow: 0 2px 4px rgba(228, 23, 139, 0.1);
+  margin-left: -3px;
+}
+
+.setting-content input[type="checkbox"]{
+  margin-top: -3px;
 }
 
 .setting-content input:focus,

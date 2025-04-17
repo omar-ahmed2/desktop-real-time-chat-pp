@@ -69,6 +69,10 @@
   gap: 8px;
 }
 
+.card-small input[type="checkbox"] {
+  margin-top: -5px;
+}
+
 .privacy-option label {
   font-size: 14px;
   color: #333;
