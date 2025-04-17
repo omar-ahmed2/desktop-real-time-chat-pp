@@ -7,7 +7,7 @@ import SettingsPrivacy from "../SettingsPrivacy/SettingsPrivacy";
 import SettingsNotifications from "../SettingsNotifications/SettingsNotifications";
 import SettingsAppearance from "../SettingsAppearance/SettingsAppearance";
 import SettingsHelpAndSupport from "../SettingsHelpAndSupport/SettingsHelpAndSupport";
-import SettingsProfile from "../SettingsProfile/SettingsProfile";  // استيراد ملف الـ Profile
+import SettingsProfile from "../SettingsProfile/SettingsProfile";  
 import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
@@ -15,7 +15,7 @@ const Settings = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate(-1); // بيرجع للصفحة اللي قبلها
+    navigate(-1);
   };
 
   const renderContent = () => {
@@ -23,7 +23,7 @@ const Settings = () => {
       case "general":
         return <SettingsGeneral />;
       case "account":
-        return <SettingsAccount />;
+        return <SettingsAccount onSelectSection={setSelectedSection} />; // هنا التعديل
       case "privacy":
         return <SettingsPrivacy />;
       case "notifications":
@@ -32,7 +32,7 @@ const Settings = () => {
         return <SettingsAppearance />;
       case "support":
         return <SettingsHelpAndSupport />;
-      case "profile":  // إضافة حالة للبروفايل
+      case "profile":
         return <SettingsProfile />;
       default:
         return <h2>Welcome to Settings</h2>;

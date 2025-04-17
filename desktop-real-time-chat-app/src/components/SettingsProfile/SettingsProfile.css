@@ -1,4 +1,4 @@
-/* إعدادات الكارد الرئيسية */
+/* main Card */
 .profile-settings {
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* تنسيق الهيدر واسم المستخدم */
+/* header and user name*/
 .profile-header {
   text-align: center;
   font-size: 24px;
@@ -30,7 +30,7 @@
   margin-bottom: 10px;
 }
 
-/* تنسيق الصورة الشخصية */
+/* the profile pic*/
 .profile-pic {
   position: relative;
   display: inline-block;
@@ -53,7 +53,7 @@
   transform: scale(1.1);
 }
 
-/* تنسيق زر تغيير الصورة */
+/* change pic button*/
 .change-img-label {
   position: absolute;
   bottom: 0;
@@ -74,7 +74,7 @@
   opacity: 1;
 }
 
-/* تنسيق العنوان (الاسم) */
+/* the name*/
 h3 {
   margin: 10px 0;
   font-size: 22px;
@@ -82,20 +82,20 @@ h3 {
   color: #333;
 }
 
-/* تنسيق الوصف (الحالة) */
+/* the statue*/
 p {
   color: #777;
   font-size: 14px;
   line-height: 1.5;
 }
 
-/* تنسيق الحقول القابلة للتعديل */
+/* the profile fields*/
 .profile-fields {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow-y: auto; /* التأكد من أن الحقول لا تخرج عن الكارد */
+  overflow-y: auto;   
 }
 
 .field {
@@ -104,6 +104,7 @@ p {
   gap: 10px;
   width: 90%;
   margin: auto;
+  
 }
 
 .editable-field {
@@ -111,6 +112,7 @@ p {
   align-items: center;
   justify-content: space-between;
   position: relative;
+  
 }
 
 .editable-field input {
@@ -119,19 +121,18 @@ p {
   border-radius: 8px;
   font-size: 16px;
   flex-grow: 1;
-  background-color: #fff;
+  background-color: #f0eeff;
   color: #333;
   transition: border-color 0.3s ease;
 }
 
 .editable-field input:focus {
-  border-color: #007bff;
+  outline: none;
+  border-color: #6c5dd3;
+  box-shadow: 0 0 0 3px rgba(108, 93, 211, 0.2);
 }
 
-/* تنسيق الأيقونات */
-
-
-/* تنسيق زر تسجيل الخروج */
+/* log out button*/
 .logout-btn {
   padding: 12px 20px;
   background-color: #007bff;
@@ -157,7 +158,7 @@ p {
   font-size: 18px;
 }
 
-/* التنسيق الخاص بالشاشات الصغيرة */
+
 @media (max-width: 768px) {
   .profile-settings {
     width: 90vw;
@@ -192,7 +193,6 @@ p {
   }
 }
 
-/* التنسيق الخاص بالشاشات الكبيرة */
 @media (min-width: 1024px) {
   .profile-settings {
     width: 40vw;
