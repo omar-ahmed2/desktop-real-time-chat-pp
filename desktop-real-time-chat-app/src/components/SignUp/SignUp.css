@@ -75,6 +75,7 @@
   /* Custom scrollbar styling */
   scrollbar-width: thin;
   scrollbar-color: rgba(184, 58, 207, 0.3) transparent;
+  margin-top: -30px;
 }
 
 /* Custom scrollbar for webkit browsers */
@@ -108,6 +109,26 @@
   gap: 0.5rem;
   opacity: 0;
   animation: inputAppear 0.8s ease-out forwards;
+}
+
+.animate-1{
+  margin-left: 20px;
+}
+
+.animate-3{
+  margin-right: -20px;
+}
+
+.animate-4{
+  margin-right: -20px;
+}
+
+.animate-5{
+  margin-right: -20px;
+}
+
+.animate-6{
+  margin-right: -20px;
 }
 
 .input-group:nth-child(1) {
@@ -175,8 +196,8 @@
 }
 
 .toggle-password {
-  position: absolute;
-  right: 12px;
+  margin-right: 35px;
+  margin-top: 5px;
   background: none;
   border: none;
   padding: 0;
@@ -212,7 +233,7 @@
 
 .signin-prompt {
   text-align: center;
-  margin-top: 20px;
+  margin-bottom: 20px;
   font-size: 14px;
   color: #666;
   opacity: 0;
