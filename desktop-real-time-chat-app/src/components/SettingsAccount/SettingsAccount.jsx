@@ -7,6 +7,7 @@ import {
   FaEnvelope,
   FaTrashAlt,
   FaBell,
+  FaCheck,
 } from "react-icons/fa";
 
 const SettingsAccount = ({ onSelectSection }) => {
@@ -26,6 +27,7 @@ const SettingsAccount = ({ onSelectSection }) => {
     push: false,
   });
   const [showPopup, setShowPopup] = useState(false);
+  const [phoneUpdated, setPhoneUpdated] = useState(false);
 
   const handlePhoneNumberChange = (e) => {
     const value = e.target.value;
@@ -35,8 +37,12 @@ const SettingsAccount = ({ onSelectSection }) => {
   };
 
   const updatePhoneNumber = () => {
-    setPhoneNumber(newPhoneNumber);
-    setNewPhoneNumber("");
+    if (newPhoneNumber.trim() !== "") {
+      setPhoneNumber(newPhoneNumber);
+      setNewPhoneNumber("");
+      setPhoneUpdated(true);
+      setTimeout(() => setPhoneUpdated(false), 3000); // الرسالة تختفي بعد ٣ ثواني
+    }
   };
 
   return (
@@ -49,23 +55,16 @@ const SettingsAccount = ({ onSelectSection }) => {
           <FaUserCircle className="setting-icon" />
           <div className="setting-details">
             <span className="setting-title">Account Info</span>
-            <span className="setting-subtext">
-              Update your name, email, or phone number
-            </span>
+            <span className="setting-subtext">Update your name, email, or phone number</span>
           </div>
         </div>
 
         {/* Privacy */}
-        <div
-          className="setting-item"
-          onClick={() => setShowPrivacyOptions(!showPrivacyOptions)}
-        >
+        <div className="setting-item" onClick={() => setShowPrivacyOptions(!showPrivacyOptions)}>
           <FaLock className="setting-icon" />
           <div className="setting-details">
             <span className="setting-title">Privacy</span>
-            <span className="setting-subtext">
-              Control who can see your personal info
-            </span>
+            <span className="setting-subtext">Control who can see your personal info</span>
           </div>
         </div>
         {showPrivacyOptions && (
@@ -83,16 +82,11 @@ const SettingsAccount = ({ onSelectSection }) => {
         )}
 
         {/* Phone Number */}
-        <div
-          className="setting-item"
-          onClick={() => setShowPhoneOptions(!showPhoneOptions)}
-        >
+        <div className="setting-item" onClick={() => setShowPhoneOptions(!showPhoneOptions)}>
           <FaPhone className="setting-icon" />
           <div className="setting-details">
             <span className="setting-title">Phone Number</span>
-            <span className="setting-subtext">
-              Verify or update your phone number
-            </span>
+            <span className="setting-subtext">Verify or update your phone number</span>
           </div>
         </div>
         {showPhoneOptions && (
@@ -106,20 +100,21 @@ const SettingsAccount = ({ onSelectSection }) => {
               maxLength={15}
             />
             <button onClick={updatePhoneNumber}>Update</button>
+            {phoneUpdated && (
+              <div className="success-message">
+                <FaCheck className="success-icon" />
+                <span>Phone number updated</span>
+              </div>
+            )}
           </div>
         )}
 
         {/* Email Notifications */}
-        <div
-          className="setting-item"
-          onClick={() => setShowEmailOptions(!showEmailOptions)}
-        >
+        <div className="setting-item" onClick={() => setShowEmailOptions(!showEmailOptions)}>
           <FaEnvelope className="setting-icon" />
           <div className="setting-details">
             <span className="setting-title">Email Notifications</span>
-            <span className="setting-subtext">
-              Manage your email notifications preferences
-            </span>
+            <span className="setting-subtext">Manage your email notifications preferences</span>
           </div>
         </div>
         {showEmailOptions && (
@@ -161,9 +156,7 @@ const SettingsAccount = ({ onSelectSection }) => {
           <FaBell className="setting-icon" />
           <div className="setting-details">
             <span className="setting-title">Notification Preferences</span>
-            <span className="setting-subtext">
-              Set your notification preferences
-            </span>
+            <span className="setting-subtext">Set your notification preferences</span>
           </div>
         </div>
         {showNotificationOptions && (
@@ -198,28 +191,17 @@ const SettingsAccount = ({ onSelectSection }) => {
         )}
 
         {/* Delete Account */}
-        <div
-          className="setting-item"
-          onClick={() => setShowDeleteOptions(!showDeleteOptions)}
-        >
+        <div className="setting-item" onClick={() => setShowDeleteOptions(!showDeleteOptions)}>
           <FaTrashAlt className="setting-icon" />
           <div className="setting-details">
             <span className="setting-title">Delete Account</span>
-            <span className="setting-subtext">
-              Permanently delete your account
-            </span>
+            <span className="setting-subtext">Permanently delete your account</span>
           </div>
         </div>
         {showDeleteOptions && (
           <div className="setting-content danger">
-            <p>
-              This will permanently delete your account and all associated
-              data.
-            </p>
-            <button
-              className="danger-btn"
-              onClick={() => setShowPopup(true)}
-            >
+            <p>This will permanently delete your account and all associated data.</p>
+            <button className="danger-btn" onClick={() => setShowPopup(true)}>
               Delete My Account
             </button>
           </div>
@@ -235,15 +217,12 @@ const SettingsAccount = ({ onSelectSection }) => {
               <button
                 className="yes-btn"
                 onClick={() => {
-                  window.location.href = "/signup"; // تغيير الرابط للصفحة المناسبة
+                  window.location.href = "/signup";
                 }}
               >
                 Yes
               </button>
-              <button
-                className="no-btn"
-                onClick={() => setShowPopup(false)}
-              >
+              <button className="no-btn" onClick={() => setShowPopup(false)}>
                 Cancel
               </button>
             </div>

@@ -3,12 +3,11 @@
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  background: #ffffff;
+  background-color: #f9f9f9;
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
   animation: fadeInWrapper 1.4s ease forwards;
-  
+  overflow-y: auto;
 }
 
 .section-title {
@@ -22,7 +21,6 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-
 }
 
 .setting-item {
@@ -39,18 +37,18 @@
 
 .setting-item:hover {
   background-color: #f0f0f0;
-}
+} 
 
 .setting-icon {
   font-size: 24px;
   margin-right: 15px;
-  color: #6c5dd3; /* تغيير اللون للأيقونات */
+  color: #6c5dd3;
 }
 
 .setting-details {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* هذا يجعل النص يأخذ المساحة المتبقية بجانب الأيقونة */
+  flex-grow: 1;
 }
 
 .setting-title {
@@ -77,9 +75,100 @@
   text-decoration: underline;
 }
 
-.general-settings {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.verification-status {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  padding: 10px 14px;
+  background-color: #e6f4ea;
+  border: 1px solid #b6dfc1;
+  border-radius: 8px;
+  animation: fadeInStatus 0.3s ease-in-out forwards;
+}
+
+.status-icon {
+  font-size: 18px;
+  margin-right: 8px;
+  color: green;
+}
+
+.status-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2e7d32;
+}
+
+@keyframes fadeInStatus {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown {
+  width: 50%;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f0eeff;
+  color: #333;
+  margin-left: 20px;
+}
+
+.dropdown:focus{
+  outline: none;
+  border-color: #6c5dd3;
+  box-shadow: 0 0 0 3px rgba(108, 93, 211, 0.2);
+}
+
+.input-field {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #f0eeff;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #6c5dd3;
+  box-shadow: 0 0 0 3px rgba(108, 93, 211, 0.2);
+}
+
+.apply-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #6c5dd3;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.apply-btn:hover {
+  background-color: #5b4bc3;
+}
+
+.customizer-box {
+  margin-top: 10px;
+  animation: fadeInBox 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeInBox {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

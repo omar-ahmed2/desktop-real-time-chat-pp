@@ -87,6 +87,10 @@
   margin: auto;
 }
 
+.apply-btn:hover {
+  background-color: #a52b8d;
+}
+
 .apply-btn:active {
   background-color: #9b2a8d;
 }
