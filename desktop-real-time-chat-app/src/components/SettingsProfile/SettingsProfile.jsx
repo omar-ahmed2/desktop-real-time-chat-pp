@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SettingsProfile.css";
-import { FaUserCircle, FaPhone, FaEdit, FaSignOutAlt } from "react-icons/fa";
+import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 
 const SettingsProfile = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -11,8 +11,12 @@ const SettingsProfile = () => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setProfilePic(URL.createObjectURL(file)); // عرض الصورة التي تم تحميلها
+      setProfilePic(URL.createObjectURL(file));
     }
+  };
+
+  const handleRemovePhoto = () => {
+    setProfilePic(null);
   };
 
   return (
@@ -24,6 +28,8 @@ const SettingsProfile = () => {
           ) : (
             <FaUserCircle size={100} />
           )}
+        </div>
+        <div className="photo-buttons">
           <input
             type="file"
             accept="image/*"
@@ -31,9 +37,12 @@ const SettingsProfile = () => {
             onChange={handleImageChange}
             style={{ display: "none" }}
           />
-          <label htmlFor="upload-photo" className="change-img-label">
-            Change Image
+          <label htmlFor="upload-photo" className="btn change-btn">
+            Change Photo
           </label>
+          <button onClick={handleRemovePhoto} className="btn remove-btn">
+            Remove Photo
+          </button>
         </div>
         <h3>{name}</h3>
         <p>{status}</p>
@@ -48,7 +57,6 @@ const SettingsProfile = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            
           </div>
         </div>
 
@@ -60,7 +68,6 @@ const SettingsProfile = () => {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             />
-            
           </div>
         </div>
 
@@ -72,7 +79,6 @@ const SettingsProfile = () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
-            
           </div>
         </div>
 

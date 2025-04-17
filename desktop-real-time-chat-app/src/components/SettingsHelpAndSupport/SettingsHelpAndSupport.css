@@ -1,78 +1,187 @@
 .help-settings {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 16px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    max-height: 80vh; /* تحديد أقصى ارتفاع للكارد */
-    animation: fadeInWrapper 1.4s ease forwards;
-  }
-  
-  .section-title {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
-  .setting-group {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .setting-item {
-    display: flex;
-    align-items: center;
-    padding: 14px 20px;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: background 0.3s ease;
-    justify-content: space-between;
-  }
-  
-  .setting-item:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .setting-icon {
-    font-size: 24px;
-    margin-right: 15px;
-    color: #6c5dd3; /* تغيير اللون للأيقونات */
-  }
-  
-  .setting-details {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  
-  .setting-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .setting-subtext {
-    font-size: 14px;
-    color: #777;
-  }
-  
-  .setting-action {
-    font-size: 14px;
-    font-weight: 600;
-    color: #007bff;
-    cursor: pointer;
-    transition: color 0.3s ease;
-  }
-  
-  .setting-action:hover {
-    color: #0056b3;
-    text-decoration: underline;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 80vh;
+  animation: fadeInWrapper 1.4s ease forwards;
+}
+
+.section-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  justify-content: space-between;
+}
+
+.setting-item:hover {
+  background-color: #f0f0f0;
+}
+
+.setting-icon {
+  font-size: 24px;
+  margin-right: 15px;
+  color: #6c5dd3;
+}
+
+.setting-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.setting-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.setting-subtext {
+  font-size: 14px;
+  color: #777;
+}
+
+.faq-item {
+  margin-bottom: 10px;
+}
+
+.faq-question-btn {
+  width: 90%;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f0eeff;
+  color: #333;
+  margin-left: 20px;
+  text-align: left;
+}
+
+.faq-question-btn:hover {
+  outline: none;
+  border-color: #6c5dd3;
+  box-shadow: 0 0 0 3px rgba(108, 93, 211, 0.2);
+}
+
+.faq-answer {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 80%;
+  margin-left: 20px;
+}
+
+.status-msg {
+  margin-top: 10px;
+  color: green;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.status-icon {
+  margin-right: 5px;
+}
+
+.card-small {
+  padding: 20px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-send {
+  padding: 8px 20px;
+  background-color: #b83acf;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 50%;
+  margin: auto;
+}
+
+.btn-send:hover {
+  background-color: #a52b8d;
+}
+
+.btn-send:active {
+  background-color: #9b2a8d;
+}
+
+input, select, textarea {
+  width: 90%;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f0eeff;
+  color: #333;
+  margin-left: 20px;
+
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #6c5dd3;
+  box-shadow: 0 0 0 3px rgba(108, 93, 211, 0.2);
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #6c5dd3;
+  color: white;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  width: 30%;
+}
+
+.custom-file-upload:hover {
+  background-color: #5b4bb1;
+}
+
+.file-name {
+  font-size: 14px;
+  margin-left: 20px;
+  margin-top: 8px;
+  display: inline-block;
+  color: #555;
+}

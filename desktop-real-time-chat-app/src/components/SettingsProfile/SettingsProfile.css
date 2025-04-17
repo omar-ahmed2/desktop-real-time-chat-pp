@@ -3,25 +3,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  padding: 20px;
+  padding: 30px 20px;
   background-color: #ffffff;
   border-radius: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  width: 50vw;
-  max-width: 700px;
-  min-height: 500px; 
+  width: 100vw;
+  max-width: 600px;
   margin: auto;
   transition: all 0.3s ease;
-  overflow: hidden; 
+  overflow: hidden;
   position: relative;
+  height: fit-content;
+  overflow-y: auto;
 }
 
 .profile-settings:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* header and user name*/
+/* header and user name */
 .profile-header {
   text-align: center;
   font-size: 24px;
@@ -30,13 +30,13 @@
   margin-bottom: 10px;
 }
 
-/* the profile pic*/
+/* the profile pic */
 .profile-pic {
   position: relative;
   display: inline-block;
   width: 120px;
   height: 120px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -53,49 +53,64 @@
   transform: scale(1.1);
 }
 
-/* change pic button*/
-.change-img-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  text-align: center;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 0 0 50% 50%;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-  opacity: 0;
-}
-
-.profile-pic:hover .change-img-label {
-  opacity: 1;
-}
-
-/* the name*/
+/* name */
 h3 {
-  margin: 10px 0;
+  margin: 10px 0 5px;
   font-size: 22px;
   font-weight: 600;
   color: #333;
 }
 
-/* the statue*/
+/* status */
 p {
   color: #777;
   font-size: 14px;
   line-height: 1.5;
+  margin-bottom: 10px;
 }
 
-/* the profile fields*/
+/* photo buttons under the profile picture */
+.photo-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.photo-buttons .btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.photo-buttons .change-btn {
+  background-color: #6c5dd3;
+  color: white;
+}
+
+.photo-buttons .change-btn:hover {
+  background-color: #5846c3;
+}
+
+.photo-buttons .remove-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.photo-buttons .remove-btn:hover {
+  background-color: #c0392b;
+}
+
+/* profile fields section */
 .profile-fields {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow-y: auto;   
 }
 
 .field {
@@ -104,7 +119,6 @@ p {
   gap: 10px;
   width: 90%;
   margin: auto;
-  
 }
 
 .editable-field {
@@ -112,7 +126,6 @@ p {
   align-items: center;
   justify-content: space-between;
   position: relative;
-  
 }
 
 .editable-field input {
@@ -132,7 +145,7 @@ p {
   box-shadow: 0 0 0 3px rgba(108, 93, 211, 0.2);
 }
 
-/* log out button*/
+/* log out button */
 .logout-btn {
   padding: 12px 20px;
   background-color: #b83acf;
@@ -147,7 +160,7 @@ p {
   font-size: 16px;
   transition: background-color 0.3s ease;
   width: 50%;
-  margin: auto;
+  margin: 20px auto 0;
 }
 
 .logout-btn:active {
@@ -158,7 +171,7 @@ p {
   font-size: 18px;
 }
 
-
+/* Responsive Styles */
 @media (max-width: 768px) {
   .profile-settings {
     width: 90vw;
@@ -190,6 +203,11 @@ p {
   .logout-btn {
     width: 70%;
     font-size: 14px;
+  }
+
+  .photo-buttons .btn {
+    font-size: 12px;
+    padding: 6px 10px;
   }
 }
 
@@ -223,5 +241,10 @@ p {
   .logout-btn {
     font-size: 18px;
     width: 60%;
+  }
+
+  .photo-buttons .btn {
+    font-size: 16px;
+    padding: 10px 14px;
   }
 }
