@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Sidebar from "./SettingsSidebar";
 import "./settings.css";
-import SettingsGeneral from "../SettingsGeneral/SettingsGeneral";
-import SettingsAccount from "../SettingsAccount/SettingsAccount";
-import SettingsPrivacy from "../SettingsPrivacy/SettingsPrivacy";
-import SettingsNotifications from "../SettingsNotifications/SettingsNotifications";
-import SettingsAppearance from "../SettingsAppearance/SettingsAppearance";
-import SettingsHelpAndSupport from "../SettingsHelpAndSupport/SettingsHelpAndSupport";
-import SettingsProfile from "../SettingsProfile/SettingsProfile";  
+import SettingsGeneral from "./SettingsGeneral/SettingsGeneral";
+import SettingsAccount from "./SettingsAccount/SettingsAccount";
+import SettingsPrivacy from "./SettingsPrivacy/SettingsPrivacy";
+import SettingsNotifications from "./SettingsNotifications/SettingsNotifications";
+import SettingsAppearance from "./SettingsAppearance/SettingsAppearance";
+import SettingsHelpAndSupport from "./SettingsHelpAndSupport/SettingsHelpAndSupport";
+import SettingsProfile from "./SettingsProfile/SettingsProfile";  
 import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
