@@ -1,9 +1,9 @@
 
 import React from 'react';
-import {chatUsers} from '../../data/mockdata';
+import {chatUsers} from '../../data/mockdata'; //users data
 const containerStyle = {
-  height: '100%',          // Fixed height for the scrollable area
-  overflowY: 'auto',      // Vertical scrolling enabled
+  height: '460px',          // Fixed height for the scrollable area
+  overflowY: 'scroll',      // Vertical scrolling enabled
 
 };
 
@@ -18,7 +18,7 @@ const chatUserStyle = {
 const profilePicStyle = {
   width: '50px',
   height: '50px',
-  borderRadius: '50%',  // Makes the image circular
+  borderRadius: '50%',
   marginRight: '10px',
 };
 
