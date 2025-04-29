@@ -12,10 +12,8 @@ const SignUp = () => {
     <div className="signup-container">
       <div className="card">
         <h1 className="signup-title">Sign Up</h1>
-        <SocialLinks />
-        <div className="divider">
-          <span>Or sign up with Email</span>
-        </div>
+        
+        
         <form className="form-container">
           <div className="name-row">
             <TextInput
