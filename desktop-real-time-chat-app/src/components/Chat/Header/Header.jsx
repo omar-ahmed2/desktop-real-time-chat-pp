@@ -17,23 +17,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-
-      <div className="header-right animate-fade-in">
-        <div className="action-buttons">
-          <button className="action-btn">
-            <span className="action-icon"><img src="/images/minifav.png" /></span>
-          </button>
-          <button className="action-btn">
-            <span className="action-icon"><img src="/images/search.png" /></span>
-          </button>
-          <button className="action-btn">
-            <span className="action-icon"><img src="/images/video.png" /></span>
-          </button>
-          <button className="action-btn">
-            <span className="action-icon"><img src="/images/call.png" /></span>
-          </button>
-        </div>
-      </div>
     </div>
   );
 };

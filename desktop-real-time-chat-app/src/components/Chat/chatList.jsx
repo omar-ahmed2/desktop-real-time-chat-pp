@@ -1,11 +1,10 @@
-// ChatList.js
+
 import React from 'react';
 import {chatUsers} from '../../data/mockdata';
 const containerStyle = {
-  height: '200px',          // Fixed height for the scrollable area
-  overflowY: 'scroll',      // Vertical scrolling enabled
+  height: '100%',          // Fixed height for the scrollable area
+  overflowY: 'auto',      // Vertical scrolling enabled
 
-  // padding: '10px',
 };
 
 const chatUserStyle = {
