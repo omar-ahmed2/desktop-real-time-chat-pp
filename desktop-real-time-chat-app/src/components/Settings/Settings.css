@@ -9,7 +9,6 @@
     border-radius: 16px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-  
     opacity: 0;
     transform: scale(0.98);
     animation: fadeInWrapper 1.4s ease forwards;
@@ -118,10 +117,6 @@
   
   .sidebar-item:nth-child(5) {
     animation-delay: 1.8s; /* التأخير الخامس */
-  }
-  
-  .sidebar-item:nth-child(6) {
-    animation-delay: 2s; /* التأخير السادس */
   }
   
   .sidebar-item .icon {
