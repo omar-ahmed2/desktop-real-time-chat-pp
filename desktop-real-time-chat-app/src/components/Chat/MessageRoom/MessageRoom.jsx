@@ -1,20 +1,32 @@
 import React from 'react';
 import './MessageRoom.css';
 
-const MessageRoom = () => {
+const MessageRoom = (message) => {
+
+  //fetch mock up data from another file
+  //suppose messages contains the mockup data
+  //message room is only one, and therefore it can has one state making it either group or not grouped
   const messages = [
     {
       id: 1,
       user: 'Sarah Parker',
-      avatar: <img src="/images/picProfile.png" />,
+      avatar: "/images/picProfile.png",
       message: 'Hey team! I\'ve finished the initial designs for the new project. Take a look when you can.',
       time: '10:32 AM',
       isOwn: false
     },
     {
+      id: 4,
+      user: 'IBrahim linkedin',
+      avatar: "/images/picProfile.png",
+      message: 'sigma sigma boy.',
+      time: '10:34 AM',
+      isOwn: false
+    },
+    {
       id: 2,
       user: 'John Doe',
-      avatar: <img src="/images/picProfile.png" />,
+      avatar: "/images/picProfile.png",
       message: 'Great work Sarah! The color scheme looks perfect 👍',
       time: '10:35 AM',
       isOwn: true
@@ -22,7 +34,7 @@ const MessageRoom = () => {
     {
       id: 3,
       user: 'Sarah Parker',
-      avatar: <img src="/images/picProfile.png" />,
+      avatar: "/images/picProfile.png",
       message: 'Thanks! I was thinking we could add some subtle animations to make it more engaging.',
       time: '10:36 AM',
       isOwn: false

@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css';
+import GroupCreation from '../Group/groupCreation';
 
 const Header = () => {
   return (
@@ -17,6 +18,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+            <GroupCreation />
     </div>
   );
 };
