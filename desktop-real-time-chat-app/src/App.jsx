@@ -7,6 +7,7 @@ import Verification from './components/login/signup/Verification/Verification';
 import Submission from './components/login/signup/Submission/Submission';
 import ChatLayout from './components/Chat/ChatLayout';
 import Settings from "./components/Settings/Settings";
+import Contacts from "./components/Contacts/Contacts";
 import './App.css';
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/submission" element={<Submission />} />
           <Route path="/chat" element={<ChatLayout />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/contacts" element={<Contacts />} />
         </Routes>
       </div>
     </BrowserRouter>
