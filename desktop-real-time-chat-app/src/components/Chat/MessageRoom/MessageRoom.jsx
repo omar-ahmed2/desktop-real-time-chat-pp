@@ -16,14 +16,6 @@ const MessageRoom = (message) => {
       isOwn: false
     },
     {
-      id: 4,
-      user: 'IBrahim linkedin',
-      avatar: "/images/picProfile.png",
-      message: 'sigma sigma boy.',
-      time: '10:34 AM',
-      isOwn: false
-    },
-    {
       id: 2,
       user: 'John Doe',
       avatar: "/images/picProfile.png",
