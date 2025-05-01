@@ -27,42 +27,8 @@
   text-align: center;
   color: #b83acf;
   font-size: 28px;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
   animation: fadeIn 0.5s ease-out forwards;
-}
-
-.divider {
-  text-align: center;
-  margin: 24px 0;
-  position: relative;
-  animation: fadeIn 0.5s ease-out forwards;
-  opacity: 0;
-  animation-delay: 0.2s;
-}
-
-.divider::before,
-.divider::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: calc(50% - 70px);
-  height: 1px;
-  background-color: #e0e0e0;
-}
-
-.divider::before {
-  left: 0;
-}
-
-.divider::after {
-  right: 0;
-}
-
-.divider span {
-  background: white;
-  padding: 0 20px;
-  color: #666;
-  font-size: 14px;
 }
 
 .form-container {

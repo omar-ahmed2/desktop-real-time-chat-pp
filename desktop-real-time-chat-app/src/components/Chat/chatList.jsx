@@ -1,10 +1,9 @@
 
 import React from 'react';
-import './ChatLayout'; // Import your CSS file for styling
-import {chatUsers} from '../../data/mockdata';
+import {chatUsers} from '../../data/mockdata'; //users data
 const containerStyle = {
-  height: '100%',          // Fixed height for the scrollable area
-  overflowY: 'auto',      // Vertical scrolling enabled
+  height: '460px',          // Fixed height for the scrollable area
+  overflowY: 'scroll',      // Vertical scrolling enabled
 
 };
 

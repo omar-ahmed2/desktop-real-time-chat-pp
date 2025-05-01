@@ -17,7 +17,6 @@ const Sidebar = ({ selected, onSelect, onBack }) => {
     { id: "privacy", label: "Privacy", icon: <FaLock /> },
     { id: "notifications", label: "Notifications", icon: <FaBell /> },
     { id: "appearance", label: "Appearance", icon: <FaPalette /> },
-    { id: "support", label: "Help & Support", icon: <FaQuestionCircle /> },
   ];
 
   return (

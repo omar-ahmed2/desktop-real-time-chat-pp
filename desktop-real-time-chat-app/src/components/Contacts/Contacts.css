@@ -1,0 +1,264 @@
+.contacts-page {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.contacts-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Search container styles */
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+}
+
+/* Contacts section styles */
+.contacts-section {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.contact-icon {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+.friends-count {
+  color: #767676;
+  font-size: 14px;
+}
+
+/* Friends list styles */
+.friends-list, .suggestions-list {
+  padding: 0;
+}
+
+.friend-card, .suggestion-card {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.friend-card:last-child, .suggestion-card:last-child {
+  border-bottom: none;
+}
+
+.friend-card:hover, .suggestion-card:hover {
+  background-color: #f9f9f9;
+}
+
+/* Avatar styles */
+.avatar {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.avatar span {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f2f2f2;
+}
+
+.online-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* Friend info styles */
+.friend-info {
+  flex: 1;
+}
+
+.friend-name {
+  margin: 0 0 2px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.friend-card:hover .friend-name, .suggestion-card:hover .friend-name {
+  transform: translateX(5px);
+  color: #9c27b0;
+}
+
+.friend-email {
+  margin: 0 0 2px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.status {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status.online {
+  color: #4CAF50;
+}
+
+.status.offline {
+  color: #9e9e9e;
+}
+
+.mutual-friends {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Button styles */
+.add-friend-btn {
+  background-color: #9c27b0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 10px;
+}
+
+.add-friend-btn:hover {
+  background-color: #7b1fa2;
+}
+
+.message-btn {
+  background-color: #f2f3f5;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 10px;
+}
+
+.message-btn:hover {
+  background-color: #e0e2e5;
+}
+
+.add-friend-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.add-friend-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.add-friend-btn.added {
+  background-color: #9c27b0;
+  color: white;
+  border-color: #9c27b0;
+}
+
+.add-friend-btn.added:hover {
+  background-color: #7b1fa2;
+  color: white;
+}
+
+.checkmark {
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .contacts-container {
+    padding: 15px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .friend-card, .suggestion-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .avatar {
+    margin-bottom: 10px;
+  }
+
+  .message-btn, .add-friend-btn {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+  }
+}

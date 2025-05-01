@@ -25,72 +25,10 @@
   color: #b83acf;
   text-align: center;
   margin: 0;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-.social-buttons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  margin-top: 10px;
-}
 
-.social-button {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  border: 1px solid #eee;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-}
-
-.social-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  border-color: #b83acf;
-}
-
-.social-button svg {
-  width: 24px;
-  height: 24px;
-}
-
-.social-button.google:hover {
-  border-color: #4285f4;
-}
-
-.social-button.facebook:hover {
-  border-color: #1877f2;
-}
-
-.social-button.twitter:hover {
-  border-color: #1da1f2;
-}
-
-.divider {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #666;
-  font-size: 14px;
-  margin: 20px 0;
-}
-
-.divider::before,
-.divider::after {
-  content: '';
-  flex: 1;
-  border-bottom: 1px solid #eee;
-}
-
-.divider span {
-  padding: 0 10px;
-}
 
 .form-container {
   display: flex;
