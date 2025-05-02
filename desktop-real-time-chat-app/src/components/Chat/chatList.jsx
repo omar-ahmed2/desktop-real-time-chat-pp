@@ -27,7 +27,6 @@ const profilePicStyle = {
   objectFit: 'cover',
 };
 const ChatList = ({ setMessage, users }) => {
-  console.log(users)
   return (
     <div style={containerStyle}>
       {users.map(user => (

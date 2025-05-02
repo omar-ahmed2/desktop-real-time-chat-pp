@@ -18,7 +18,6 @@ const ChatRightSidebar = () => {
   }, [searchTerm]);
 
  
-console.log(filteredUsers)
 
   return (
     

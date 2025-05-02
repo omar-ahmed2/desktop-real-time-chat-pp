@@ -129,14 +129,7 @@
 /* Responsive Design */
 
 
-@media (max-width: 992px) {
-  .chat-layout {
-    grid-template-columns: 3fr 1fr ;
-  }
-  .sidebar {
-    display: none;
-  }
-}
+
 
 @media (max-width: 768px) {
   .chat-layout-container {
@@ -148,11 +141,29 @@
     height: 95vh;
   }
   
-  .chat-layout {
-    grid-template-columns: 1fr;
-  }
-  
-  .left-sidebar {
-    display: none;
-  }
+  /* .chat-layout {
+    grid-template-columns: 3fr .8fr ;
+
+  } */
+
 } 
+
+@media (max-width: 1224px) {
+  .chat-layout {
+    grid-template-columns: 3fr 1.5fr ;
+
+  }
+}
+
+@media (max-width: 700px) {
+  .chat-layout {
+    grid-template-columns: 2.3fr 1.5fr ;
+
+  }
+}
+@media (max-width: 600px) {
+  .chat-layout {
+    grid-template-columns: 1fr ;
+
+  }
+}

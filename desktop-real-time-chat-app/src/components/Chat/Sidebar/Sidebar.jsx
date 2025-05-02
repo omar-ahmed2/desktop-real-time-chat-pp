@@ -23,8 +23,7 @@ const Sidebar = () => {
       <div className="sidebar">
         <div className="sidebar-header animate-fade-in">
           <div className="logo">
-            <span className="logo-icon">💬</span>
-            <span className="logo-text">Chatty</span>
+            <span className="logo-text">💬Chatty</span>
           </div>
         </div>
 
