@@ -26,10 +26,11 @@ const profilePicStyle = {
   marginRight: '10px',
   objectFit: 'cover',
 };
-const ChatList = ({ setMessage }) => {
+const ChatList = ({ setMessage, users }) => {
+  console.log(users)
   return (
     <div style={containerStyle}>
-      {chatUsers.map(user => (
+      {users.map(user => (
     <div
       key={user.id}
       className="hover:bg-blue-500 transition duration-300 flex items-center gap-3 p-2 cursor-pointer"
