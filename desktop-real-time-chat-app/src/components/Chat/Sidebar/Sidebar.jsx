@@ -18,42 +18,44 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar">
-      <div className="sidebar-header animate-fade-in">
-        <div className="logo">
-          <span className="logo-icon">💬</span>
-          <span className="logo-text">Chatty</span>
+    <div className="left-sidebar animate-slide-right">
+      <div className="sidebar">
+        <div className="sidebar-header animate-fade-in">
+          <div className="logo">
+            <span className="logo-icon">💬</span>
+            <span className="logo-text">Chatty</span>
+          </div>
         </div>
-      </div>
 
-      <nav className="sidebar-nav">
-        {menuItems.map((item, index) => {
-          const isActive = location.pathname.startsWith(item.path);
-          return (
-            <div
-              key={item.id}
-              className={`nav-item${isActive ? ' active' : ''} animate-slide-right`}
-              style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-              onClick={() => handleNavigation(item.path)}
-            >
-              <span className="nav-icon">{item.icon}</span>
-              <span className="nav-label">{item.label}</span>
-              {isActive && <div className="active-indicator" />}
+        <nav className="sidebar-nav">
+          {menuItems.map((item, index) => {
+            const isActive = location.pathname.startsWith(item.path);
+            return (
+              <div
+                key={item.id}
+                className={`nav-item${isActive ? ' active' : ''} animate-slide-right`}
+                style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+                onClick={() => handleNavigation(item.path)}
+              >
+                <span className="nav-icon">{item.icon}</span>
+                <span className="nav-label">{item.label}</span>
+                {isActive && <div className="active-indicator" />}
+              </div>
+            );
+          })}
+        </nav>
+
+        <div className="sidebar-footer animate-fade-in">
+          <div className="user-profile">
+            <img
+              src="/images/picProfile.png"
+              alt="User"
+              className="user-avatar"
+            />
+            <div className="user-info">
+              <span className="user-name">John Doe</span>
+              <span className="user-status">Online</span>
             </div>
-          );
-        })}
-      </nav>
-
-      <div className="sidebar-footer animate-fade-in">
-        <div className="user-profile">
-          <img
-            src="/images/picProfile.png"
-            alt="User"
-            className="user-avatar"
-          />
-          <div className="user-info">
-            <span className="user-name">John Doe</span>
-            <span className="user-status">Online</span>
           </div>
         </div>
       </div>
