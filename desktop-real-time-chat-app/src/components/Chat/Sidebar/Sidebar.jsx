@@ -14,6 +14,7 @@ const Sidebar = () => {
   ];
 
   const handleNavigation = (path) => {
+    if(path == "/messages"){path = "/chat"}
     navigate(path);
   };
 

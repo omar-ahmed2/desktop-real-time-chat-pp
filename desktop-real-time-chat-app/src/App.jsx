@@ -9,6 +9,7 @@ import ChatLayout from './components/Chat/ChatLayout';
 import Settings from "./components/Settings/Settings";
 import Contacts from "./components/Contacts/Contacts";
 import './App.css';
+import Groups from './components/Groups/Groups';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/chat" element={<ChatLayout />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/contacts" element={<Contacts />} />
+          <Route path="/groups" element={<Groups />} />
         </Routes>
       </div>
     </BrowserRouter>

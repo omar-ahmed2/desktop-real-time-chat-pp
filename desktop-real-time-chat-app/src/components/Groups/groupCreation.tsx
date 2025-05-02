@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { groupCreationProps } from "../../../types/interface";
+import { groupCreationProps } from "../../types/interface";
 const GroupCreation = () => {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -117,24 +117,26 @@ const GroupCreation = () => {
           <div className="flex flex-wrap w-full 2xl:max-h-[200px] sm:max-h-[400px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-transparent">
             {friends.map((friend) => (
               <div
-                className="bg-[gray] ml-1 w-[48%] rounded-2xl mt-[15px] items-center"
-                key={friend.id}
-              >
-                <div className="flex flex-row items-center mt-[15px] ml-[25px]">
-                  <img
-                    src={friend.profile}
-                    alt="Profile"
-                    className="w-15 h-15 rounded-full mr-5"
-                  />
+              className="bg-[gray] ml-1 w-[48%] rounded-2xl mt-[15px] p-4"
+              key={friend.id}
+            >
+              <div className="flex flex-row items-center gap-4">
+                <img
+                  src={friend.profile}
+                  alt="Profile"
+                  className="w-15 h-15 rounded-full"
+                />
+                <div className="flex flex-col">
                   <p className="text-white">{friend.username}</p>
-                  <input
-                    type="checkbox"
-                    onChange={handleCheckboxChange(friend.id)}
-                    className="ml-auto !w-6 !h-6 mr-3 transform scale-125 appearance-none border-2 !border-[gray] rounded-sm bg-white !checked:bg-[black] checked:border-[#b83acf] transition-all ease-in-out duration-300"
-                  />
+                  <p className="text-white text-sm">{friend.number}</p> {/* Now under name */}
                 </div>
-                <p className="ml-[75px] text-white">{friend.number}</p>
+                <input
+                  type="checkbox"
+                  onChange={handleCheckboxChange(friend.id)}
+                  className="ml-auto !w-6 !h-6 mr-3 transform scale-125 appearance-none border-2 !border-[gray] rounded-sm bg-white !checked:bg-[black] checked:border-[#b83acf] transition-all ease-in-out duration-300"
+                />
               </div>
+            </div>
             ))}
           </div>
         </div>
