@@ -43,7 +43,7 @@ const Settings = () => {
         onSelect={setSelectedSection}
         onBack={handleBack}
       />
-      <div className="main-content">{renderContent()}</div>
+      <div className="main_content">{renderContent()}</div>
     </div>
   );
 };

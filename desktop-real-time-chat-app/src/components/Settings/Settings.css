@@ -174,15 +174,15 @@
   }
   
   /* Main content area */
-  .main-content {
+  .main_content {
     flex: 1;
     padding: 40px;
     background-color: #f9f9f9;
   
     opacity: 0;
     transform: translateX(40px);
-    animation: slideInRight 2s ease forwards;
-    animation-delay: 1.2s;
+    animation: slideInRight 1s ease forwards;
+    animation-delay: 0.6s;
   }
   
   @keyframes slideInRight {
