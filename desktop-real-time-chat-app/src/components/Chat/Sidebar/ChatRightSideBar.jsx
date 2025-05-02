@@ -18,10 +18,11 @@ const ChatRightSidebar = () => {
   }, [searchTerm]);
 
  
-
+console.log(filteredUsers)
 
   return (
-    <>
+    
+    <div>
       <ChatSearchInput
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -33,8 +34,8 @@ const ChatRightSidebar = () => {
         </div>
 
       <ChatList users={filteredUsers} />
-
-    </>
+    </div>
+    
   );
 };
 
