@@ -89,7 +89,6 @@ const GroupCreation = () => {
       >
         <div className="w-full h-full flex flex-col">
           <div className="p-6 flex flex-col  justify-content-center items-center">
-            <h1 className="text-3xl">Create Group</h1>
             <input
               type="text"
               className="w-[200px] h-[45px] mt-[25px] text-[black] text-center placeholder-black-500"
