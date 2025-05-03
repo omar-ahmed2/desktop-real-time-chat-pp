@@ -117,29 +117,7 @@ const Contacts = () => {
             </div>
           </div>
         </div>
-        <div className="right-sidebar">
-          <div className="sidebar-content">
-            <div className="search-box">
-              <input type="text" placeholder="Search name..." className="search-input" />
-            </div>
-            <div className="all-chat-header">
-              <span className="chat-icon">💬</span> All Chat
-            </div>
-            <div className="chat-list">
-              {friends.map(friend => (
-                <div key={friend.id} className="chat-person">
-                  <div className="avatar" style={{backgroundColor: getAvatarColor(friend.id)}}>
-                    <span>{getInitials(friend.name)}</span>
-                  </div>
-                  <div className="person-info">
-                    <h4>{friend.name}</h4>
-                    <p>{friend.online ? 'Hey, are you available for a call?' : "Let's catch up soon!"}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   );
