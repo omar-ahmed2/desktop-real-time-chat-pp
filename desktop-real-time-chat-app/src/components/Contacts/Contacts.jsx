@@ -49,70 +49,95 @@ const Contacts = () => {
 
   return (
     <div className="contacts-page">
-      <Sidebar />
-      <div className="contacts-container">
-        <div className="search-container">
-          <input 
-            type="text" 
-            className="search-input"
-            placeholder="Search contacts..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
+      <div className="contacts-main-card">
+        <Sidebar />
+        <div className="contacts-container">
+          <div className="search-container">
+            <input 
+              type="text" 
+              className="search-input"
+              placeholder="Search contacts..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
 
-        <div className="contacts-section">
-          <div className="section-header">
-            <h2><span className="contact-icon" style={{ color: '#5e35b1' }}>👫</span> Friends List</h2>
-            <span className="friends-count">{friends.length} friends</span>
+          <div className="contacts-section">
+            <div className="section-header">
+              <h2><span className="contact-icon" style={{ color: '#5e35b1' }}>👫</span> Friends List</h2>
+              <span className="friends-count">{friends.length} friends</span>
+            </div>
+            
+            <div className="friends-list">
+              {filteredFriends.map(friend => (
+                <div key={friend.id} className="friend-card">
+                  <div className="avatar" style={{backgroundColor: getAvatarColor(friend.id)}}>
+                    <span>{getInitials(friend.name)}</span>
+                    {friend.online && <span className="online-indicator"></span>}
+                  </div>
+                  <div className="friend-info">
+                    <h3 className="friend-name">{friend.name}</h3>
+                    <p className="friend-email">{friend.email}</p>
+                    {friend.online ? 
+                      <p className="status online">Online</p> : 
+                      <p className="status offline">Offline</p>
+                    }
+                  </div>
+                  <button className="message-btn">Message</button>
+                </div>
+              ))}
+            </div>
           </div>
-          
-          <div className="friends-list">
-            {filteredFriends.map(friend => (
-              <div key={friend.id} className="friend-card">
-                <div className="avatar" style={{backgroundColor: getAvatarColor(friend.id)}}>
-                  <span>{getInitials(friend.name)}</span>
-                  {friend.online && <span className="online-indicator"></span>}
+
+          <div className="contacts-section">
+            <div className="section-header">
+              <h2><span className="contact-icon" style={{ color: '#5e35b1' }}>👥</span> People You May Know</h2>
+              <span className="friends-count">{suggestions.length} people</span>
+            </div>
+            
+            <div className="suggestions-list">
+              {suggestions.map(person => (
+                <div key={person.id} className="suggestion-card">
+                  <div className="avatar" style={{backgroundColor: getAvatarColor(person.id)}}>
+                    <span>{getInitials(person.name)}</span>
+                  </div>
+                  <div className="friend-info">
+                    <h3 className="friend-name">{person.name}</h3>
+                    <p className="friend-email">{person.email}</p>
+                    <p className="mutual-friends">{person.mutualFriends} mutual friends</p>
+                  </div>
+                  <button 
+                    className={`add-friend-btn ${addedFriends.includes(person.id) ? 'added' : ''}`}
+                    onClick={() => handleAddFriend(person.id)}
+                  >
+                    {addedFriends.includes(person.id) ? <><span className="checkmark">✓</span> Done</> : 'Add Friend'}
+                  </button>
                 </div>
-                <div className="friend-info">
-                  <h3 className="friend-name">{friend.name}</h3>
-                  <p className="friend-email">{friend.email}</p>
-                  {friend.online ? 
-                    <p className="status online">Online</p> : 
-                    <p className="status offline">Offline</p>
-                  }
-                </div>
-                <button className="message-btn">Message</button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-
-        <div className="contacts-section">
-          <div className="section-header">
-            <h2><span className="contact-icon" style={{ color: '#5e35b1' }}>👥</span> People You May Know</h2>
-            <span className="friends-count">{suggestions.length} people</span>
-          </div>
-          
-          <div className="suggestions-list">
-            {suggestions.map(person => (
-              <div key={person.id} className="suggestion-card">
-                <div className="avatar" style={{backgroundColor: getAvatarColor(person.id)}}>
-                  <span>{getInitials(person.name)}</span>
+        <div className="right-sidebar">
+          <div className="sidebar-content">
+            <div className="search-box">
+              <input type="text" placeholder="Search name..." className="search-input" />
+            </div>
+            <div className="all-chat-header">
+              <span className="chat-icon">💬</span> All Chat
+            </div>
+            <div className="chat-list">
+              {friends.map(friend => (
+                <div key={friend.id} className="chat-person">
+                  <div className="avatar" style={{backgroundColor: getAvatarColor(friend.id)}}>
+                    <span>{getInitials(friend.name)}</span>
+                  </div>
+                  <div className="person-info">
+                    <h4>{friend.name}</h4>
+                    <p>{friend.online ? 'Hey, are you available for a call?' : "Let's catch up soon!"}</p>
+                  </div>
                 </div>
-                <div className="friend-info">
-                  <h3 className="friend-name">{person.name}</h3>
-                  <p className="friend-email">{person.email}</p>
-                  <p className="mutual-friends">{person.mutualFriends} mutual friends</p>
-                </div>
-                <button 
-                  className={`add-friend-btn ${addedFriends.includes(person.id) ? 'added' : ''}`}
-                  onClick={() => handleAddFriend(person.id)}
-                >
-                  {addedFriends.includes(person.id) ? <><span className="checkmark">✓</span> Done</> : 'Add Friend'}
-                </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

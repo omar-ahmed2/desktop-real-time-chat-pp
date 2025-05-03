@@ -51,17 +51,7 @@
     font-size: 1rem;
   }
 
-  .active-indicator {
-    display: none;
-  }
 
-  .sidebar-footer {
-    display: none;
-  }
-
-  .logo-text {
-    display: none;
-  }
 }
 
 .sidebar-header {
@@ -84,14 +74,6 @@
   width: 100%;
 }
 
-.logo-icon {
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-}
 
 .logo-text {
   font-size: 1.25rem;

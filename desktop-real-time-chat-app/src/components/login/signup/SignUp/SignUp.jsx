@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
-import SocialLinks from '../SocialLinks/SocialLinks';
 import TextInput from '../FormInputs/TextInput';
 import PasswordInput from '../FormInputs/PasswordInput';
 

@@ -1,6 +1,8 @@
 
 import React from 'react';
 import {chatUsers} from '../../data/mockdata'; //users data
+
+
 const containerStyle = {
   height: '460px',          // Fixed height for the scrollable area
   overflowY: 'scroll',      // Vertical scrolling enabled
@@ -24,10 +26,10 @@ const profilePicStyle = {
   marginRight: '10px',
   objectFit: 'cover',
 };
-const ChatList = ({ setMessage }) => {
+const ChatList = ({ setMessage, users }) => {
   return (
     <div style={containerStyle}>
-      {chatUsers.map(user => (
+      {users.map(user => (
     <div
       key={user.id}
       className="hover:bg-blue-500 transition duration-300 flex items-center gap-3 p-2 cursor-pointer"
