@@ -22,15 +22,15 @@ const ChatLayout = () => {
          </MediaQuery>
 
           {/* middle chat room */}  
-          <div className="main-content animate-fade-in">
 
           <MediaQuery minWidth={601}>
+          <div className="main-content animate-fade-in">
             <Header />
             <MessageRoom message={message} />
             <MessageInput />
+          </div>
           </MediaQuery>
 
-          </div>
           {/* right-sidebar */}
           <div className="right-sidebar flex flex-col h-full overflow-hidden">
             <ChatRightSidebar setMessage={setMessage}/>

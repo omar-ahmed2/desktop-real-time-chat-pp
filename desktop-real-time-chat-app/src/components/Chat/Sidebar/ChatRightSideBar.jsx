@@ -3,6 +3,7 @@ import { chatUsers } from '../../../data/mockdata';
 
 import ChatList from '../chatList';
 import ChatSearchInput from '../searchbar/ChatSearchInput';
+import BtnSideBar from './BtnSideBar';
 
 const ChatRightSidebar = ({ setMessage }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,6 +20,7 @@ const ChatRightSidebar = ({ setMessage }) => {
   return (
     
     <div>
+      <BtnSideBar/>
       <ChatSearchInput
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
