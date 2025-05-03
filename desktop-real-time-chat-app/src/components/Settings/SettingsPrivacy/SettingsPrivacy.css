@@ -8,6 +8,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   animation: fadeInWrapper 1.4s ease forwards;
   overflow-y: auto;
+  height: 100%;
 }
 
 .setting-item {

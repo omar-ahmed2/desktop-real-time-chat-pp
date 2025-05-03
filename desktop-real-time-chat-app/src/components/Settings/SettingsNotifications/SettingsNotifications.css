@@ -9,6 +9,7 @@
     overflow: hidden;
     animation: fadeInWrapper 1.4s ease forwards;
     overflow-y: auto;
+    height: 100%;
   }
   
   .section-title {
