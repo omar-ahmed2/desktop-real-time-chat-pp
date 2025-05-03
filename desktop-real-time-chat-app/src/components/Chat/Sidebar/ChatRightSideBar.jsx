@@ -4,7 +4,7 @@ import { chatUsers } from '../../../data/mockdata';
 import ChatList from '../chatList';
 import ChatSearchInput from '../searchbar/ChatSearchInput';
 
-const ChatRightSidebar = () => {
+const ChatRightSidebar = ({ setMessage }) => {
   const [searchTerm, setSearchTerm] = useState('');
   
 
@@ -16,9 +16,6 @@ const ChatRightSidebar = () => {
         )
       : chatUsers;
   }, [searchTerm]);
-
- 
-
   return (
     
     <div>
@@ -32,7 +29,7 @@ const ChatRightSidebar = () => {
             <h4 className="logo-text">All Chat</h4>
         </div>
 
-      <ChatList users={filteredUsers} />
+      <ChatList users={filteredUsers} setMessage={setMessage} />
     </div>
     
   );

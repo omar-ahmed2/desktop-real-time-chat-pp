@@ -33,7 +33,7 @@ const ChatLayout = () => {
           </div>
           {/* right-sidebar */}
           <div className="right-sidebar flex flex-col h-full overflow-hidden">
-            <ChatRightSidebar/>
+            <ChatRightSidebar setMessage={setMessage}/>
           </div>
         </div>
       </div>
