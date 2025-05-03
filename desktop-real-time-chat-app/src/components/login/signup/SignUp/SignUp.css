@@ -97,6 +97,7 @@
   margin-right: -20px;
 }
 
+
 .input-group:nth-child(1) {
   animation-delay: 0.7s;
 }
@@ -284,3 +285,19 @@
     gap: 16px;
   }
 } 
+
+@media (max-width: 768px){
+  .name-row{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .animate-1{
+    margin-left: 10px;
+  }
+  .animate-2{
+    margin-left: 10px;
+  }
+}
