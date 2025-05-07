@@ -49,7 +49,7 @@ import { useState, useRef, useEffect } from "react";
               .map((group) => (
                 <div
                   key={group.id}
-                  className="p-6 flex flex-col justify-content-center items-center"
+                  className="p-6 flex flex-col justify-content-center items-center "
                 >
                   <img
                     className="w-[70px] h-[70px] rounded-full cursor-pointer"
@@ -85,7 +85,7 @@ import { useState, useRef, useEffect } from "react";
                     <div className="flex flex-wrap">
                       {group.friends.map((friend) => (
                         <div
-                          className="group-inner-friend border border-gray-300 border-opacity-50 ml-[25px] w-[40%] hover:bg-[gray] rounded-2xl mt-[15px] p-4 transition-all duration-400 ease-in-out"
+                          className="group-inner-friend border border-gray-300 border-opacity-50 w-[40%] hover:bg-[gray] rounded-2xl mt-[15px] p-4 transition-all duration-400 ease-in-out ml-auto mr-auto cursor-pointer"
                           key={friend.id}
                         >
                           <div className="flex flex-row items-center ">

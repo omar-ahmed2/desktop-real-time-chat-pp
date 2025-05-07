@@ -7,7 +7,6 @@ import { useMediaQuery } from "react-responsive";
 import EditGroup from "./editGroup";
 const Groups = () => {
   const [groupName, setGroupName] = useState<string>("");
-  const [filterText, setFilterText] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState<number | null>(null);
   const [groups, setGroups] = useState<groupProps[]>([]);
@@ -158,7 +157,8 @@ const Groups = () => {
               {filteredGroups.map((group) => (
                 <div
                   key={group.id}
-                  className="outline outline-2 outline-gray-400 rounded-lg shadow-lg hover:outline-gray-600 hover:shadow-xl transition-all mt-[25px] flex flex-row items-center w-[98%] ml-2 h-[70px] px-4 gap-4"
+                  className="outline outline-2 outline-gray-400 rounded-lg shadow-lg hover:outline-gray-600 hover:shadow-xl transition-all mt-[25px] flex flex-row items-center w-[98%] ml-2 h-[70px] px-4 gap-4
+                  "
                 >
                   <img
                     src={group.avatar}

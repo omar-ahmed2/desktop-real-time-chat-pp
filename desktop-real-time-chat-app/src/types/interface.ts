@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 export interface groupCreationProps {
     id: number;
     username: string;
