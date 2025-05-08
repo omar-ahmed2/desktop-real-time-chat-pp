@@ -6,27 +6,45 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add authentication logic here
-    navigate('/chat');
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    const postData = {
+      email: data.email,
+      password: data.password,
+    }
+    try {
+      const response = await fetch('http://localhost:3000/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Sign in successful:', result);
+        navigate('/chat');
+      } else {
+        console.error('Sign in failed:', result.message);
+      }
+    } catch (error) {
+      console.error('Error during sign in:', error);
+    }
+    // navigate('/chat');
   };
 
   return (
     <div className="signin-container">
       <div className="card">
         <h1 className="signin-title">Sign In</h1>
-        
-        
-
-        
-
         <form className="form-container" onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              id="email"
+              name="email"
               placeholder="Enter your email"
               required
             />
@@ -37,7 +55,7 @@ const SignIn = () => {
             <div className="password-input">
               <input
                 type={showPassword ? "text" : "password"}
-                id="password"
+                name="password"
                 placeholder="Enter your password"
                 required
               />

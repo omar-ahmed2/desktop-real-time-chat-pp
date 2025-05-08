@@ -1,10 +1,9 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
 export const registerUser = async (req, res) => {
   const { firstName, lastName, email, phone, password, confirmPassword } = req.body;
-
+  console.log(req.body);
   if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
     return res.status(400).json({ message: 'Please provide all required fields.' });
   }
@@ -40,7 +39,6 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
-
   if (!email || !password) {
     return res.status(400).json({ message: 'Please provide email and password.' });
   }
@@ -50,7 +48,6 @@ export const loginUser = async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: 'Invalid email or password.' });
     }
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password.' });

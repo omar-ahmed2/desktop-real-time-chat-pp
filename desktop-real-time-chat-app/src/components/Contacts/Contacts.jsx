@@ -5,7 +5,7 @@ import Sidebar from '../Chat/Sidebar/Sidebar';
 const Contacts = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [addedFriends, setAddedFriends] = useState([]);
-  
+
   const [friends, setFriends] = useState([
     { id: 1, name: 'John Doe', email: 'john@example.com', online: true, avatar: '/profile1.jpg' },
     { id: 2, name: 'Sarah Parker', email: 'sarah@example.com', online: false, avatar: '/profile2.jpg' },

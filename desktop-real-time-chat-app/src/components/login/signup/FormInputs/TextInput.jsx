@@ -1,7 +1,7 @@
 import React from 'react';
 import './FormInputs.css';
 
-const TextInput = ({ label, type = 'text', placeholder, className = '' }) => {
+const TextInput = ({ label, type = 'text', placeholder, className = '' , name}) => {
   const handleKeyPress = (e) => {
     if (type === 'tel' && !/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
       e.preventDefault();
@@ -28,6 +28,7 @@ const TextInput = ({ label, type = 'text', placeholder, className = '' }) => {
         onPaste={handlePaste}
         pattern={type === 'tel' ? '[0-9]*' : undefined}
         inputMode={type === 'tel' ? 'numeric' : undefined}
+        name = {name}
       />
     </div>
   );

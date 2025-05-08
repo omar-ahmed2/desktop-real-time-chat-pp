@@ -146,7 +146,7 @@ const GroupCreation = () => {
           <div className="flex flex-row mb-3 ">
             <input
               type="text"
-              className="w-[325px] h-[45px] mt-[15px] ml-[25px] text-black text-center placeholder-gray-500 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none text-white"
+              className="w-[325px] h-[45px] mt-[15px] ml-[25px] text-center placeholder-gray-500 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none text-white"
               placeholder="Type the username of a friend"
               value={username}
               onChange={(e) => setUsername(e.target.value)}

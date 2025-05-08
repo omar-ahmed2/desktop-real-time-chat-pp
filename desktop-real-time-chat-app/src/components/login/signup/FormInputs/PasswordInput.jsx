@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './FormInputs.css';
 
-const PasswordInput = ({ label, placeholder, className = '' }) => {
+const PasswordInput = ({ label, placeholder, className = '' , name}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -12,6 +12,7 @@ const PasswordInput = ({ label, placeholder, className = '' }) => {
           type={showPassword ? "text" : "password"}
           placeholder={placeholder}
           className="input-field"
+          name = {name}
         />
         <button 
           type="button"

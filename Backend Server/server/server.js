@@ -7,7 +7,6 @@ import authRoutes from './routes/auth.js';  // Import auth routes
 dotenv.config();  // Load environment variables
 
 const app = express();
-
 // Middlewares
 app.use(express.json());  // To parse incoming JSON requests
 app.use(cors());  // To allow requests from different origins
