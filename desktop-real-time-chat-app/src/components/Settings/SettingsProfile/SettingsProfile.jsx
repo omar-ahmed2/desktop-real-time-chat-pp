@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./SettingsProfile.css";
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
-
+import AuthContext from "../../../authContext.jsx";
+import { useContext } from "react";
 const SettingsProfile = () => {
+  const { logout } = useContext(AuthContext);
   const [profilePic, setProfilePic] = useState(null);
   const [name, setName] = useState("John Doe");
   const [status, setStatus] = useState("Hey there! I am using WhatsApp.");
@@ -82,7 +84,7 @@ const SettingsProfile = () => {
           </div>
         </div>
 
-        <button className="logout-btn">
+        <button className="logout-btn" onClick={logout}>
           <FaSignOutAlt /> Log Out
         </button>
       </div>

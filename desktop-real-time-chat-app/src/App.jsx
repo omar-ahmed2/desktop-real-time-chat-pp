@@ -10,10 +10,13 @@ import Settings from "./components/Settings/Settings";
 import Contacts from "./components/Contacts/Contacts";
 import './App.css';
 import Groups from './components/Groups/Groups';
+import { AuthProvider } from "./authContext.jsx";
+import  ProtectedRoute  from './protectedRoute.jsx';
 
 const App = () => {
   return (
     <BrowserRouter>
+    <AuthProvider>
       <div className="app">
         <Routes>
           <Route path="/" element={<SignIn />} />
@@ -21,12 +24,13 @@ const App = () => {
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/verification" element={<Verification />} />
           <Route path="/submission" element={<Submission />} />
-          <Route path="/chat" element={<ChatLayout />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/groups" element={<Groups />} />
+          <Route path="/chat" element={<ProtectedRoute><ChatLayout /></ProtectedRoute>} />
+          <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+          <Route path="/contacts" element={<ProtectedRoute><Contacts /></ProtectedRoute>} />
+          <Route path="/groups" element={<ProtectedRoute><Groups /></ProtectedRoute>} />
         </Routes>
       </div>
+      </AuthProvider>
     </BrowserRouter>
   );
 };
