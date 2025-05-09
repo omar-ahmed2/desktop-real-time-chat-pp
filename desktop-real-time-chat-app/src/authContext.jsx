@@ -17,37 +17,41 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const savedUser = sessionStorage.getItem('user');
     const savedToken = sessionStorage.getItem('token');
-    if (savedUser && savedToken) {
-      const isExpired = checkTokenExpiration(savedToken);
-      if (isExpired) {
-        logout(); // auto logout if token expired
-      } else {
-        setUser(JSON.parse(savedUser));
-        setToken(savedToken);
-        if (location.pathname === '/') {
-          navigate('/chat');
+  
+    if (savedUser && savedToken && savedUser !== 'undefined') {
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        const isExpired = checkTokenExpiration(savedToken);
+        if (isExpired) {
+          logout();
+        } else {
+          setUser(parsedUser);
+          setToken(savedToken);
+          if (location.pathname === '/') {
+            navigate('/chat');
+          }
         }
+      } catch (error) {
+        console.error('Failed to parse saved user:', error);
+        logout();
       }
     }
-
-    // Set up an interval to check token expiration every 5 seconds
+  
     const intervalId = setInterval(() => {
       if (token) {
         const isExpired = checkTokenExpiration(token);
         if (isExpired) {
-          logout(); // auto logout if token expired
+          logout();
         }
       }
-      if (sessionStorage.getItem('token') != savedToken)
-        {
+      if (sessionStorage.getItem('token') !== savedToken) {
         logout();
       }
-    }, 5000); // Check every 5000ms (5 seconds)
-
-    // Clean up the interval when the component is unmounted or token changes
+    }, 5000);
+  
     return () => clearInterval(intervalId);
-
-  }, [location, token, navigate]); 
+  }, [location, token, navigate]);
+   
 
   const checkTokenExpiration = (token) => {
     try {
