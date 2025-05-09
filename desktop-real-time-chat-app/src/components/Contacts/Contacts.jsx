@@ -4,7 +4,9 @@ import Sidebar from '../Chat/Sidebar/Sidebar';
 
 const Contacts = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [suggestionSearchQuery, setSuggestionSearchQuery] = useState('');
   const [addedFriends, setAddedFriends] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(null);
 
   const [friends, setFriends] = useState([
     { id: 1, name: 'John Doe', email: 'john@example.com', online: true, avatar: '/profile1.jpg' },
@@ -19,15 +21,34 @@ const Contacts = () => {
     { id: 103, name: 'James Wilson', email: 'james@example.com', mutualFriends: 5 },
     { id: 104, name: 'Emma Thompson', email: 'emma@example.com', mutualFriends: 1 }
   ]);
-  
+
   const handleAddFriend = (personId) => {
     if (addedFriends.includes(personId)) {
-      // Remove from added friends if already added
       setAddedFriends(addedFriends.filter(id => id !== personId));
     } else {
-      // Add to added friends
       setAddedFriends([...addedFriends, personId]);
     }
+  };
+
+  const handleMenuClick = (friendId) => {
+    setMenuOpen(menuOpen === friendId ? null : friendId);
+  };
+
+  const handleMenuAction = (action, friendId) => {
+    switch (action) {
+      case 'remove':
+        setFriends(friends.filter(friend => friend.id !== friendId));
+        break;
+      case 'voice':
+        console.log(`Initiating voice call with friend ${friendId}`);
+        break;
+      case 'video':
+        console.log(`Initiating video call with friend ${friendId}`);
+        break;
+      default:
+        break;
+    }
+    setMenuOpen(null);
   };
 
   const filteredFriends = searchQuery 
@@ -36,8 +57,14 @@ const Contacts = () => {
         friend.email.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : friends;
-  
-  // Helper function to get initials from name
+
+  const filteredSuggestions = suggestionSearchQuery
+    ? suggestions.filter(person =>
+        person.name.toLowerCase().includes(suggestionSearchQuery.toLowerCase()) ||
+        person.email.toLowerCase().includes(suggestionSearchQuery.toLowerCase())
+      )
+    : suggestions;
+
   const getInitials = (name) => {
     return name.split(' ')[0][0].toUpperCase();
   };
@@ -83,20 +110,41 @@ const Contacts = () => {
                       <p className="status offline">Offline</p>
                     }
                   </div>
-                  <button className="message-btn">Message</button>
+                  <div className="friend-actions">
+                    <button className="message-btn">Message</button>
+                    <button 
+                      className="menu-btn"
+                      onClick={() => handleMenuClick(friend.id)}
+                    >
+                      ⋮
+                    </button>
+                    {menuOpen === friend.id && (
+                      <div className="friend-menu">
+                        <button onClick={() => handleMenuAction('remove', friend.id)}>Remove Friend</button>
+                        <button onClick={() => handleMenuAction('voice', friend.id)}>Voice Call</button>
+                        <button onClick={() => handleMenuAction('video', friend.id)}>Video Call</button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="contacts-section">
-            <div className="section-header">
-              <h2><span className="contact-icon" style={{ color: '#5e35b1' }}>👥</span> People You May Know</h2>
-              <span className="friends-count">{suggestions.length} people</span>
+              <h2 className = "add-friends"><span className="contact-icon" style={{ color: '#5e35b1' }}>👥</span>Add New Friends</h2>
+            <div className="search-container suggestion-search">
+              <input 
+                type="text" 
+                className="search-input"
+                placeholder="Search for new friends..." 
+                value={suggestionSearchQuery}
+                onChange={(e) => setSuggestionSearchQuery(e.target.value)}
+              />
             </div>
             
             <div className="suggestions-list">
-              {suggestions.map(person => (
+              {filteredSuggestions.map(person => (
                 <div key={person.id} className="suggestion-card">
                   <div className="avatar" style={{backgroundColor: getAvatarColor(person.id)}}>
                     <span>{getInitials(person.name)}</span>
@@ -117,7 +165,6 @@ const Contacts = () => {
             </div>
           </div>
         </div>
-        
       </div>
     </div>
   );
