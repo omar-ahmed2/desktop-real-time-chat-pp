@@ -18,8 +18,8 @@ const MessageRoom = (currentChatId) => {
       chat: [
         {
           id: 1,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
+          user: "Omar Ahmed",
+          avatar: "/images/Omar Ahmed.png",
           message:
             "Hey team! I've finished the initial designs for the new project. Take a look when you can.",
           time: "10:32 AM",
@@ -27,16 +27,15 @@ const MessageRoom = (currentChatId) => {
         },
         {
           id: 2,
-          user: "John Doe",
-          avatar: "/images/picProfile.png",
-          message: "Great work Sarah! The color scheme looks perfect 👍",
+          user: "Kareem Hassan",
+          message: "Great work Omar! The color scheme looks perfect 👍",
           time: "10:35 AM",
           isOwn: true,
         },
         {
           id: 3,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
+          user: "Omar Ahmed",
+          avatar: "/images/Omar Ahmed.png",
           message:
             "Thanks! I was thinking we could add some subtle animations to make it more engaging.",
           time: "10:36 AM",
@@ -44,8 +43,8 @@ const MessageRoom = (currentChatId) => {
         },
         {
           id: 4,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
+          user: "Omar Ahmed",
+          avatar: "/images/Omar Ahmed.png",
           message:
             "Hey team! I've finished the initial designs for the new project. Take a look when you can.",
           time: "10:32 AM",
@@ -53,16 +52,15 @@ const MessageRoom = (currentChatId) => {
         },
         {
           id: 5,
-          user: "John Doe",
-          avatar: "/images/picProfile.png",
-          message: "Great work Sarah! The color scheme looks perfect 👍",
+          user: "Kareem Hassan",
+          message: "Great work Omar! The color scheme looks perfect 👍",
           time: "10:35 AM",
           isOwn: true,
         },
         {
           id: 6,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
+          user: "Omar Ahmed",
+          avatar: "/images/Omar Ahmed.png",
           message:
             "Thanks! I was thinking we could add some subtle animations to make it more engaging.",
           time: "10:36 AM",
@@ -88,7 +86,7 @@ const MessageRoom = (currentChatId) => {
           user: "John Doe",
           avatar: "/images/picProfile.png",
           message:
-            "Nice work, Sarah! The design layout is coming along really well.",
+            "Nice work, Omar! The design layout is coming along really well.",
           time: "10:35 AM",
           isOwn: true,
         },

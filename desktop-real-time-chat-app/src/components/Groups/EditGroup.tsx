@@ -92,7 +92,7 @@ import { useState, useRef, useEffect } from "react";
                             <img
                               src={friend.profile}
                               alt="Profile"
-                              className="w-15 h-15 rounded-full"
+                              className="w-10 h-10 rounded-full"
                             />
                             <div className="flex flex-col">
                               <p className="text-2xl text-white text-center justify-center">

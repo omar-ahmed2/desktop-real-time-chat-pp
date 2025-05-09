@@ -7,14 +7,13 @@ const Header = () => {
     <div className="chat-header">
         <div className="header-left animate-fade-in">
           <div className="team-info">
-            <h2 className="team-name">Design Team</h2>
+            <h2 className="team-name">Omar Ahmed</h2>
+            
             <div className="online-users">
               <div className="avatar-stack">
-                <img src="/images/picProfile.png" alt="User 1" className="avatar" />
-                <img src="/images/picProfile.png" alt="User 2" className="avatar" />
-                <img src="/images/picProfile.png" alt="User 3" className="avatar" />
+                <img src="/images/Omar Ahmed.png" alt="User 1" className="avatar" />
               </div>
-              <span className="online-count">12 members</span>
+              <span className="online-count">Online</span>
             </div>
           </div>
         </div>

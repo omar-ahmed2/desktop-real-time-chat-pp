@@ -1,62 +1,62 @@
 export const chatUsers = [
     {
       id: 1,
-      name: 'John Doe',
+      name: 'Omar Ahmed',
       lastMessage: 'Hey, are you available for a call?',
-      profilePic: <img src="/images/picProfile.png" />
+      profilePic: <img src="/images/Omar Ahmed.png" />
     },
     {
       id: 2,
-      name: 'Jane Smith',
+      name: 'Sarah Ali',
       lastMessage: 'Let’s catch up soon!',
-      profilePic: <img src="/images/picProfile.png" />
+      profilePic: <img src="/images/Sarah Ali.png" />
     },
     {
       id: 3,
-      name: 'Alice Johnson',
+      name: 'Kareem Hassan',
       lastMessage: 'Can you check the document I sent you?',
-      profilePic: <img src="/images/picProfile.png" />
+      profilePic: <img src="/images/Kareem.png" />
     },
     {
       id: 4,
-      name: 'Bob Brown',
+      name: 'Gamal Micheal',
       lastMessage: 'I’ll call you later',
-      profilePic: <img src="/images/picProfile.png" />
+      profilePic: <img src="/images/gamal.png" />
     },
     {
       id: 5,
-      name: 'Eva Davis',
+      name: 'Moataz Tamer',
       lastMessage: 'I’ll be there in 10 minutes',
-      profilePic: <img src="/images/picProfile.png" />
+      profilePic: <img src="/images/moataz.png" />
     },
     {
        id: 6,
-       name: 'John Doe',
+       name: 'Amir Wagdy',
        lastMessage: 'Hey, are you available for a call?',
-       profilePic: <img src="/images/picProfile.png" />
+       profilePic: <img src="/images/amir.png" />
      },
      {
        id: 7,
-       name: 'Jane Smith',
+       name: 'Mohamed Shawky',
        lastMessage: 'Let’s catch up soon!',
-       profilePic: <img src="/images/picProfile.png" />
+       profilePic: <img src="/images/mohamed.png" />
      },
      {
        id: 8,
-       name: 'Alice Johnson',
+       name: 'Eng. Sayed Safwet',
        lastMessage: 'Can you check the document I sent you?',
-       profilePic: <img src="/images/picProfile.png" />
+       profilePic: <img src="/images/eng.sayed.png" />
      },
      {
        id: 9,
-       name: 'Bob Brown',
+       name: 'Mai Mohamed',
        lastMessage: 'I’ll call you later',
-       profilePic: <img src="/images/picProfile.png" />
+       profilePic: <img src="/images/mai.png" />
      },
      {
        id: 10,
-       name: 'Eva Davis',
+       name: 'Kenzi Mohamed',
        lastMessage: 'I’ll be there in 10 minutes',
-       profilePic: <img src="/images/picProfile.png" />
+       profilePic: <img src="/images/kenzi.png" />
      }
   ];
