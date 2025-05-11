@@ -2,6 +2,9 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignIn.css";
 import AuthContext from "../../../../authContext.jsx";
+import TextInput from '../FormInputs/TextInput';
+import PasswordInput from '../FormInputs/PasswordInput';
+
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -68,17 +71,6 @@ const SignIn = () => {
               </button>
             </div>
           </div>
-
-          <div className="options-row">
-            <label className="remember-me">
-              <input type="checkbox" />
-              Keep me logged in
-            </label>
-            <a href="/forget-password" className="forgot-password">
-              Forgot password?
-            </a>
-          </div>
-
           <button type="submit" className="submit-button">
             Sign In
           </button>

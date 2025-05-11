@@ -172,49 +172,52 @@ p {
   font-size: 18px;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .profile-settings {
-    width: 90vw;
-    padding: 20px;
-  }
 
-  .profile-header {
-    font-size: 20px;
+
+@media (max-width: 1140px) and (min-width: 767px) {
+  .profile-settings {
+    width: 85vw; /* Adjust width for medium screens */
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adjust shadow for smaller screens */
   }
 
   .profile-pic {
-    width: 100px;
+    width: 100px; /* Adjust profile pic size */
     height: 100px;
   }
 
+  .profile-header {
+    font-size: 22px; /* Adjust header font size */
+  }
+
   h3 {
-    font-size: 18px;
+    font-size: 20px; /* Adjust name font size */
   }
 
   p {
-    font-size: 12px;
+    font-size: 13px; 
   }
 
   .editable-field input {
-    font-size: 14px;
-    padding: 10px;
+    font-size: 15px;
+    padding: 10px; 
   }
 
   .logout-btn {
-    width: 70%;
-    font-size: 14px;
+    width: 60%; 
+    font-size: 15px;
   }
 
   .photo-buttons .btn {
-    font-size: 12px;
-    padding: 6px 10px;
+    font-size: 13px;
+    padding: 6px 10px; 
   }
 }
 
-@media (min-width: 1024px) {
+
+@media (max-width: 1024px) {
   .profile-settings {
-    width: 40vw;
+    width: 60vw;
   }
 
   .profile-pic {
@@ -239,6 +242,11 @@ p {
     padding: 14px;
   }
 
+  input {
+    font-size: 16px;
+    width: 100%;
+  }
+
   .logout-btn {
     font-size: 18px;
     width: 60%;
@@ -248,4 +256,40 @@ p {
     font-size: 16px;
     padding: 10px 14px;
   }
+}
+
+@media (max-width: 950px){
+  
+  .editable-field {
+    width: 100%;
+  }
+  
+}
+
+@media (max-width: 900px){
+  .profile-header {
+    font-size: 24px;
+  }
+  h3 {
+    font-size: 20px;
+  }
+  p {
+    font-size: 14px;
+  }
+  .editable-field input {
+    font-size: 16px;
+    padding: 12px;
+  }
+  .logout-btn {
+    font-size: 16px;
+    width: 60%;
+  }
+  .photo-buttons .btn {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  .editable-field {
+    width: 90%;
+  }
+
 }
