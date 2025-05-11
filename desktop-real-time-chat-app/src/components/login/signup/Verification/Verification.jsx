@@ -57,17 +57,6 @@ const Verification = () => {
           <button type="submit" className="submit-button animate-5">
             Send
           </button>
-          <div className="back-prompt animate-6">
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/forget-password');
-              }}
-            >
-              Back
-            </a>
-          </div>
         </form>
       </div>
     </div>

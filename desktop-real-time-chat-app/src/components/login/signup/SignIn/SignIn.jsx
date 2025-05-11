@@ -69,15 +69,6 @@ const SignIn = () => {
             </div>
           </div>
 
-          <div className="options-row">
-            <label className="remember-me">
-              <input type="checkbox" />
-              Keep me logged in
-            </label>
-            <a href="/forget-password" className="forgot-password">
-              Forgot password?
-            </a>
-          </div>
 
           <button type="submit" className="submit-button">
             Sign In
