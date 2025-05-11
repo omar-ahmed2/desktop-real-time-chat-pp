@@ -1,12 +1,10 @@
-
 import React from 'react';
-import {chatUsers} from '../../data/mockdata'; //users data
-import { useState } from 'react'; //for holding the state of the chat list
+import { chatUsers } from '../../data/mockdata'; // users data
+import { useState } from 'react'; // for holding the state of the chat list
 
 const containerStyle = {
-  height: '460px',          // Fixed height for the scrollable area
-  overflowY: 'scroll',      // Vertical scrolling enabled
-
+  height: '550px', // Fixed height for the scrollable area
+  overflowY: 'scroll', // Vertical scrolling enabled
 };
 
 const chatUserStyle = {
@@ -15,8 +13,7 @@ const chatUserStyle = {
   justifyContent: 'flex-start',
   padding: '3px',
   transform: 'scale(0.9)',
-  cursor: 'pointer'
-  
+  cursor: 'pointer',
 };
 
 const profilePicStyle = {
@@ -26,41 +23,41 @@ const profilePicStyle = {
   marginRight: '10px',
   objectFit: 'cover',
 };
-const ChatList = ({ setMessage, users }) => {
+
+const ChatList = ({ users, setMessage, onSelectUser }) => {
   const [holdingUserId, setHoldingUserId] = useState(null);
 
   const handleMouseDown = (id) => setHoldingUserId(id);
   const handleMouseUp = () => setHoldingUserId(null);
   const handleMouseLeave = () => setHoldingUserId(null);
+
   return (
     <div style={containerStyle}>
-    {users.map(user => {
-      const isHolding = holdingUserId === user.id;
-      
-      return (
-        <div
-          key={user.id}
-          onMouseDown={() => handleMouseDown(user.id)}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
-          onTouchStart={() => handleMouseDown(user.id)}
-          onTouchEnd={handleMouseUp}
-          onClick={() => setMessage(user.id)}
-          className={`hover:bg-[#d1d5db] transition duration-300 flex items-center gap-3 p-2 cursor-pointer ${
-            isHolding ? " !bg-[#9ca3af]" : "bg-white text-black"
-          }`}
-        >
-          <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-            {user.profilePic}
+      {users.map(user => {
+        const isHolding = holdingUserId === user.id;
+
+        return (
+          <div
+            key={user.id}
+            onMouseDown={() => handleMouseDown(user.id)}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={() => handleMouseDown(user.id)}
+            onTouchEnd={handleMouseUp}
+            onClick={() => onSelectUser(user.id)} // هنا، استدعاء دالة onSelectUser
+            className={`hover:bg-[#d1d5db] transition duration-300 flex items-center gap-3 p-2 cursor-pointer ${isHolding ? ' !bg-[#9ca3af]' : 'bg-white text-black'}`}
+          >
+            <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+              <img src={user.profilePic} alt={user.name} style={profilePicStyle} />
+            </div>
+            <div className="overflow-hidden">
+              <h4 className="text-base font-medium m-0 truncate">{user.name}</h4>
+              <p className="text-sm text-gray-500 m-0 truncate">{user.lastMessage}</p>
+            </div>
           </div>
-          <div className="overflow-hidden">
-            <h4 className="text-base font-medium m-0 truncate">{user.name}</h4>
-            <p className="text-sm text-gray-500 m-0 truncate">{user.lastMessage}</p>
-          </div>
-        </div>
-      );
-    })}
-  </div>
+        );
+      })}
+    </div>
   );
 };
 

@@ -2,6 +2,9 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignIn.css";
 import AuthContext from "../../../../authContext.jsx";
+import TextInput from '../FormInputs/TextInput';
+import PasswordInput from '../FormInputs/PasswordInput';
+
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();

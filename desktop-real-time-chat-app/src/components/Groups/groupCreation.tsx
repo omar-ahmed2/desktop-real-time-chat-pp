@@ -14,70 +14,65 @@ const GroupCreation = () => {
     setFriends([
       {
         id: 1,
-        username: "John Doe",
+        username: "Omar Ahmed",
         number: "1234567890",
-        profile: "/images/picProfile.png",
+        profile: "/images/Omar Ahmed.png",
       },
       {
         id: 2,
-        username: "Jane Smith",
+        username: "Kareem Hassan",
         number: "0987654321",
-        profile: "/images/picProfile.png",
+        profile: "/images/Kareem.png",
       },
       {
         id: 3,
-        username: "Alice Johnson",
+        username: "Amir Wagdy",
         number: "1122334455",
-        profile: "/images/picProfile.png",
+        profile: "/images/amir.png",
       },
       {
         id: 4,
-        username: "Bob Brown",
+        username: "Moataz Tamer",
         number: "5566778899",
-        profile: "/images/picProfile.png",
+        profile: "/images/moataz.png",
       },
       {
         id: 5,
-        username: "Charlie Davis",
-        number: "2233445566",
-        profile: "/images/picProfile.png",
+        username: "Sarah Ali",
+        number: "5566778899",
+        profile: "/images/Sarah Ali.png",
       },
       {
         id: 6,
-        username: "Charlie Davis",
-        number: "2233445566",
-        profile: "/images/picProfile.png",
+        username: "Gamal Micheal",
+        number: "5566778899",
+        profile: "/images/gamal.png",
       },
       {
         id: 7,
-        username: "Charlie Davis",
-        number: "2233445566",
-        profile: "/images/picProfile.png",
+        username: "Mohamed Shawky",
+        number: "5566778899",
+        profile: "/images/mohamed.png",
       },
       {
         id: 8,
-        username: "Charlie Davis",
-        number: "2233445566",
-        profile: "/images/picProfile.png",
+        username: "Eng. Sayed Safwet",
+        number: "5566778899",
+        profile: "/images/eng.sayed.png",
       },
       {
         id: 9,
-        username: "Charlie Davis",
-        number: "2233445566",
-        profile: "/images/picProfile.png",
+        username: "Mai Mohamed",
+        number: "5566778899",
+        profile: "/images/mai.png",
       },
       {
         id: 10,
-        username: "Charlie Davis",
-        number: "2233445566",
-        profile: "/images/picProfile.png",
+        username: "Kenzi Mohamed",
+        number: "5566778899",
+        profile: "/images/kenzi.png",
       },
-      {
-        id: 11,
-        username: "Charlie Davis",
-        number: "2233445566",
-        profile: "/images/picProfile.png",
-      },
+
     ]);
   }, []);
   const openDialog = () => {
@@ -133,7 +128,7 @@ const GroupCreation = () => {
           <div className="p-6 flex flex-col justify-content-center items-center ">
             <input
               type="text"
-              className="w-[200px] h-[45px] mt-[25px] text-[black] text-center placeholder-black-500"
+              className="w-[200px] h-[45px] mt-[25px] text-[white] text-center placeholder-black-500 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
               placeholder="Group Name"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
@@ -174,7 +169,7 @@ const GroupCreation = () => {
                   <img
                     src={friend.profile}
                     alt="Profile"
-                    className="w-15 h-15 rounded-full"
+                    className="w-10 h-10 rounded-full"
                   />
                   <div className="flex flex-col">
                     <p className="text-white">{friend.username}</p>

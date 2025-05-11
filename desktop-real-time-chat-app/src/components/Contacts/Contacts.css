@@ -183,6 +183,8 @@
   overflow-y: auto;
 }
 
+
+
 .friend-card, .suggestion-card {
   display: flex;
   align-items: center;

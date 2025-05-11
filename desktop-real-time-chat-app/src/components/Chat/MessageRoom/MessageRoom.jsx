@@ -18,8 +18,8 @@ const MessageRoom = (currentChatId) => {
       chat: [
         {
           id: 1,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
+          user: "Omar Ahmed",
+          avatar: "/images/Omar Ahmed.png",
           message:
             "Hey team! I've finished the initial designs for the new project. Take a look when you can.",
           time: "10:32 AM",
@@ -27,42 +27,15 @@ const MessageRoom = (currentChatId) => {
         },
         {
           id: 2,
-          user: "John Doe",
-          avatar: "/images/picProfile.png",
-          message: "Great work Sarah! The color scheme looks perfect 👍",
+          user: "Kareem Hassan",
+          message: "Great work Omar! The color scheme looks perfect 👍",
           time: "10:35 AM",
           isOwn: true,
         },
         {
           id: 3,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
-          message:
-            "Thanks! I was thinking we could add some subtle animations to make it more engaging.",
-          time: "10:36 AM",
-          isOwn: false,
-        },
-        {
-          id: 4,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
-          message:
-            "Hey team! I've finished the initial designs for the new project. Take a look when you can.",
-          time: "10:32 AM",
-          isOwn: false,
-        },
-        {
-          id: 5,
-          user: "John Doe",
-          avatar: "/images/picProfile.png",
-          message: "Great work Sarah! The color scheme looks perfect 👍",
-          time: "10:35 AM",
-          isOwn: true,
-        },
-        {
-          id: 6,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
+          user: "Omar Ahmed",
+          avatar: "/images/Omar Ahmed.png",
           message:
             "Thanks! I was thinking we could add some subtle animations to make it more engaging.",
           time: "10:36 AM",
@@ -76,8 +49,8 @@ const MessageRoom = (currentChatId) => {
       chat: [
         {
           id: 1,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
+          user: "Sarah Ali",
+          avatar: "/images/Sarah Ali.png",
           message:
             "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
           time: "10:32 AM",
@@ -85,8 +58,7 @@ const MessageRoom = (currentChatId) => {
         },
         {
           id: 2,
-          user: "John Doe",
-          avatar: "/images/picProfile.png",
+          user: "Kareem Hassan",
           message:
             "Nice work, Sarah! The design layout is coming along really well.",
           time: "10:35 AM",
@@ -94,42 +66,240 @@ const MessageRoom = (currentChatId) => {
         },
         {
           id: 3,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
+          user: "Sarah Ali",
+          avatar: "/images/Sarah Ali.png",
           message:
             "Thank you! I’m considering adding some smooth animations to make it more interactive.",
           time: "10:36 AM",
           isOwn: false,
         },
+      ],
+    },
+    {
+      chatId: 3,
+      isgroup: false,
+      chat: [
         {
-          id: 4,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
+          id: 1,
+          user: "Gamal Micheal",
+          avatar: "/images/gamal.png",
           message:
-            "Hey, I've made a few changes to the design based on feedback. Let me know your thoughts.",
+            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
           time: "10:32 AM",
           isOwn: false,
         },
         {
-          id: 5,
-          user: "John Doe",
-          avatar: "/images/picProfile.png",
+          id: 2,
+          user: "Karem Hassan",
           message:
-            "I like the updates, Sarah! Maybe we can adjust the color palette slightly to give it a more modern look.",
+            "Nice work, Gamal! The design layout is coming along really well.",
           time: "10:35 AM",
           isOwn: true,
         },
         {
-          id: 6,
-          user: "Sarah Parker",
-          avatar: "/images/picProfile.png",
+          id: 3,
+          user: "Gamal Micheal",
+          avatar: "/images/gamal.png",
           message:
-            "Great idea, John! I’ll make the adjustments. I’ll send the revised version shortly.",
+            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
           time: "10:36 AM",
           isOwn: false,
         },
       ],
     },
+    {
+      chatId: 4,
+      isgroup: false,
+      chat: [
+        {
+          id: 1,
+          user: "Moataz Tamer",
+          avatar: "/images/moataz.png",
+          message:
+            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
+          time: "10:32 AM",
+          isOwn: false,
+        },
+        {
+          id: 2,
+          user: "Kareem Hassan",
+          message:
+            "Nice work, Moataz! The design layout is coming along really well.",
+          time: "10:35 AM",
+          isOwn: true,
+        },
+        {
+          id: 3,
+          user: "Moataz Tamer",
+          avatar: "/images/moataz.png",
+          message:
+            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
+          time: "10:36 AM",
+          isOwn: false,
+        },
+      ],
+    },
+    {
+      chatId: 5,
+      isgroup: false,
+      chat: [
+        {
+          id: 1,
+          user: "Amir Wagdy",
+          avatar: "/images/amir.png",
+          message:
+            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
+          time: "10:32 AM",
+          isOwn: false,
+        },
+        {
+          id: 2,
+          user: "Kareem Hassan",
+          message:
+            "Nice work, Amir! The design layout is coming along really well.",
+          time: "10:35 AM",
+          isOwn: true,
+        },
+        {
+          id: 3,
+          user: "Amir Wagdy",
+          avatar: "/images/amir.png",
+          message:
+            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
+          time: "10:36 AM",
+          isOwn: false,
+        },
+      ],
+    },
+    {
+      chatId: 6,
+      isgroup: false,
+      chat: [
+        {
+          id: 1,
+          user: "Mohamed Shawky",
+          avatar: "/images/mohamed.png",
+          message:
+            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
+          time: "10:32 AM",
+          isOwn: false,
+        },
+        {
+          id: 2,
+          user: "Kareem Hassan",
+          message:
+            "Nice work, Mohamed! The design layout is coming along really well.",
+          time: "10:35 AM",
+          isOwn: true,
+        },
+        {
+          id: 3,
+          user: "Mohamed Shawky",
+          avatar: "/images/mohamed.png",
+          message:
+            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
+          time: "10:36 AM",
+          isOwn: false,
+        },
+      ],
+    },
+    {
+      chatId: 7,
+      isgroup: false,
+      chat: [
+        {
+          id: 1,
+          user: "Eng. Sayed Safwet",
+          avatar: "/images/eng.sayed.png",
+          message:
+            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
+          time: "10:32 AM",
+          isOwn: false,
+        },
+        {
+          id: 2,
+          user: "Kareem Hassan",
+          message:
+            "Nice work, Eng. Sayed! The design layout is coming along really well.",
+          time: "10:35 AM",
+          isOwn: true,
+        },
+        {
+          id: 3,
+          user: "Eng. Sayed Safwet",
+          avatar: "/images/eng.sayed.png",
+          message:
+            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
+          time: "10:36 AM",
+          isOwn: false,
+        },
+      ],
+    },
+    {
+      chatId: 8,
+      isgroup: false,
+      chat: [
+        {
+          id: 1,
+          user: "Mai Mohamed",
+          avatar: "/images/mai.png",
+          message:
+            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
+          time: "10:32 AM",
+          isOwn: false,
+        },
+        {
+          id: 2,
+          user: "Kareem Hassan",
+          message:
+            "Nice work, Mai! The design layout is coming along really well.",
+          time: "10:35 AM",
+          isOwn: true,
+        },
+        {
+          id: 3,
+          user: "Mai Mohammed",
+          avatar: "/images/mai.png",
+          message:
+            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
+          time: "10:36 AM",
+          isOwn: false,
+        },
+      ],
+    },  
+    {
+      chatId: 9,
+      isgroup: false,
+      chat: [
+        {
+          id: 1,
+          user: "Kenzi Mohamed",
+          avatar: "/images/kenzi.png",
+          message:
+            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
+          time: "10:32 AM",
+          isOwn: false,
+        },
+        {
+          id: 2,
+          user: "Kareem Hassan",
+          message:
+            "Nice work, Kenzi! The design layout is coming along really well.",
+          time: "10:35 AM",
+          isOwn: true,
+        },
+        {
+          id: 3,
+          user: "Kenzi Mohamed",
+          avatar: "/images/kenzi.png",
+          message:
+            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
+          time: "10:36 AM",
+          isOwn: false,
+        },
+      ],
+    },
+    
   ];
   const scrollRef = useRef(null);
   useEffect(() => {

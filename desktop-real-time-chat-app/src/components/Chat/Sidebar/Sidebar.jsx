@@ -8,10 +8,10 @@ const Sidebar = () => {
 
 
   const menuItems = [
-    { id: 2, icon: <div className="icon-container"><img src="/images/i chats.png" /></div>, label: 'Messages', path: '/chat' },
-    { id: 3, icon: <div className="icon-container"><img src="/images/i group.png" /></div>, label: 'Groups', path: '/groups' },
-    { id: 5, icon: <div className="icon-container" style={{ marginLeft: '-2px' }}><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#9c27b0" strokeWidth="0"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg></div>, label: 'Contacts', path: '/contacts' },
-    { id: 7, icon: <div className="icon-container"><img src="/images/settings.png" /></div>, label: 'Settings', path: '/settings' },
+    { id: 2, icon: <div className="icon-container"><img src="/images/messages.png" /></div>, label: 'Messages', path: '/chat' },
+    { id: 3, icon: <div className="icon-container"><img src="/images/groups.png" /></div>, label: 'Groups', path: '/groups' },
+    { id: 5, icon: <div className="icon-container"><img src="/images/contacts.png" /></div>, label: 'Contacts', path: '/contacts' },
+    { id: 7, icon: <div className="icon-container"><img src="/images/setting.png" /></div>, label: 'Settings', path: '/settings' },
   ];
 
   const handleNavigation = (path) => {
@@ -23,8 +23,8 @@ const Sidebar = () => {
     <div className="left-sidebar animate-slide-right">
       <div className="sidebar">
         <div className="sidebar-header animate-fade-in">
-          <div className="logo">
-            <span className="logo-text">💬Chatty</span>
+          <div className="logo-chatty">
+            <img src="/images/logo.png" alt="Logo" className="logo-chatty" /><span className="logo-text-chatty">Chatty</span>
           </div>
         </div>
 
@@ -49,12 +49,12 @@ const Sidebar = () => {
         <div className="sidebar-footer animate-fade-in">
           <div className="user-profile">
             <img
-              src="/images/picProfile.png"
+              src="/images/Kareem.png"
               alt="User"
               className="user-avatar"
             />
             <div className="user-info">
-              <span className="user-name">John Doe</span>
+              <span className="user-name">Kareem Hassan</span>
               <span className="user-status">Online</span>
             </div>
           </div>

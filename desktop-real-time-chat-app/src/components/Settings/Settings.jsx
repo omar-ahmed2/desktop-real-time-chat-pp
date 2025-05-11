@@ -22,7 +22,7 @@ const Settings = () => {
       case "general":
         return <SettingsGeneral />;
       case "account":
-        return <SettingsAccount onSelectSection={setSelectedSection} />; // هنا التعديل
+        return <SettingsAccount onSelectSection={setSelectedSection} />;
       case "privacy":
         return <SettingsPrivacy />;
       case "notifications":

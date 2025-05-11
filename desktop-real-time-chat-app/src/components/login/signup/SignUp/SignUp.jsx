@@ -4,6 +4,7 @@ import './SignUp.css';
 import TextInput from '../FormInputs/TextInput';
 import PasswordInput from '../FormInputs/PasswordInput';
 
+
 const SignUp = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
