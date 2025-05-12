@@ -26,7 +26,7 @@ const Sidebar = ({ selected, onSelect, onBack }) => {
         <span className="back-icon"><FaArrowLeft /></span> Back
       </div>
 
-      <h2 className="sidebar-header">Settings</h2>
+      <h2 className="sidebar_header">Settings</h2>
 
       {/* Sidebar Menu */}
       <ul className="sidebar-menu">

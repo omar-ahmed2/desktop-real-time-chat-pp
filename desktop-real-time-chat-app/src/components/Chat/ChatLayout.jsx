@@ -31,10 +31,13 @@ const ChatLayout = () => {
       <div className="chat-main-card">
         <div className="chat-layout">
 
+          
+          
+
           <MediaQuery minWidth={1225}>
             <Sidebar />
           </MediaQuery>
-
+          
           <MediaQuery minWidth={601}>
             <div className="main-content animate-fade-in">
               <Header selectedUser={selectedUser} />
@@ -43,12 +46,17 @@ const ChatLayout = () => {
             </div>
           </MediaQuery>
 
-          <div className="right-sidebar flex flex-col h-full overflow-hidden">
+          
+
+          <div className="right-sidebar flex flex-col h-full ">
             <ChatRightSidebar
               setMessage={setMessage}
               setSelectedUser={setSelectedUser}
             />
           </div>
+          <MediaQuery maxWidth={1225}>
+            <Sidebar />
+          </MediaQuery>
         </div>
       </div>
     </div>

@@ -87,6 +87,10 @@ body {
   flex-wrap: nowrap;
 }
 
+.h-100{
+  height: 100%;
+}
+
 .content-fit {
   width: fit-content;
   height: fit-content;

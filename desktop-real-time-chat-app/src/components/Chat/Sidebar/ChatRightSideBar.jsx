@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { chatUsers } from '../../../data/mockdata';
 import ChatList from '../chatList';
 import ChatSearchInput from '../searchbar/ChatSearchInput';
-import BtnSideBar from './BtnSideBar';
+import MediaQuery from 'react-responsive';
+
 
 const ChatRightSidebar = ({ setMessage, setSelectedUser }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,8 +24,16 @@ const ChatRightSidebar = ({ setMessage, setSelectedUser }) => {
   };
 
   return (
-    <div>
-      <BtnSideBar />
+    <div className='mobile-chat-container'>
+
+      <MediaQuery maxWidth={1225}>
+          <div className="sidebar-header animate-fade-in">
+            <div className="logo-chatty">
+            <img src="/images/logo2.png" alt="Logo" className="logo-chatty" /><span className="logo-text-chatty">Chatty</span>
+          </div>
+        </div>
+        </MediaQuery>
+
       <ChatSearchInput
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}

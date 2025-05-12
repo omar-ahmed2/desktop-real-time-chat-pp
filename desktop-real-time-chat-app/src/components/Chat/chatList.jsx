@@ -3,8 +3,9 @@ import { chatUsers } from '../../data/mockdata'; // users data
 import { useState } from 'react'; // for holding the state of the chat list
 
 const containerStyle = {
-  height: '550px', // Fixed height for the scrollable area
-  overflowY: 'scroll', // Vertical scrolling enabled
+  flex : "1" , // Fixed height for the scrollable area
+  overflowY: 'scroll',
+ // Vertical scrolling enabled
 };
 
 const chatUserStyle = {
