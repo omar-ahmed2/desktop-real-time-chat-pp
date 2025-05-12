@@ -1,34 +1,124 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import getSocket from '../socket'; // Import the socket singleton
-import authContext from '../authContext';
-import { useContext } from 'react';
+import AuthContext from '../authContext';
+import getSocket from '../socket';
+
 const useSocketListeners = () => {
   const queryClient = useQueryClient();
-  const savedToken = sessionStorage.getItem('token');
+  const { user, setUser, fetchUserFromServer } = useContext(AuthContext);
+  const [savedToken, setSavedToken] = useState(sessionStorage.getItem('token'));
+
   useEffect(() => {
-    const token = sessionStorage.getItem('token'); // Check if token exists
-    if (!token) {
-      console.log("No token found, skipping socket connection");
-      return; // If no token, don't establish socket connection
-    }
+    // Check for token every second until it's found
+    const intervalId = setInterval(() => {
+      const currentToken = sessionStorage.getItem('token');
+      if (currentToken) {
+        setSavedToken(currentToken);
+        clearInterval(intervalId); // Stop the interval once the token is found
+      }
+    }, 1000);
 
-    const socket = getSocket(); // Get the existing or new socket connection
+    return () => clearInterval(intervalId); // Cleanup on unmount
+  }, []);
 
-    socket.on("connect", () => {
-      console.log("Connected to socket.io server");
+  useEffect(() => {
+    if (!savedToken) return;
+
+    const socket = getSocket();
+
+    socket.on('connect', () => {
+      console.log('Connected to socket.io server');
+      
+      // Emit a join event with the user's ID once connected
+      if (user?._id) {
+        socket.emit('join_user_room', { userId: user._id });
+      }
     });
 
-    socket.on("user_registered", async (data) => {
-      console.log("New user registered:", data);
+    socket.on('user_registered', async (data) => {
+      console.log('New user registered:', data);
       await queryClient.refetchQueries({ queryKey: ['users'] });
     });
 
+    socket.on('friend_added', async (data) => {
+      console.log('Friend added event received:', data);
+      
+      // Check if this event involves the current user
+      if (user?._id && (
+        (data.userId && data.userId === user._id) || 
+        (data.friendId && data.friendId === user._id) ||
+        (data.user && data.user._id === user._id) ||
+        (data.friend && data.friend._id === user._id)
+      )) {
+        try {
+          const updatedUserData = await fetchUserFromServer(savedToken, user._id);
+          setUser(updatedUserData);
+          sessionStorage.setItem('user', JSON.stringify(updatedUserData));
+          console.log('User data updated after friend_added event:', updatedUserData);
+        } catch (error) {
+          console.error('Error updating user data:', error);
+        }
+      }
+      
+      // Also refresh the users query data
+      await queryClient.refetchQueries({ queryKey: ['users'] });
+    });
+
+    socket.on('friend_removed', async (data) => {
+      console.log('Friend removed event received:', data);
+      
+      // Check if this event involves the current user
+      if (user?._id && (
+        (data.userId && data.userId === user._id) || 
+        (data.friendId && data.friendId === user._id) ||
+        (data.user && data.user._id === user._id) ||
+        (data.friend && data.friend._id === user._id)
+      )) {
+        try {
+          const updatedUserData = await fetchUserFromServer(savedToken, user._id);
+          setUser(updatedUserData);
+          sessionStorage.setItem('user', JSON.stringify(updatedUserData));
+          console.log('User data updated after friend_removed event:', updatedUserData);
+        } catch (error) {
+          console.error('Error updating user data:', error);
+        }
+      }
+      
+      // Also refresh the users query data
+      await queryClient.refetchQueries({ queryKey: ['users'] });
+    });
+
+    socket.on('friend_request_received', async (data) => {
+      console.log('Friend request received:', data);
+      await queryClient.refetchQueries({ queryKey: ['users'] });
+      
+      // Optionally update user data from server if needed
+      if (user?._id && (data.receiverId === user._id || data.senderId === user._id)) {
+        try {
+          const updatedUserData = await fetchUserFromServer(savedToken, user._id);
+          setUser(updatedUserData);
+          sessionStorage.setItem('user', JSON.stringify(updatedUserData));
+        } catch (error) {
+          console.error('Error updating user data:', error);
+        }
+      }
+    });
+
+    // Handle disconnection
+    socket.on('disconnect', () => {
+      console.log('Disconnected from socket server');
+    });
+
+    // Cleanup event listeners when component unmounts
     return () => {
-      socket.off("connect");
-      socket.off("user_registered");
+      socket.off('connect');
+      socket.off('user_registered');
+      socket.off('friend_added');
+      socket.off('friend_removed');
+      socket.off('friend_request_received');
+      socket.off('disconnect');
     };
-  }, [queryClient,savedToken]);
+  }, [savedToken, queryClient, user, setUser, fetchUserFromServer]);
 };
 
 export default useSocketListeners;

@@ -19,16 +19,42 @@ const io = new Server(server, {
   },
 });
 export  { io };
+
 io.on("connect", (socket) => {
   console.log("A user connected:", socket.id);
+  
+  // Add handler for user joining their room
+  socket.on("join_user_room", (data) => {
+    if (data.userId) {
+      socket.join(`user_${data.userId}`);
+      console.log(`User ${data.userId} joined their room`);
+    }
+  });
+  
+  // Add handler for friend request accepted
+  socket.on("friend_request_accepted", (data) => {
+    console.log("Friend request accepted:", data);
+    // Broadcast to everyone - the userController will handle filtering
+    io.emit("friend_added", data);
+  });
+  
+  // Add handler for friend removed
+  socket.on("friend_removed", (data) => {
+    console.log("Friend removed:", data);
+    // Broadcast to everyone - the client will handle filtering
+    io.emit("friend_removed", data);
+  });
+  
   socket.on("message", (msg) => {
     console.log("Received message:", msg);
     io.emit("message", msg); // Broadcast
   });
+  
   socket.on("disconnect", () => {
     console.log("A user disconnected:", socket.id);
   });
 });
+
 // Use middleware
 app.use(express.json());  // To parse incoming JSON requests
 app.use(cors());  // To allow requests from different origins

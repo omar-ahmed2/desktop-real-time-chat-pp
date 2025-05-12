@@ -4,24 +4,27 @@ import Sidebar from "../Chat/Sidebar/Sidebar";
 import { useUsers } from "../../hooks/useUsers";
 import { sendFriendRequest, removeFriend } from "../../hooks/friendSystem";
 import authContext from "../../authContext";
+import getSocket from "../../socket"; // Import the socket
 
 const Contacts = () => {
-  const { user, addFriend, removeFriendAuth } = useContext(authContext);
+  const { user, addFriend, removeFriendAuth, setUser, fetchUserFromServer } =
+    useContext(authContext);
   const { data: users, isloading, error } = useUsers();
+  console.log(user);
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestionSearchQuery, setSuggestionSearchQuery] = useState("");
   const [addedFriends, setAddedFriends] = useState([]);
   const [menuOpen, setMenuOpen] = useState(null);
   const [friends, setFriends] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
-
+  console.log(user.friends);
+  
   // Fetch suggestions
   useEffect(() => {
     if (Array.isArray(users) && user?.email) {
       const filtered = users.filter(
         (fuser) =>
-          fuser.email !== user.email &&
-          !user.friends.includes(fuser._id)
+          fuser.email !== user.email && !user.friends.includes(fuser._id)
       );
       setSuggestions(filtered);
     } else {
@@ -45,15 +48,42 @@ const Contacts = () => {
     }
   }, [users, user]);
 
+  // Define the emitFriendRequestAccepted function
+  const emitFriendRequestAccepted = (userId, friendId) => {
+    const socket = getSocket();
+    // Emit an event to notify the server that a friend request was accepted
+    socket.emit('friend_request_accepted', { 
+      userId, 
+      friendId 
+    });
+    console.log("Friend request accepted between", userId, "and", friendId);
+  };
+
+  // Updated handleAddFriend method
   const handleAddFriend = async (personId) => {
     if (addedFriends.includes(personId)) {
       setAddedFriends(addedFriends.filter((id) => id !== personId));
     } else {
-      const response = await sendFriendRequest(user._id, personId);
-      if (response.user.friends.includes(response.friend._id)) {
-        addFriend(personId);
+      try {
+        const response = await sendFriendRequest(user._id, personId);
+        if (response) {
+          // Update local state to reflect changes
+          if (response.user) {
+            setUser(response.user);
+            sessionStorage.setItem('user', JSON.stringify(response.user));
+            
+            // If they became friends immediately (accepting an existing request)
+            if (response.user.friends.includes(personId)) {
+              addFriend(personId);
+              emitFriendRequestAccepted(user._id, personId);
+            }
+          }
+          
+          setAddedFriends((prevAddedFriends) => [...prevAddedFriends, personId]);
+        }
+      } catch (error) {
+        console.error("Error adding friend:", error);
       }
-      setAddedFriends((prevAddedFriends) => [...prevAddedFriends, personId]);
     }
   };
 
@@ -65,8 +95,14 @@ const Contacts = () => {
     switch (action) {
       case "remove":
         const response = await removeFriend(user._id, friendId);
-        if (!response.user.friends.includes(response.friend._id)) {
+        if (response && !response.user.friends.includes(response.friend._id)) {
           removeFriendAuth(friendId);
+          setUser(response.user);
+          sessionStorage.setItem('user', JSON.stringify(response.user));
+          
+          // Tell the socket about the friend removal
+          const socket = getSocket();
+          socket.emit('friend_removed', { userId: user._id, friendId });
         }
         break;
       case "voice":
@@ -97,12 +133,16 @@ const Contacts = () => {
           `${person.firstName} ${person.lastName}`
             .toLowerCase()
             .includes(suggestionSearchQuery.toLowerCase()) ||
-          person.email.toLowerCase().includes(suggestionSearchQuery.toLowerCase())
+          person.email
+            .toLowerCase()
+            .includes(suggestionSearchQuery.toLowerCase())
       )
     : suggestions;
 
   const getInitials = (name) => {
-    return name.split(" ")[0][0].toUpperCase();
+    if (!name) return "?";
+    const parts = name.split(" ");
+    return parts[0][0].toUpperCase();
   };
 
   const getAvatarColor = (id) => {
@@ -169,7 +209,9 @@ const Contacts = () => {
                         {getInitials(`${friend.firstName} ${friend.lastName}`)}
                       </span>
                     )}
-                    {friend.online && <span className="online-indicator"></span>}
+                    {friend.online && (
+                      <span className="online-indicator"></span>
+                    )}
                   </div>
                   <div className="friend-info">
                     <h3 className="friend-name">
@@ -246,7 +288,7 @@ const Contacts = () => {
                     <span
                       style={{ backgroundColor: getAvatarColor(person._id) }}
                     >
-                      {getInitials(person.name)}
+                      {getInitials(`${person.firstName} ${person.lastName}`)}
                     </span>
                   )}
                 </div>
@@ -254,7 +296,7 @@ const Contacts = () => {
                   <h3 className="friend-name">{`${person.firstName} ${person.lastName}`}</h3>
                   <p className="friend-email">{person.email}</p>
                   <p className="mutual-friends">
-                    {person.mutualFriends} mutual friends
+                    {person.mutualFriends || 0} mutual friends
                   </p>
                 </div>
                 <button
