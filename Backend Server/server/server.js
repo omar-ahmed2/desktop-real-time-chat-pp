@@ -65,10 +65,7 @@ const PORT = process.env.PORT || 3000;  // Set port for the server
 const MONGO_URI = process.env.MONGO_URI;  // Get MongoDB URI from environment variables
 
 // Connect to MongoDB and start the server
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(MONGO_URI)
 .then(() => {
   console.log('Connected to MongoDB');
   // Start the Express server

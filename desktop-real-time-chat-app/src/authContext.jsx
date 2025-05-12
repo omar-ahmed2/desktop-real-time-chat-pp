@@ -63,7 +63,6 @@ export const AuthProvider = ({ children }) => {
 
     const initializeAuth = async () => {
       if (!savedToken || checkTokenExpiration(savedToken)) {
-        logout();
         setLoading(false);
         return;
       }

@@ -21,7 +21,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        {/* QueryClientProvider should wrap everything that uses React Query */}
         <QueryClientProvider client={queryClient}>
           <AppContent />
         </QueryClientProvider>
