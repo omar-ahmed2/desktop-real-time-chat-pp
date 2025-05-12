@@ -50,39 +50,6 @@
   padding-right: 45px;
 }
 
-/* Checkbox styling */
-input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #b83acf;
-  border-radius: 4px;
-  background: white;
-  cursor: pointer;
-  position: relative;
-  vertical-align: middle;
-  margin-right: 8px;
-  transition: all 0.3s ease;
-}
-
-input[type="checkbox"]:checked {
-  background: #b83acf;
-}
-
-input[type="checkbox"]:checked::after {
-  content: "✓";
-  position: absolute;
-  color: white;
-  font-size: 14px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-input[type="checkbox"]:hover {
-  border-color: #a235b8;
-}
 
 .toggle-password {
   position: absolute;
