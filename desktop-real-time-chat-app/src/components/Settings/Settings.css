@@ -100,23 +100,23 @@
 
   /* Staggered Animation for each sidebar item */
 .sidebar-item:nth-child(1) {
-    animation-delay: 1s; /* التأخير الأول */
+    animation-delay: 1s; 
   }
   
   .sidebar-item:nth-child(2) {
-    animation-delay: 1.2s; /* التأخير الثاني */
+    animation-delay: 1.2s; 
   }
   
   .sidebar-item:nth-child(3) {
-    animation-delay: 1.4s; /* التأخير الثالث */
+    animation-delay: 1.4s; 
   }
   
   .sidebar-item:nth-child(4) {
-    animation-delay: 1.6s; /* التأخير الرابع */
+    animation-delay: 1.6s; 
   }
   
   .sidebar-item:nth-child(5) {
-    animation-delay: 1.8s; /* التأخير الخامس */
+    animation-delay: 1.8s; 
   }
   
   .sidebar-item .icon {
@@ -192,3 +192,59 @@
     }
   }
   
+  /* Tablet: reduce sidebar width */
+@media (max-width: 1024px) {
+  .settings-sidebar {
+    width: 160px;
+  }
+
+  .sidebar-item .icon {
+    margin-right: 8px;
+  }
+
+  .main_content {
+    padding: 30px;
+  }
+}
+
+/* Mobile: icon above label, smaller width */
+@media (max-width: 767px) {
+  .settings-wrapper {
+    width: 95vw;
+  }
+
+  .settings-sidebar {
+    width: 100px;
+    padding: 10px;
+  }
+  
+  .sidebar-item {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 0px;
+  }
+
+  .sidebar-item .icon {
+    margin: 0 0 5px 0;
+    font-size: 20px;
+  }
+  
+  .main_content {
+    padding: 20px;
+  }
+  .back-button {
+    font-size: 14px;
+  }
+  .sidebar-header {
+    font-size: 18px;
+  }
+  .profile-section .sidebar-item {
+    font-size: 12px;
+  }
+  .profile-section .sidebar-item .icon {
+    font-size: 18px;
+  }
+}
