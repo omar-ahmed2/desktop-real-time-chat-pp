@@ -1,8 +1,10 @@
 import React from 'react';
 import './Sidebar.css';
 import { useNavigate, useLocation } from 'react-router-dom';
-
+import AuthContext from '../../../authContext';
+import { useContext } from 'react';
 const Sidebar = () => {
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -49,12 +51,12 @@ const Sidebar = () => {
         <div className="sidebar-footer animate-fade-in">
           <div className="user-profile">
             <img
-              src="/images/Kareem.png"
+              src={user.avatar}
               alt="User"
               className="user-avatar"
             />
             <div className="user-info">
-              <span className="user-name">Kareem Hassan</span>
+              <span className="user-name">{`${user.firstName} ${user.lastName}`}</span>
               <span className="user-status">Online</span>
             </div>
           </div>

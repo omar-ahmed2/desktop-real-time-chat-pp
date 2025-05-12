@@ -2,9 +2,8 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from './authContext';
 import { jwtDecode } from 'jwt-decode';
 
-
 const ProtectedRoute = ({ children }) => {
-  const { token } = useAuth();
+  const { token, loading, logout } = useAuth(); // Access loading from AuthContext
 
   const isTokenValid = (token) => {
     try {
@@ -15,7 +14,16 @@ const ProtectedRoute = ({ children }) => {
     }
   };
 
-  return token && isTokenValid(token) ? children : <Navigate to="/" />;
+  if (loading) {
+    return <div>Loading...</div>;  // You can customize the loading state here
+  }
+
+  if (!token || !isTokenValid(token)) {
+    logout(); // If the token is invalid or expired, log out
+    return <Navigate to="/" />;  // Redirect to the login page
+  }
+
+  return children; // Render protected content if the token is valid
 };
 
 export default ProtectedRoute;

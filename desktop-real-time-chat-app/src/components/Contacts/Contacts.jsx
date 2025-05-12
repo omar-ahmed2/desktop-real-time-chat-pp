@@ -1,80 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Contacts.css";
 import Sidebar from "../Chat/Sidebar/Sidebar";
+import { useUsers } from "../../hooks/useUsers";
+import { sendFriendRequest, removeFriend } from "../../hooks/friendSystem";
+import authContext from "../../authContext";
 
 const Contacts = () => {
+  const { user, addFriend, removeFriendAuth } = useContext(authContext);
+  const { data: users, isloading, error } = useUsers();
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestionSearchQuery, setSuggestionSearchQuery] = useState("");
   const [addedFriends, setAddedFriends] = useState([]);
   const [menuOpen, setMenuOpen] = useState(null);
+  const [friends, setFriends] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
 
-  const [friends, setFriends] = useState([
-    {
-      id: 1,
-      name: "Omar Ahmed",
-      email: "omar@gmail.com",
-      online: true,
-      avatar: "/images/Omar Ahmed.png",
-    },
-    {
-      id: 2,
-      name: "Kareem Hassan",
-      email: "kareemh@gmail.com",
-      online: true,
-      avatar: "/images/Kareem.png",
-    },
-    {
-      id: 3,
-      name: "Amir Wagdy",
-      email: "amir@gmail.com",
-      online: true,
-      avatar: "/images/amir.png",
-    },
-    {
-      id: 4,
-      name: "Moataz Tamer",
-      email: "moataz@gmail.com",
-      online: false,
-      avatar: "/images/moataz.png",
-    },
-  ]);
+  // Fetch suggestions
+  useEffect(() => {
+    if (Array.isArray(users) && user?.email) {
+      const filtered = users.filter(
+        (fuser) =>
+          fuser.email !== user.email &&
+          !user.friends.includes(fuser._id)
+      );
+      setSuggestions(filtered);
+    } else {
+      setSuggestions([]);
+    }
+  }, [users, user]);
 
-  const [suggestions, setSuggestions] = useState([
-    {
-      id: 101,
-      name: "Mohamed Ali",
-      email: "mohamed@gmail.com",
-      mutualFriends: 3,
-      avatar: "/images/mohamed ali.png",
-    },
-    {
-      id: 102,
-      name: "Ramez Ahmed",
-      email: "ramez@gmail.com",
-      mutualFriends: 2,
-      avatar: "/images/ramez.png",
-    },
-    {
-      id: 103,
-      name: "Mohamed Sami",
-      email: "mohamed@gmail.com",
-      mutualFriends: 5,
-      avatar: "/images/mohamed sami.png",
-    },
-    {
-      id: 104,
-      name: "Mariem Omar",
-      email: "mariem@gmail.com",
-      mutualFriends: 1,
-      avatar: "/images/mariem.png",
-    },
-  ]);
+  // Fetch friends
+  useEffect(() => {
+    if (Array.isArray(user?.friends) && user.friends.length > 0) {
+      if (Array.isArray(users)) {
+        const friendsList = users.filter((fuser) =>
+          user.friends.includes(fuser._id)
+        );
+        setFriends(friendsList);
+      } else {
+        setFriends([]);
+      }
+    } else {
+      setFriends([]);
+    }
+  }, [users, user]);
 
-  const handleAddFriend = (personId) => {
+  const handleAddFriend = async (personId) => {
     if (addedFriends.includes(personId)) {
       setAddedFriends(addedFriends.filter((id) => id !== personId));
     } else {
-      setAddedFriends([...addedFriends, personId]);
+      const response = await sendFriendRequest(user._id, personId);
+      if (response.user.friends.includes(response.friend._id)) {
+        addFriend(personId);
+      }
+      setAddedFriends((prevAddedFriends) => [...prevAddedFriends, personId]);
     }
   };
 
@@ -82,10 +61,13 @@ const Contacts = () => {
     setMenuOpen(menuOpen === friendId ? null : friendId);
   };
 
-  const handleMenuAction = (action, friendId) => {
+  const handleMenuAction = async (action, friendId) => {
     switch (action) {
       case "remove":
-        setFriends(friends.filter((friend) => friend.id !== friendId));
+        const response = await removeFriend(user._id, friendId);
+        if (!response.user.friends.includes(response.friend._id)) {
+          removeFriendAuth(friendId);
+        }
         break;
       case "voice":
         console.log(`Initiating voice call with friend ${friendId}`);
@@ -102,7 +84,9 @@ const Contacts = () => {
   const filteredFriends = searchQuery
     ? friends.filter(
         (friend) =>
-          friend.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          `${friend.firstName} ${friend.lastName}`
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
           friend.email.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : friends;
@@ -110,12 +94,10 @@ const Contacts = () => {
   const filteredSuggestions = suggestionSearchQuery
     ? suggestions.filter(
         (person) =>
-          person.name
+          `${person.firstName} ${person.lastName}`
             .toLowerCase()
             .includes(suggestionSearchQuery.toLowerCase()) ||
-          person.email
-            .toLowerCase()
-            .includes(suggestionSearchQuery.toLowerCase())
+          person.email.toLowerCase().includes(suggestionSearchQuery.toLowerCase())
       )
     : suggestions;
 
@@ -135,6 +117,14 @@ const Contacts = () => {
     ];
     return colors[id % colors.length];
   };
+
+  if (isloading || !users || !filteredSuggestions) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading users: {error.message}</div>;
+  }
 
   return (
     <div className="contacts-page">
@@ -164,27 +154,27 @@ const Contacts = () => {
 
             <div className="friends-list">
               {filteredFriends.map((friend) => (
-                <div key={friend.id} className="friend-card">
+                <div key={friend._id} className="friend-card">
                   <div className="avatar">
                     {friend.avatar ? (
                       <img
                         src={friend.avatar}
-                        alt={friend.name}
+                        alt={`${friend.firstName} ${friend.lastName}`}
                         className="friend-avatar"
                       />
                     ) : (
                       <span
-                        style={{ backgroundColor: getAvatarColor(friend.id) }}
+                        style={{ backgroundColor: getAvatarColor(friend._id) }}
                       >
-                        {getInitials(friend.name)}
+                        {getInitials(`${friend.firstName} ${friend.lastName}`)}
                       </span>
                     )}
-                    {friend.online && (
-                      <span className="online-indicator"></span>
-                    )}
+                    {friend.online && <span className="online-indicator"></span>}
                   </div>
                   <div className="friend-info">
-                    <h3 className="friend-name">{friend.name}</h3>
+                    <h3 className="friend-name">
+                      {`${friend.firstName} ${friend.lastName}`}
+                    </h3>
                     <p className="friend-email">{friend.email}</p>
                     {friend.online ? (
                       <p className="status online">Online</p>
@@ -196,24 +186,24 @@ const Contacts = () => {
                     <button className="message-btn">Message</button>
                     <button
                       className="menu-btn"
-                      onClick={() => handleMenuClick(friend.id)}
+                      onClick={() => handleMenuClick(friend._id)}
                     >
                       ⋮
                     </button>
-                    {menuOpen === friend.id && (
+                    {menuOpen === friend._id && (
                       <div className="friend-menu">
                         <button
-                          onClick={() => handleMenuAction("remove", friend.id)}
+                          onClick={() => handleMenuAction("remove", friend._id)}
                         >
                           Remove Friend
                         </button>
                         <button
-                          onClick={() => handleMenuAction("voice", friend.id)}
+                          onClick={() => handleMenuAction("voice", friend._id)}
                         >
                           Voice Call
                         </button>
                         <button
-                          onClick={() => handleMenuAction("video", friend.id)}
+                          onClick={() => handleMenuAction("video", friend._id)}
                         >
                           Video Call
                         </button>
@@ -224,7 +214,7 @@ const Contacts = () => {
               ))}
             </div>
           </div>
-              
+
           <div className="search-container">
             <input
               type="text"
@@ -234,16 +224,17 @@ const Contacts = () => {
               onChange={(e) => setSuggestionSearchQuery(e.target.value)}
             />
           </div>
-           <h2 className="add-friends">
-              <span className="contact-icon" style={{ color: "#5e35b1" }}>
-                👥
-              </span>
-              Add New Friends
-            </h2>
+
+          <h2 className="add-friends">
+            <span className="contact-icon" style={{ color: "#5e35b1" }}>
+              👥
+            </span>
+            Add New Friends
+          </h2>
 
           <div className="suggestions-list">
             {filteredSuggestions.map((person) => (
-              <div key={person.id} className="suggestion-card">
+              <div key={person._id} className="suggestion-card">
                 <div className="avatar">
                   {person.avatar ? (
                     <img
@@ -253,14 +244,14 @@ const Contacts = () => {
                     />
                   ) : (
                     <span
-                      style={{ backgroundColor: getAvatarColor(person.id) }}
+                      style={{ backgroundColor: getAvatarColor(person._id) }}
                     >
                       {getInitials(person.name)}
                     </span>
                   )}
                 </div>
                 <div className="friend-info">
-                  <h3 className="friend-name">{person.name}</h3>
+                  <h3 className="friend-name">{`${person.firstName} ${person.lastName}`}</h3>
                   <p className="friend-email">{person.email}</p>
                   <p className="mutual-friends">
                     {person.mutualFriends} mutual friends
@@ -268,11 +259,11 @@ const Contacts = () => {
                 </div>
                 <button
                   className={`add-friend-btn ${
-                    addedFriends.includes(person.id) ? "added" : ""
+                    addedFriends.includes(person._id) ? "added" : ""
                   }`}
-                  onClick={() => handleAddFriend(person.id)}
+                  onClick={() => handleAddFriend(person._id)}
                 >
-                  {addedFriends.includes(person.id) ? (
+                  {addedFriends.includes(person._id) ? (
                     <>
                       <span className="checkmark">✓</span> Done
                     </>
