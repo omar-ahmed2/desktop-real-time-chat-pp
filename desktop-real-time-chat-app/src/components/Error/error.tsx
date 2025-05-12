@@ -25,7 +25,7 @@ const Error = () => {
         <h2>Something went wrong</h2>
         <p>The page you're looking for doesn't exist or an error occurred.</p>
         <button className="return-button" onClick={handleReturn}>
-          Return to {isAuthenticated ? "Chat" : "Sign In"}
+          Return to Chat
         </button>
       </div>
     </div>
