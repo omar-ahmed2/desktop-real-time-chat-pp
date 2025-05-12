@@ -122,36 +122,6 @@
   margin-top: 10px;
 }
 
-.remember-me {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #666;
-  font-size: 14px;
-}
-
-.remember-me input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  border: 2px solid #b83acf;
-  border-radius: 4px;
-  cursor: pointer;
-  margin: 0;
-}
-
-.forgot-password {
-  color: #b83acf;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 14px;
-  margin-left: 20px;
-  transition: all 0.3s ease;
-}
-
-.forgot-password:hover {
-  text-decoration: underline;
-}
-
 .submit-button {
   background: #b83acf;
   color: white;
