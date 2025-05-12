@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SignIn from "./components/login/signup/SignIn/SignIn";
 import SignUp from "./components/login/signup/SignUp/SignUp";
 import Submission from "./components/login/signup/Submission/Submission";
@@ -8,6 +8,8 @@ import Settings from "./components/Settings/Settings";
 import Contacts from "./components/Contacts/Contacts";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Loading from "./components/Loading/loading";
+import Error from "./components/Error/error";
 
 import Groups from "./components/Groups/Groups";
 import { AuthProvider } from "./authContext.jsx";
@@ -18,10 +20,29 @@ import useSocketListener from "./hooks/useSocketListener.js";
 const queryClient = new QueryClient(); // Initialize QueryClient outside the component
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Only show loading while essential resources are being loaded
+    const loadEssentialResources = async () => {
+      try {
+        // Add any essential resource loading here
+        // For example: await loadFonts(), await loadInitialData(), etc.
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error loading resources:', error);
+        setIsLoading(false);
+      }
+    };
+
+    loadEssentialResources();
+  }, []);
+
   return (
     <BrowserRouter>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
+          <Loading isLoading={isLoading} />
           <AppContent />
         </QueryClientProvider>
       </AuthProvider>
@@ -72,6 +93,7 @@ const AppContent = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<Error />} />
       </Routes>
     </div>
   );

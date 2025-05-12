@@ -91,7 +91,8 @@ export const AuthProvider = ({ children }) => {
 
     const intervalId = setInterval(() => {
       const currentToken = sessionStorage.getItem('token');
-      if (!currentToken || checkTokenExpiration(currentToken)) {
+      if ((!currentToken || checkTokenExpiration(currentToken) ) && (location.pathname !== '/' &&location.pathname != '/signup')) 
+        {
         logout();
       }
     }, 5000);
