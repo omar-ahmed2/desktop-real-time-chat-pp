@@ -11,6 +11,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true); // Loading state
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -44,14 +45,14 @@ export const AuthProvider = ({ children }) => {
           logout();
         }
       }
-      if (sessionStorage.getItem('token') !== savedToken) {
+      if (sessionStorage.getItem('token') != savedToken) {
         logout();
       }
     }, 5000);
-  
+
+    setLoading(false); // Once auth check is done, set loading to false
     return () => clearInterval(intervalId);
   }, [location, token, navigate]);
-   
 
   const checkTokenExpiration = (token) => {
     try {
@@ -77,9 +78,29 @@ export const AuthProvider = ({ children }) => {
     sessionStorage.removeItem('token');
     navigate('/');
   };
+  const addFriend = (friendId) => {
+    if (user && !user.friends.includes(friendId)) {
+      const updatedUser = { 
+        ...user, 
+        friends: [...user.friends, friendId] 
+      };
+      setUser(updatedUser);
+      sessionStorage.setItem('user', JSON.stringify(updatedUser)); // Save to sessionStorage
+    }
+  };
 
+  const removeFriendAuth = (friendId) => {
+    if (user) {
+      const updatedUser = {
+        ...user,
+        friends: user.friends.filter((id) => id !== friendId),
+      };
+      setUser(updatedUser);
+      sessionStorage.setItem('user', JSON.stringify(updatedUser)); // Save to sessionStorage
+    }
+  };
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, loading, login, logout, addFriend, removeFriendAuth}}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,7 +1,6 @@
 import React from "react";
 import "./MessageRoom.css";
 import { useEffect, useRef } from "react";
-
 const MessageRoom = (currentChatId) => {
   if (currentChatId.message === null) {
     currentChatId = 1;

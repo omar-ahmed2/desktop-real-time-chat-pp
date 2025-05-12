@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import "./SignIn.css";
 import AuthContext from "../../../../authContext.jsx";
+import { useUsers } from '../../../../hooks/useUsers.js'; 
+import { useQueryClient } from '@tanstack/react-query';
+
 const SignIn = () => {
+  const queryClient = useQueryClient();
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
   const { login } = useContext(AuthContext); // Get login function from context
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,13 +28,13 @@ const SignIn = () => {
       if (response.ok) {
         login(result.user, result.token);
         console.log("Sign in successful:", result);
+        await queryClient.refetchQueries({ queryKey: ['users'] });
       } else {
         console.error("Sign in failed:", result.message);
       }
     } catch (error) {
       console.error("Error during sign in:", error);
     }
-    // navigate('/chat');
   };
 
   return (
