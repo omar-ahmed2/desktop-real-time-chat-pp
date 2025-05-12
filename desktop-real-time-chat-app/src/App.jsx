@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import SignIn from "./components/login/signup/SignIn/SignIn";
 import SignUp from "./components/login/signup/SignUp/SignUp";
-import ForgetPassword from "./components/login/signup/ForgetPassword/ForgetPassword";
-import Verification from "./components/login/signup/Verification/Verification";
+
 import Submission from "./components/login/signup/Submission/Submission";
 import ChatLayout from "./components/Chat/ChatLayout";
 import Settings from "./components/Settings/Settings";
@@ -22,8 +21,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/forget-password" element={<ForgetPassword />} />
-              <Route path="/verification" element={<Verification />} />
+
               <Route path="/submission" element={<Submission />} />
               <Route
                 path="/chat"
