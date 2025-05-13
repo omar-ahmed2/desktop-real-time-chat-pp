@@ -24,7 +24,7 @@ const Groups = () => {
         name: "DEPI Graduation Project Team",
         avatar: "/images/DEPI.png",
         description:
-          "Welcome to The Wanderers! A group for those who love to explore new places, try new foods, and embrace the thrill of adventure. Whether you're a seasoned traveler or someone just starting their",
+          "Welcome to The Wanderers! A group for those who love to explore new places",
         friends: [
           { id: 1, username: "Omar Ahmed", profile: "/images/Omar Ahmed.png" },
           { id: 2, username: "Kareem Hassan", profile: "/images/Kareem.png" },
