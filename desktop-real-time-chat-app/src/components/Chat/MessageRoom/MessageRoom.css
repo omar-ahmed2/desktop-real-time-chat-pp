@@ -51,6 +51,7 @@
   color: #1a1d21;
   line-height: 1.4;
   word-wrap: break-word;
+  width: 100%;
 }
 
 .message-time {
