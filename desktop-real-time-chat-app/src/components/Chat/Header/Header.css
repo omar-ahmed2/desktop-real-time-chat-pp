@@ -12,6 +12,10 @@
   animation: fadeIn 0.5s ease-out forwards;
 }
 
+.header-left.with-back-button {
+  margin-left: 0.75rem;
+}
+
 .team-info {
   display: flex;
   flex-direction: column;
@@ -54,3 +58,41 @@
   color: #4CAF50;
 }
 
+/* Back button styles */
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2060c7;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #666;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.back-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.back-button:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure the back button has enough touch area on mobile */
+@media (max-width: 600px) {
+  .back-button {
+    padding: 0.6rem;
+  }
+  
+  .chat-header {
+    padding: 0.8rem 1rem;
+  }
+  
+  .team-name {
+    font-size: 1.1rem;
+  }
+}
