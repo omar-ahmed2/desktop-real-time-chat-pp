@@ -24,7 +24,7 @@
   /* Sidebar styles */
   .settings-sidebar {
     width: 220px;
-    background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+    background: linear-gradient(180deg, #2a0949 15.71%, rgba(56, 6, 102, 0.9) 63.66%, #2a0949 85.12%);
     border-right: 1px solid #ddd;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);

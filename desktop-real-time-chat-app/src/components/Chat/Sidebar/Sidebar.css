@@ -4,7 +4,7 @@
   height: 100%;
   color: #fff;
   padding: 1.5rem;
-  background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(180deg, #2a0949 15.71%, rgba(56, 6, 102, 0.9) 63.66%, #2a0949 85.12%);
   position: relative;
   z-index: 1000;
 }
