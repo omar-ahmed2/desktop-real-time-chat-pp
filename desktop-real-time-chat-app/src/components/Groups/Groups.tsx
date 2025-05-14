@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import "./Groups.css";
 import { groupProps } from "../../types/interface";
 import Sidebar from "../Chat/Sidebar/Sidebar";
-import { useMediaQuery } from "react-responsive";
+import MediaQuery, { useMediaQuery } from "react-responsive";
 import EditGroup from "./editGroup";
 const Groups = () => {
   const [groupName, setGroupName] = useState<string>("");
@@ -24,7 +24,7 @@ const Groups = () => {
         name: "DEPI Graduation Project Team",
         avatar: "/images/DEPI.png",
         description:
-          "Welcome to The Wanderers! A group for those who love to explore new places, try new foods, and embrace the thrill of adventure. Whether you're a seasoned traveler or someone just starting their",
+          "Welcome to The Wanderers! A group for those who love to explore new places",
         friends: [
           { id: 1, username: "Omar Ahmed", profile: "/images/Omar Ahmed.png" },
           { id: 2, username: "Kareem Hassan", profile: "/images/Kareem.png" },
@@ -137,9 +137,11 @@ const Groups = () => {
             />
       <div className="chat-layout-container">
         <div className="groups-main-card">
-          <Sidebar />
-          <div>
-            <div className="flex  w-full h-[80px] items-center justify-center bg-[#dcdcdc] ">
+           <MediaQuery minWidth={1225}>
+                      <Sidebar />
+            </MediaQuery>
+          <div className="group-flex-container">
+            <div className="flex  w-full  items-center justify-center bg-[#dcdcdc] ">
               <h1 className="pl-[30px] pt-[5px] text-[2rem] text-black  ">
                 Manage Groups
               </h1>
@@ -155,7 +157,7 @@ const Groups = () => {
                 className="w-[50vw] h-[50px] mt-[25px] rounded-full bg-[#d9d9d9] text-[black] text-center placeholder-black-500 mb-[25px]"
               />
             </div>
-            <div className="flex flex-col w-full flex-grow h-[60vh] overflow-y-auto scrollbar-custom">
+            <div className="flex flex-col w-full flex-grow  overflow-y-auto scrollbar-custom groups-list">
               {filteredGroups.map((group) => (
                 <div
                   key={group.id}
@@ -190,6 +192,9 @@ const Groups = () => {
               ))}
             </div>
           </div>
+          <MediaQuery maxWidth={1225}>
+            <Sidebar />
+          </MediaQuery>
         </div>
       </div>
     </>

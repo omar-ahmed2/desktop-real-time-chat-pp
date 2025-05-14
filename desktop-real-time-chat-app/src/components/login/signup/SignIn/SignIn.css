@@ -1,3 +1,4 @@
+
 .signin-container {
   min-height: 100vh;
   display: flex;
@@ -34,6 +35,9 @@
   display: flex;
   flex-direction: column;
   margin-top: -35px;
+  width: 100%;
+  padding: 2rem 0;
+  
 }
 
 .input-group {
@@ -133,6 +137,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 10px;
+  width: 70%;
+  margin: auto;
 }
 
 .submit-button:hover {

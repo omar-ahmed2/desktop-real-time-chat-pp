@@ -9,61 +9,16 @@
   z-index: 1000;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    flex-direction: row;
-    min-height: auto;
-    height: auto;
-    padding: 0.5rem 1rem;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  }
-
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-  }
-
-  .sidebar-nav {
-    flex-direction: row;
-    margin: 0;
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  .nav-item {
-    padding: 0.5rem;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .nav-label {
-    font-size: 0.7rem;
-    text-align: center;
-  }
-
-  .nav-icon {
-    font-size: 1rem;
-  }
-
-
-}
-
 .sidebar-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 30px;
-  padding-left: 0;
   width: 100%;
   text-align: center;
 }
+  
+
 
 .logo {
   display: flex;
@@ -72,12 +27,20 @@
   gap: 0.5rem;
 }
 
+
+
 .logo-chatty{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 50px;
-  margin-top: 20px;
+  margin: auto;
+  width: 100px;
+}
+
+
+
+div.logo-chatty img {
+  height: 100%;
 }
 
 
@@ -92,21 +55,24 @@
 }
 
 .logo-text-chatty{
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-weight: 600;
   background: linear-gradient(45deg, #b83acf, #6c5dd3);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-left: -6rem;
+  
 }
 
-.sidebar-nav {
+.nav-menu {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin:  auto 0;
+  padding: 0 auto;
+
 }
+
 
 .nav-item {
   display: flex;
@@ -116,7 +82,7 @@
   border-radius: 12px;
   cursor: pointer;
   position: relative;
-  height: 50px;
+  height: 70px;
   margin-bottom: 4px;
 }
 
@@ -175,16 +141,14 @@
 }
 
 .sidebar-footer {
-  margin-top: auto;
-  padding-top: 1.5rem;
+  padding: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .user-profile {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem;
+ 
   border-radius: 12px;
   cursor: pointer;
 }
@@ -222,18 +186,147 @@
 }
 
 .inputWithButton input{
-    width:100%;
-    height: 40px;
-    padding-right: 60px;
-    background-color: white;
+  width:100%;
+  height: 40px;
+  padding-right: 60px;
+  background-color: white;
     border-radius: 25px;
+  }
+  
+  .inputWithButton button {
+    position: absolute;
+    right: 1px;
+    border-radius: 25px;
+    padding: .4rem ;
+    background-color: white;
+  } 
+  
+  
+  @media (max-width: 1225px) {
+    .sidebar {
+      flex-direction: row;
+      min-height: auto;
+      padding: 0.5rem 1rem;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+  .logo-chatty{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  
 }
 
-.inputWithButton button {
-  position: absolute;
-  right: 1px;
-border-radius: 25px;
-  padding: .4rem ;
-  background-color: white;
-} 
+   .nav-menu{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: space-evenly;
+    width: 100%;
+   
+    
 
+  
+  }
+  
+
+ .user-name{
+  font-size: 0.6rem;
+ }
+ .user-status{
+  font-size: 0.6rem;
+ }
+  
+   
+  
+    .nav-item {
+  
+      flex-direction: row;
+      gap: 0.1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: .5rem 1rem;
+      height: 40px;
+  
+    }
+
+
+  
+  
+    .nav-icon {
+      font-size: 1rem;
+    }
+
+   .sidebar-footer {
+    margin: auto 0;
+    padding: 0;
+  }
+
+
+
+  }
+
+
+  @media (max-width: 1000px) {
+    .nav-item{
+      padding: .4rem;
+    }
+
+  
+  }
+
+    @media (max-width: 700px) {
+
+      .sidebar{
+        padding: 8px;
+      }
+    .nav-item{
+    
+       display: block;
+       text-align: center;
+       height: fit-content;
+    }
+
+    .nav-menu{
+      gap: 0;
+    }
+    .nav-label{
+      font-size: 12px;
+    }
+
+      .sidebar-footer {
+    margin: auto 0;
+    padding: 0;
+    }
+    .nav-icon-container{
+      display: flex;
+      justify-content: center;
+
+}
+  .user-status{
+    text-align: center;
+  }
+  .user-name{
+    text-align: center;
+  }
+
+  .user-profile{
+     flex-direction: column;
+  }
+  }

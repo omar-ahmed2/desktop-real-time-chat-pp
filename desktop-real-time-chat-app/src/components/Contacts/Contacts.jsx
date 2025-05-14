@@ -5,6 +5,7 @@ import { useUsers } from "../../hooks/useUsers";
 import { sendFriendRequest, removeFriend } from "../../hooks/useFriendSystem";
 import authContext from "../../authContext";
 import getSocket from "../../socket"; // Import the socket
+import MediaQuery from "react-responsive";
 
 const Contacts = () => {
   const { user, addFriend, removeFriendAuth, setUser, fetchUserFromServer } =
@@ -167,7 +168,9 @@ const Contacts = () => {
   return (
     <div className="contacts-page">
       <div className="contacts-main-card">
-        <Sidebar />
+        <MediaQuery minWidth={1225}>
+            <Sidebar />
+          </MediaQuery>
         <div className="contacts-container">
           <div className="search-container">
             <input
@@ -315,6 +318,9 @@ const Contacts = () => {
             ))}
           </div>
         </div>
+        <MediaQuery maxWidth={1225}>
+            <Sidebar />
+          </MediaQuery>
       </div>
     </div>
   );

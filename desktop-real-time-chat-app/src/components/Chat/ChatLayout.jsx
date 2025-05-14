@@ -39,13 +39,18 @@ const ChatLayout = () => {
             </div>
           </MediaQuery>
 
-          <div className="right-sidebar flex flex-col h-full overflow-hidden">
+          
+
+          <div className="right-sidebar flex flex-col h-full ">
             <ChatRightSidebar
               setSelectedChatId={setSelectedChatId}
               chatList={chatList}
               isLoading={isLoading}
             />
           </div>
+          <MediaQuery maxWidth={1225}>
+            <Sidebar />
+          </MediaQuery>
         </div>
       </div>
     </div>

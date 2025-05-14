@@ -43,7 +43,7 @@
     }
   }
   
-  .sidebar-header{
+  .sidebar_header{
     margin-top: 30px;
     background: linear-gradient(45deg, #b83acf, #6c5dd3);
   -webkit-background-clip: text;
@@ -53,7 +53,7 @@
   /* Back button and header appear from top */
   
   .back-button,
-  .sidebar-header {
+  .sidebar_header {
     opacity: 0;
     transform: translateY(-30px);
     animation: slideFromTop 1.8s ease forwards;
@@ -238,7 +238,7 @@
   .back-button {
     font-size: 14px;
   }
-  .sidebar-header {
+  .sidebar_header {
     font-size: 18px;
   }
   .profile-section .sidebar-item {

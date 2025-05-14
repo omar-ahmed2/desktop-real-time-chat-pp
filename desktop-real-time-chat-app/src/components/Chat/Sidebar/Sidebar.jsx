@@ -1,8 +1,9 @@
-import React from 'react';
+
 import './Sidebar.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import AuthContext from '../../../authContext';
 import { useContext } from 'react';
+import MediaQuery from 'react-responsive';
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -23,14 +24,16 @@ const Sidebar = () => {
 
   return (
     <div className="left-sidebar animate-slide-right">
-      <div className="sidebar">
-        <div className="sidebar-header animate-fade-in">
+      
+          <div className="sidebar">
+        <MediaQuery minWidth={1225}>
+          <div className="sidebar-header animate-fade-in">
           <div className="logo-chatty">
-            <img src="/images/logo.png" alt="Logo" className="logo-chatty" /><span className="logo-text-chatty">Chatty</span>
+            <img src="/images/logo2.png" alt="Logo" className="logo-chatty" /><span className="logo-text-chatty">Chatty</span>
           </div>
         </div>
-
-        <nav className="sidebar-nav">
+        </MediaQuery>
+        <nav className="nav-menu" >
           {menuItems.map((item, index) => {
             const isActive = location.pathname.startsWith(item.path);
             return (
@@ -40,7 +43,7 @@ const Sidebar = () => {
                 style={{ animationDelay: `${0.2 + index * 0.1}s` }}
                 onClick={() => handleNavigation(item.path)}
               >
-                <span className="nav-icon">{item.icon}</span>
+                <div className='nav-icon-container'><span className="nav-icon">{item.icon}</span></div>
                 <span className="nav-label">{item.label}</span>
                 {isActive && <div className="active-indicator" />}
               </div>
@@ -58,10 +61,10 @@ const Sidebar = () => {
             <div className="user-info">
               <span className="user-name">{`${user.firstName} ${user.lastName}`}</span>
               <span className="user-status">Online</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };

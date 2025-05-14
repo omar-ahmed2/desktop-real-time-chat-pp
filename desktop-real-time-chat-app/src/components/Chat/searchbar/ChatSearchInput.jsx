@@ -1,5 +1,5 @@
-import React from 'react';
-import searchclasses from './Searchbar.module.css';
+import React from "react";
+import searchclasses from "./Searchbar.module.css";
 
 const ChatSearchInput = ({ searchTerm, setSearchTerm }) => {
   const handleSearchChange = (e) => {
@@ -8,10 +8,10 @@ const ChatSearchInput = ({ searchTerm, setSearchTerm }) => {
 
   return (
     <div className={searchclasses.InputSearchContainer}>
-      <input 
+      <input
         type="text"
         className={searchclasses.inputSearchuser}
-        placeholder="Search name ..." 
+        placeholder="Search name ..."
         value={searchTerm}
         onChange={handleSearchChange}
       />

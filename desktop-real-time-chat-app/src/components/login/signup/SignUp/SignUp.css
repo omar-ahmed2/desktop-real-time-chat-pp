@@ -65,8 +65,9 @@
 
 .name-row {
   display: grid;
+  width: 95%;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+ 
 }
 
 .input-group {
@@ -77,9 +78,7 @@
   animation: inputAppear 0.8s ease-out forwards;
 }
 
-.animate-1{
-  margin-left: 20px;
-}
+
 
 .animate-3{
   margin-right: -20px;
@@ -294,10 +293,5 @@
     margin: 0 auto;
     width: 100%;
   }
-  .animate-1{
-    margin-left: 10px;
-  }
-  .animate-2{
-    margin-left: 10px;
-  }
+
 }
