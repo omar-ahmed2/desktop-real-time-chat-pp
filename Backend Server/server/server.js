@@ -20,6 +20,9 @@ const io = new Server(server, {
 });
 export  { io };
 
+// Updated socket setup in server.js
+// This code should be added at the socket setup part of your server.js
+
 io.on("connect", (socket) => {
   console.log("A user connected:", socket.id);
   
@@ -45,9 +48,11 @@ io.on("connect", (socket) => {
     io.emit("friend_removed", data);
   });
   
-  socket.on("message", (msg) => {
-    console.log("Received message:", msg);
-    io.emit("message", msg); // Broadcast
+  // Updated message_sent handler - Just logs the event
+  // The actual emission is done in chatController.js
+  socket.on("message_sent", (data) => {
+    console.log("Client manually sent message event:", data);
+    // We don't emit here because chatController.js already emits the event
   });
   
   socket.on("disconnect", () => {

@@ -6,6 +6,7 @@ import { getAllUsers } from '../controllers/userController.js';
 import { getUser } from '../controllers/userController.js';
 import { fetchChatList } from '../controllers/chatController.js'
 import { fetchChat } from '../controllers/chatController.js'
+import { sendChat } from '../controllers/chatController.js'
 const router = express.Router();
 router.use(authenticateToken);
 router.post('/sendfriend', sendFriendRequest);
@@ -14,4 +15,5 @@ router.get('/getallusers', getAllUsers);
 router.post('/fetchchatlist', fetchChatList);
 router.post('/getuser', getUser);
 router.post('/fetchchat',fetchChat);
+router.post('/sendmessage',sendChat);
 export default router;
