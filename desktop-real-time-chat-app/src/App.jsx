@@ -15,7 +15,6 @@ import Groups from "./components/Groups/Groups";
 import { AuthProvider } from "./authContext.jsx";
 import ProtectedRoute from "./protectedRoute.jsx";
 import useSocketListener from "./hooks/useSocketListener.js";
-// Import the hook but don't call it here
 
 const queryClient = new QueryClient(); // Initialize QueryClient outside the component
 
@@ -43,60 +42,59 @@ const App = () => {
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <Loading isLoading={isLoading} />
-          <AppContent />
+          {/* Only initialize socket listener when not loading */}
+          {!isLoading && <SocketListenerInitializer />}
+          <div className="app">
+            <Routes>
+              <Route path="/" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/submission" element={<Submission />} />
+              <Route
+                path="/chat"
+                element={
+                  <ProtectedRoute>
+                    <ChatLayout />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/contacts"
+                element={
+                  <ProtectedRoute>
+                    <Contacts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/groups"
+                element={
+                  <ProtectedRoute>
+                    <Groups />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<Error />} />
+            </Routes>
+          </div>
         </QueryClientProvider>
       </AuthProvider>
     </BrowserRouter>
   );
 };
 
-// Create a separate component to use the hook after QueryClientProvider is rendered
-const AppContent = () => {
-  // Now this hook is used within the QueryClientProvider context
-  const socketListener = useSocketListener();
-  
-  return (
-    <div className="app">
-      <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/submission" element={<Submission />} />
-        <Route
-          path="/chat"
-          element={
-            <ProtectedRoute>
-              <ChatLayout />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <Settings />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/contacts"
-          element={
-            <ProtectedRoute>
-              <Contacts />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/groups"
-          element={
-            <ProtectedRoute>
-              <Groups />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="*" element={<Error />} />
-      </Routes>
-    </div>
-  );
+// Small utility component that just initializes the socket listener
+// This keeps the hook usage clean while avoiding unnecessary re-renders
+const SocketListenerInitializer = () => {
+  useSocketListener();
+  return null; // This component doesn't render anything
 };
 
 export default App;

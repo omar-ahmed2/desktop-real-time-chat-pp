@@ -1,41 +1,52 @@
-import React, { useState, useMemo } from 'react';
-import { chatUsers } from '../../../data/mockdata';
+import React, { useState, useEffect, useMemo } from 'react';
 import ChatList from '../chatList';
 import ChatSearchInput from '../searchbar/ChatSearchInput';
 import BtnSideBar from './BtnSideBar';
 
-const ChatRightSidebar = ({ setMessage, setSelectedUser }) => {
+const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  
+  // Auto-select the first chat when the chat list loads
+  useEffect(() => {
+    if (!isLoading && chatList && chatList.length > 0) {
+      // Auto-select the first chat from the list
+      setSelectedChatId(chatList[0]._id);
+    }
+  }, [chatList, isLoading, setSelectedChatId]);
 
-  const filteredUsers = useMemo(() => {
-    const term = searchTerm.trim().toLowerCase();
-    return term
-      ? chatUsers.filter(user =>
-          user.name.toLowerCase().includes(term)
-        )
-      : chatUsers;
-  }, [searchTerm]);
-
+  // Function to handle user selection from the chat list
   const handleUserSelect = (userId) => {
-    const user = chatUsers.find(user => user.id === userId);
-    setSelectedUser(user); // تحديد المستخدم المختار هنا
-    setMessage(userId); // إرسال المستخدم لعرض الرسائل
+    if (userId) {
+      // Set the selected chat ID - single source of truth
+      setSelectedChatId(userId);
+    }
   };
 
+  // We're passing the searchTerm to ChatList through an object to avoid unnecessary re-renders
+  const chatListProps = useMemo(() => ({
+    onSelectUser: handleUserSelect,
+    searchTerm,
+    chatList,
+    isLoading
+  }), [handleUserSelect, searchTerm, chatList, isLoading]);
+
   return (
-    <div>
+    <div className="chat-right-sidebar">
       <BtnSideBar />
-      <ChatSearchInput
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-      />
+      <div className="search-container">
+        <ChatSearchInput
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
+      </div>
 
       <div className="flex">
         <img src="/images/image (7).png" className="pleft" alt="Logo" />
         <h4 className="logo-text">All Chat</h4>
       </div>
 
-      <ChatList users={filteredUsers} setMessage={setMessage} onSelectUser={handleUserSelect} /> {/* إضافة دالة onSelectUser هنا */}
+      {/* Pass chatList and loading state to ChatList component */}
+      <ChatList {...chatListProps} />
     </div>
   );
 };

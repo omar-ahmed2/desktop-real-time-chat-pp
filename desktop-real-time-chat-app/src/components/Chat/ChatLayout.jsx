@@ -1,52 +1,49 @@
+// ChatLayout.jsx - Updated version
+
+import React, { useState } from 'react';
 import './ChatLayout.css';
 import Sidebar from './Sidebar/Sidebar';
 import Header from './Header/Header';
 import MessageRoom from './MessageRoom/MessageRoom';
 import MessageInput from './MessageInput/MessageInput';
-import { useState } from 'react';
 import ChatRightSidebar from './Sidebar/ChatRightSideBar';
 import MediaQuery from 'react-responsive';
-import { useEffect } from 'react';
+import { useChatList } from '../../hooks/useChatList'; // Import the hook for chat list
 
 const ChatLayout = () => {
-  const [message, setMessage] = useState(null);
+  // Use a single state variable for the selected chat
+  const [selectedChatId, setSelectedChatId] = useState(null);
+  // State for selected user details (name, avatar, etc.)
   const [selectedUser, setSelectedUser] = useState(null);
-
-  // اختياري: احفظ المستخدم في localStorage علشان ترجع له لو خرجت ورجعت
-  useEffect(() => {
-    const savedUser = localStorage.getItem('selectedUser');
-    if (savedUser) {
-      setSelectedUser(JSON.parse(savedUser));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (selectedUser) {
-      localStorage.setItem('selectedUser', JSON.stringify(selectedUser));
-    }
-  }, [selectedUser]);
+  
+  // Fetch the chat list - the ChatRightSidebar will use this to set the default chat
+  const { data: chatList, isLoading } = useChatList();
 
   return (
     <div className="chat-layout-container">
       <div className="chat-main-card">
         <div className="chat-layout">
-
           <MediaQuery minWidth={1225}>
             <Sidebar />
           </MediaQuery>
-
           <MediaQuery minWidth={601}>
             <div className="main-content animate-fade-in">
               <Header selectedUser={selectedUser} />
-              <MessageRoom message={message} />
+              {selectedChatId && (
+                <MessageRoom 
+                  selectedChatId={selectedChatId} 
+                  setSelectedUser={setSelectedUser}
+                />
+              )}
               <MessageInput />
             </div>
           </MediaQuery>
 
           <div className="right-sidebar flex flex-col h-full overflow-hidden">
             <ChatRightSidebar
-              setMessage={setMessage}
-              setSelectedUser={setSelectedUser}
+              setSelectedChatId={setSelectedChatId}
+              chatList={chatList}
+              isLoading={isLoading}
             />
           </div>
         </div>
@@ -54,6 +51,5 @@ const ChatLayout = () => {
     </div>
   );
 };
-
 
 export default ChatLayout;

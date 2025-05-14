@@ -1,4 +1,5 @@
 import User from "../models/User.js"; // Assuming you have a User model
+import Chat from "../models/Chat.js";
 import { io } from "../server.js";
 export const sendFriendRequest = async (req, res) => {
   const { userId, friendId } = req.body;
@@ -28,23 +29,23 @@ export const sendFriendRequest = async (req, res) => {
     if (friend.friendsSent.some((id) => id.toString() === userId.toString())) {
       friend.friends.push(userId);
       user.friends.push(friendId);
-      
+
       // Emit event to both users with more detailed data
-      io.emit('friend_added', { 
-        userId, 
-        friendId, 
-        user: { 
-          _id: user._id, 
-          firstName: user.firstName, 
-          lastName: user.lastName 
-        }, 
-        friend: { 
-          _id: friend._id, 
-          firstName: friend.firstName, 
-          lastName: friend.lastName 
-        } 
+      io.emit("friend_added", {
+        userId,
+        friendId,
+        user: {
+          _id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        },
+        friend: {
+          _id: friend._id,
+          firstName: friend.firstName,
+          lastName: friend.lastName,
+        },
       });
-      
+
       // Remove pending requests
       user.friendsSent = user.friendsSent.filter(
         (id) => id.toString() !== friendId.toString()
@@ -58,25 +59,38 @@ export const sendFriendRequest = async (req, res) => {
       friend.friendsReceived = friend.friendsReceived.filter(
         (id) => id.toString() !== userId.toString()
       );
+      const newChat = new Chat({
+        isGroup: false, // or true, depending on use
+        participants: [user._id, friend._id], // string array of user IDs
+        lastMessage: {
+          message: "",
+          user: null,
+          time: Date.now(), // Set initial time
+        },
+      });
+      await newChat.save();
     } else {
       // Send new request
+      
       friend.friendsReceived.push(userId);
       user.friendsSent.push(friendId);
-      
+
       // Emit event to notify the receiving user about new friend request
-      io.emit('friend_request_received', { 
-        senderId: userId, 
+      io.emit("friend_request_received", {
+        senderId: userId,
         receiverId: friendId,
         sender: {
           _id: user._id,
           firstName: user.firstName,
-          lastName: user.lastName
-        }
+          lastName: user.lastName,
+        },
       });
     }
     await user.save();
     await friend.save();
-    res.status(200).json({ message: "Friend request sent successfully",user,friend});
+    res
+      .status(200)
+      .json({ message: "Friend request sent successfully", user, friend });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error fetching user data" });
@@ -117,6 +131,7 @@ export const removeFriend = async (req, res) => {
       return res.status(400).json({ message: "Cannot remove yourself" });
     }
 
+    // Remove from friends lists
     user.friends = user.friends.filter((id) => id.toString() !== friendId);
     friend.friends = friend.friends.filter((id) => id.toString() !== userId);
     user.friendsSent = user.friendsSent.filter(
@@ -131,26 +146,69 @@ export const removeFriend = async (req, res) => {
     friend.friendsReceived = friend.friendsReceived.filter(
       (id) => id.toString() !== userId.toString()
     );
-    await user.save();
-    await friend.save();
     
-    // Emit friend removed event with both user IDs
-    io.emit('friend_removed', { 
-      userId, 
-      friendId,
-      user: { 
-        _id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName 
+    // Find and delete the chat between these two users
+    // Look for a non-group chat where both users are participants
+    const chatToDelete = await Chat.findOne({
+      participants: { 
+        $all: [userId, friendId], 
+        $size: 2 // Ensures only these two users are in the chat (direct messages)
       },
-      friend: { 
-        _id: friend._id,
-        firstName: friend.firstName,
-        lastName: friend.lastName 
-      }
+      isGroup: false
     });
     
-    res.status(200).json({ message: "Friend removed successfully",user,friend});
+    if (chatToDelete) {
+      console.log(`Deleting chat ${chatToDelete._id} between users ${userId} and ${friendId}`);
+      await Chat.findByIdAndDelete(chatToDelete._id);
+      
+      // If users have chatroom references in their documents, remove those too
+      if (user.chatroom) {
+        user.chatroom = user.chatroom.filter(
+          (chatId) => chatId.toString() !== chatToDelete._id.toString()
+        );
+      }
+      
+      if (friend.chatroom) {
+        friend.chatroom = friend.chatroom.filter(
+          (chatId) => chatId.toString() !== chatToDelete._id.toString()
+        );
+      }
+      
+      // Emit specific event for chat deletion
+      io.emit("chat_deleted", {
+        chatId: chatToDelete._id,
+        chatroom: chatToDelete.chatroom,
+        participants: [userId, friendId]
+      });
+    }
+    
+    await user.save();
+    await friend.save();
+
+    // Emit friend removed event with both user IDs
+    io.emit("friend_removed", {
+      userId,
+      friendId,
+      user: {
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+      friend: {
+        _id: friend._id,
+        firstName: friend.firstName,
+        lastName: friend.lastName,
+      },
+    });
+
+    res
+      .status(200)
+      .json({ 
+        message: "Friend removed successfully and chat deleted", 
+        user, 
+        friend,
+        deletedChat: chatToDelete ? chatToDelete._id : null
+      });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error removing friend" });
@@ -174,7 +232,7 @@ export const getUser = async (req, res) => {
     }
 
     // Correcting the findById query by passing userId directly
-    const user = await User.findById(userId);  // Pass userId directly, not as an object
+    const user = await User.findById(userId); // Pass userId directly, not as an object
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

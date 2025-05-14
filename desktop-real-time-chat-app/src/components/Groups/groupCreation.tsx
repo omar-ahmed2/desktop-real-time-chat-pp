@@ -117,6 +117,7 @@ const GroupCreation = () => {
     dialog?.addEventListener("click", handleClick);
     return () => dialog?.removeEventListener("click", handleClick);
   }, []);
+  console.log("GroupCreation Rendered");
   return (
     <>
       <dialog
@@ -199,7 +200,7 @@ const GroupCreation = () => {
         ></img>
       </div>
     </>
-  );
+ );
 };
 
 export default GroupCreation;

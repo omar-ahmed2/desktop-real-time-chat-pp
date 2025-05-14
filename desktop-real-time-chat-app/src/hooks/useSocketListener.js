@@ -55,6 +55,9 @@ const useSocketListeners = () => {
           setUser(updatedUserData);
           sessionStorage.setItem('user', JSON.stringify(updatedUserData));
           console.log('User data updated after friend_added event:', updatedUserData);
+          
+          // Invalidate and refetch chatlist to ensure UI is updated
+          queryClient.invalidateQueries({ queryKey: ['chatlist'] });
         } catch (error) {
           console.error('Error updating user data:', error);
         }
@@ -78,6 +81,12 @@ const useSocketListeners = () => {
           const updatedUserData = await fetchUserFromServer(savedToken, user._id);
           setUser(updatedUserData);
           sessionStorage.setItem('user', JSON.stringify(updatedUserData));
+          
+          // Force clear and refetch instead of just refetching
+          // This ensures any deleted chats are removed from the UI
+          queryClient.removeQueries({ queryKey: ['chatlist'] });
+          queryClient.invalidateQueries({ queryKey: ['chatlist'] });
+          
           console.log('User data updated after friend_removed event:', updatedUserData);
         } catch (error) {
           console.error('Error updating user data:', error);
@@ -86,6 +95,20 @@ const useSocketListeners = () => {
       
       // Also refresh the users query data
       await queryClient.refetchQueries({ queryKey: ['users'] });
+    });
+
+    // Add a specific handler for chat deletion events
+    socket.on('chat_deleted', async (data) => {
+      console.log('Chat deleted event received:', data);
+      
+      // If this chat deletion involves the current user, update the UI
+      if (user?._id && (
+        data.participants.includes(user._id)
+      )) {
+        // Force clear the chatlist cache and refetch
+        queryClient.removeQueries({ queryKey: ['chatlist'] });
+        queryClient.invalidateQueries({ queryKey: ['chatlist'] });
+      }
     });
 
     socket.on('friend_request_received', async (data) => {
@@ -115,6 +138,7 @@ const useSocketListeners = () => {
       socket.off('user_registered');
       socket.off('friend_added');
       socket.off('friend_removed');
+      socket.off('chat_deleted');
       socket.off('friend_request_received');
       socket.off('disconnect');
     };

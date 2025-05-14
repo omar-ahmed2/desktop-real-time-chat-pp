@@ -1,343 +1,169 @@
-import React from "react";
+import React, { useEffect, useRef, memo, useMemo, useCallback } from "react";
 import "./MessageRoom.css";
-import { useEffect, useRef } from "react";
-const MessageRoom = (currentChatId) => {
-  if (currentChatId.message === null) {
-    currentChatId = 1;
-  } else {
-    currentChatId = currentChatId.message;
-  }
-  //fetch mock up data from another file
-  //suppose messages contains the mockup data
-  //message room is only one, and therefore it can has one state making it either group or not grouped
-  const messages = [
-    {
-      chatId: 1,
-      isgroup: false,
-      chat: [
-        {
-          id: 1,
-          user: "Omar Ahmed",
-          avatar: "/images/Omar Ahmed.png",
-          message:
-            "Hey team! I've finished the initial designs for the new project. Take a look when you can.",
-          time: "10:32 AM",
-          isOwn: false,
-        },
-        {
-          id: 2,
-          user: "Kareem Hassan",
-          message: "Great work Omar! The color scheme looks perfect 👍",
-          time: "10:35 AM",
-          isOwn: true,
-        },
-        {
-          id: 3,
-          user: "Omar Ahmed",
-          avatar: "/images/Omar Ahmed.png",
-          message:
-            "Thanks! I was thinking we could add some subtle animations to make it more engaging.",
-          time: "10:36 AM",
-          isOwn: false,
-        },
-      ],
-    },
-    {
-      chatId: 2,
-      isgroup: false,
-      chat: [
-        {
-          id: 1,
-          user: "Sarah Ali",
-          avatar: "/images/Sarah Ali.png",
-          message:
-            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
-          time: "10:32 AM",
-          isOwn: false,
-        },
-        {
-          id: 2,
-          user: "Kareem Hassan",
-          message:
-            "Nice work, Sarah! The design layout is coming along really well.",
-          time: "10:35 AM",
-          isOwn: true,
-        },
-        {
-          id: 3,
-          user: "Sarah Ali",
-          avatar: "/images/Sarah Ali.png",
-          message:
-            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
-          time: "10:36 AM",
-          isOwn: false,
-        },
-      ],
-    },
-    {
-      chatId: 3,
-      isgroup: false,
-      chat: [
-        {
-          id: 1,
-          user: "Gamal Micheal",
-          avatar: "/images/gamal.png",
-          message:
-            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
-          time: "10:32 AM",
-          isOwn: false,
-        },
-        {
-          id: 2,
-          user: "Karem Hassan",
-          message:
-            "Nice work, Gamal! The design layout is coming along really well.",
-          time: "10:35 AM",
-          isOwn: true,
-        },
-        {
-          id: 3,
-          user: "Gamal Micheal",
-          avatar: "/images/gamal.png",
-          message:
-            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
-          time: "10:36 AM",
-          isOwn: false,
-        },
-      ],
-    },
-    {
-      chatId: 4,
-      isgroup: false,
-      chat: [
-        {
-          id: 1,
-          user: "Moataz Tamer",
-          avatar: "/images/moataz.png",
-          message:
-            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
-          time: "10:32 AM",
-          isOwn: false,
-        },
-        {
-          id: 2,
-          user: "Kareem Hassan",
-          message:
-            "Nice work, Moataz! The design layout is coming along really well.",
-          time: "10:35 AM",
-          isOwn: true,
-        },
-        {
-          id: 3,
-          user: "Moataz Tamer",
-          avatar: "/images/moataz.png",
-          message:
-            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
-          time: "10:36 AM",
-          isOwn: false,
-        },
-      ],
-    },
-    {
-      chatId: 5,
-      isgroup: false,
-      chat: [
-        {
-          id: 1,
-          user: "Amir Wagdy",
-          avatar: "/images/amir.png",
-          message:
-            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
-          time: "10:32 AM",
-          isOwn: false,
-        },
-        {
-          id: 2,
-          user: "Kareem Hassan",
-          message:
-            "Nice work, Amir! The design layout is coming along really well.",
-          time: "10:35 AM",
-          isOwn: true,
-        },
-        {
-          id: 3,
-          user: "Amir Wagdy",
-          avatar: "/images/amir.png",
-          message:
-            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
-          time: "10:36 AM",
-          isOwn: false,
-        },
-      ],
-    },
-    {
-      chatId: 6,
-      isgroup: false,
-      chat: [
-        {
-          id: 1,
-          user: "Mohamed Shawky",
-          avatar: "/images/mohamed.png",
-          message:
-            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
-          time: "10:32 AM",
-          isOwn: false,
-        },
-        {
-          id: 2,
-          user: "Kareem Hassan",
-          message:
-            "Nice work, Mohamed! The design layout is coming along really well.",
-          time: "10:35 AM",
-          isOwn: true,
-        },
-        {
-          id: 3,
-          user: "Mohamed Shawky",
-          avatar: "/images/mohamed.png",
-          message:
-            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
-          time: "10:36 AM",
-          isOwn: false,
-        },
-      ],
-    },
-    {
-      chatId: 7,
-      isgroup: false,
-      chat: [
-        {
-          id: 1,
-          user: "Eng. Sayed Safwet",
-          avatar: "/images/eng.sayed.png",
-          message:
-            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
-          time: "10:32 AM",
-          isOwn: false,
-        },
-        {
-          id: 2,
-          user: "Kareem Hassan",
-          message:
-            "Nice work, Eng. Sayed! The design layout is coming along really well.",
-          time: "10:35 AM",
-          isOwn: true,
-        },
-        {
-          id: 3,
-          user: "Eng. Sayed Safwet",
-          avatar: "/images/eng.sayed.png",
-          message:
-            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
-          time: "10:36 AM",
-          isOwn: false,
-        },
-      ],
-    },
-    {
-      chatId: 8,
-      isgroup: false,
-      chat: [
-        {
-          id: 1,
-          user: "Mai Mohamed",
-          avatar: "/images/mai.png",
-          message:
-            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
-          time: "10:32 AM",
-          isOwn: false,
-        },
-        {
-          id: 2,
-          user: "Kareem Hassan",
-          message:
-            "Nice work, Mai! The design layout is coming along really well.",
-          time: "10:35 AM",
-          isOwn: true,
-        },
-        {
-          id: 3,
-          user: "Mai Mohammed",
-          avatar: "/images/mai.png",
-          message:
-            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
-          time: "10:36 AM",
-          isOwn: false,
-        },
-      ],
-    },  
-    {
-      chatId: 9,
-      isgroup: false,
-      chat: [
-        {
-          id: 1,
-          user: "Kenzi Mohamed",
-          avatar: "/images/kenzi.png",
-          message:
-            "Hey team! I've just completed the initial mockups for the new project. Check them out when you get a chance.",
-          time: "10:32 AM",
-          isOwn: false,
-        },
-        {
-          id: 2,
-          user: "Kareem Hassan",
-          message:
-            "Nice work, Kenzi! The design layout is coming along really well.",
-          time: "10:35 AM",
-          isOwn: true,
-        },
-        {
-          id: 3,
-          user: "Kenzi Mohamed",
-          avatar: "/images/kenzi.png",
-          message:
-            "Thank you! I’m considering adding some smooth animations to make it more interactive.",
-          time: "10:36 AM",
-          isOwn: false,
-        },
-      ],
-    },
-    
-  ];
-  const scrollRef = useRef(null);
+import { useChatroom } from "../../../hooks/useChatroom";
+import authContext from "../../../authContext";
+import { useContext } from "react";
+
+// Individual message component to prevent full list rerenders
+const MessageItem = memo(({ message, isOwnMessage, displayName, messageTime, index }) => {
+  return (
+    <div
+      className={`message-item ${
+        isOwnMessage ? "own-message" : ""
+      } animate-fade-in`}
+      style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+    >
+      {!isOwnMessage && message.user && (
+        <img
+          src={message.user.avatar || "/default-avatar.png"}
+          alt={displayName}
+          className="message-avatar"
+          loading="lazy"
+        />
+      )}
+      <div className="message-content">
+        {!isOwnMessage && message.user && (
+          <div className="message-user">{displayName}</div>
+        )}
+        <div className="message-bubble">{message.message}</div>
+        <div className="message-time">{messageTime}</div>
+      </div>
+    </div>
+  );
+});
+
+// Message list component with stricter memoization
+const MessageList = memo(({ messages, currentUserId }) => {
+  // Pre-process messages once to derive all needed data
+  const processedMessages = useMemo(() => {
+    return messages.map((message, index) => {
+      const isOwnMessage = message.user?._id === currentUserId;
+      
+      const displayName = message.user ? (
+        message.user.firstName && message.user.lastName
+          ? `${message.user.firstName} ${message.user.lastName}`
+          : message.user.name || "Unknown User"
+      ) : "Unknown User";
+      
+      const messageTime = new Date(message.time).toLocaleTimeString([], { 
+        hour: '2-digit', 
+        minute: '2-digit'
+      });
+      
+      return {
+        message,
+        isOwnMessage,
+        displayName,
+        messageTime,
+        id: message._id || `message-${index}`,
+        index
+      };
+    });
+  }, [messages, currentUserId]);
+  
+  return (
+    <>
+      {processedMessages.map(({ message, isOwnMessage, displayName, messageTime, id, index }) => (
+        <MessageItem
+          key={id}
+          message={message}
+          isOwnMessage={isOwnMessage}
+          displayName={displayName}
+          messageTime={messageTime}
+          index={index}
+        />
+      ))}
+    </>
+  );
+});
+
+// Main MessageRoom component with optimized rendering
+const MessageRoom = memo(({ selectedChatId, setSelectedUser }) => {
+  // Get current user from auth context
+  const { user } = useContext(authContext);
+  
+  // Extract the current user ID for stable comparison
+  const currentUserId = useMemo(() => user?._id, [user?._id]);
+  
+  // Stable chatId reference to prevent unnecessary hook executions
+  const chatId = useMemo(() => selectedChatId, [selectedChatId]);
+  
+  // Fetch chat data using the custom hook
+  const {
+    data: chatData,
+    isLoading,
+    error,
+  } = useChatroom(chatId);
+  
+  // Memoize the messages array to prevent unnecessary re-renders
+  const messages = useMemo(() => chatData?.chat || [], [chatData?.chat]);
+  
+  // Update the selected user in the parent component when chat data changes
   useEffect(() => {
+    if (!chatData || isLoading) return;
+    
+    // Find the other user in the chat (not the current user)
+    if (chatData.participants && chatData.participants.length > 0) {
+      const otherUser = chatData.participants.find(
+        participant => participant._id !== currentUserId
+      );
+      
+      if (otherUser) {
+        setSelectedUser({
+          _id: otherUser._id,
+          firstName: otherUser.firstName || '',
+          lastName: otherUser.lastName || '',
+          name: otherUser.name || '',
+          avatar: otherUser.avatar || '/default-avatar.png'
+        });
+      }
+    }
+  }, [chatData, isLoading, currentUserId, setSelectedUser]);
+  
+  const scrollRef = useRef(null);
+  const messageCountRef = useRef(0);
+  
+  // Scroll handler with stable reference
+  const scrollToBottom = useCallback(() => {
+    if (!scrollRef.current) return;
+    
     const scrollElement = scrollRef.current;
     scrollElement.scrollTop = scrollElement.scrollHeight;
-  }, [currentChatId]);
+  }, []);
+  
+  // Only scroll if message count has increased
+  useEffect(() => {
+    const newMessageCount = messages.length;
+    
+    if (scrollRef.current && !isLoading && newMessageCount > 0 && 
+        (messageCountRef.current === 0 || newMessageCount > messageCountRef.current)) {
+      messageCountRef.current = newMessageCount;
+      scrollToBottom();
+    }
+  }, [messages.length, isLoading, scrollToBottom]);
+
+  if (isLoading) {
+    return <div className="message-list loading">Loading messages...</div>;
+  }
+
+  if (error) {
+    return <div className="message-list error">Error loading messages: {error.message}</div>;
+  }
+
+  if (!messages.length) {
+    return <div className="message-list empty">No messages in this conversation yet.</div>;
+  }
 
   return (
     <div className="message-list" ref={scrollRef}>
       <div className="messages-container">
-        {messages
-          .find((msg) => msg.chatId === currentChatId)
-          .chat.map((message, index) => (
-            <div
-              key={message.id}
-              className={`message-item ${
-                message.isOwn ? "own-message" : ""
-              } animate-fade-in`}
-              style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-            >
-              {!message.isOwn && (
-                <img
-                  src={message.avatar}
-                  alt={message.user}
-                  className="message-avatar"
-                />
-              )}
-              <div className="message-content">
-                {!message.isOwn && (
-                  <div className="message-user">{message.user}</div>
-                )}
-                <div className="message-bubble">{message.message}</div>
-                <div className="message-time">{message.time}</div>
-              </div>
-            </div>
-          ))}
+        <MessageList 
+          messages={messages} 
+          currentUserId={currentUserId} 
+        />
       </div>
     </div>
   );
-};
+});
 
 export default MessageRoom;

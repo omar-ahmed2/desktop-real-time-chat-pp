@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "./Contacts.css";
 import Sidebar from "../Chat/Sidebar/Sidebar";
 import { useUsers } from "../../hooks/useUsers";
-import { sendFriendRequest, removeFriend } from "../../hooks/friendSystem";
+import { sendFriendRequest, removeFriend } from "../../hooks/useFriendSystem";
 import authContext from "../../authContext";
 import getSocket from "../../socket"; // Import the socket
 
@@ -10,14 +10,12 @@ const Contacts = () => {
   const { user, addFriend, removeFriendAuth, setUser, fetchUserFromServer } =
     useContext(authContext);
   const { data: users, isloading, error } = useUsers();
-  console.log(user);
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestionSearchQuery, setSuggestionSearchQuery] = useState("");
   const [addedFriends, setAddedFriends] = useState([]);
   const [menuOpen, setMenuOpen] = useState(null);
   const [friends, setFriends] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
-  console.log(user.friends);
   
   // Fetch suggestions
   useEffect(() => {

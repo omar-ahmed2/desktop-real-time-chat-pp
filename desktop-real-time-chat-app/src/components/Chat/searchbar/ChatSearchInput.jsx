@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
-import searchclasses from './searchbar.module.css';
+import React from 'react';
+import searchclasses from './Searchbar.module.css';
 
 const ChatSearchInput = ({ searchTerm, setSearchTerm }) => {
-  
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   return (
-
-
-      <div className={searchclasses.InputSearchContainer}>
-        <input placeholder="Search name ..." className={searchclasses.inputSearchuser} type="text"
-         value={searchTerm}
-         onChange={(e) => setSearchTerm(e.target.value)} />
-         
-      </div>
-      
+    <div className={searchclasses.InputSearchContainer}>
+      <input 
+        type="text"
+        className={searchclasses.inputSearchuser}
+        placeholder="Search name ..." 
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
+    </div>
   );
-
-
 };
 
-
 export default ChatSearchInput;
-

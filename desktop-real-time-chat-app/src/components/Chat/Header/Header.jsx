@@ -1,38 +1,47 @@
 import React from 'react';
 import './Header.css';
-import GroupCreation from '../../Groups/groupCreation';
 
 const Header = ({ selectedUser }) => {
+  if (!selectedUser) {
+    return (
+      <div className="chat-header">
+        <div className="header-left animate-fade-in">
+          <div className="team-info">
+            <span>Select a user to start chatting</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Display the user's full name or fallback to username
+  const displayName = selectedUser.firstName && selectedUser.lastName 
+    ? `${selectedUser.firstName} ${selectedUser.lastName}`
+    : selectedUser.name || 'Unknown User';
+  
   return (
     <div className="chat-header">
       <div className="header-left animate-fade-in">
         <div className="team-info">
-          {/* تأكد من أن الـ selectedUser موجود وبه قيمة */}
-          {selectedUser ? (
-            <>
-              <h2 className="team-name">{selectedUser.name}</h2>
-              <div className="online-users">
-                <div className="avatar-stack">
-                  {/* عرض صورة المستخدم */}
-                  {selectedUser.profilePic ? (
-                    <img
-                      src={selectedUser.profilePic} // استخدام الصورة من البيانات
-                      alt={selectedUser.name}
-                      className="avatar"
-                    />
-                  ) : (
-                    <div className="avatar-placeholder">No Image</div> // في حالة مفيش صورة
-                  )}
+          <h2 className="team-name">{displayName}</h2>
+          <div className="online-users">
+            <div className="avatar-stack">
+              {selectedUser.avatar ? (
+                <img
+                  src={selectedUser.avatar}
+                  alt={displayName}
+                  className="avatar"
+                />
+              ) : (
+                <div className="avatar-placeholder">
+                  {displayName.charAt(0)}
                 </div>
-                <span className="online-count">Online</span>
-              </div>
-            </>
-          ) : (
-            <span>Select a user</span> // في حالة ما مفيش مستخدم مختار
-          )}
+              )}
+            </div>
+            <span className="online-count">Online</span>
+          </div>
         </div>
       </div>
-      <GroupCreation />
     </div>
   );
 };

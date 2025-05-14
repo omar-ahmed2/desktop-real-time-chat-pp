@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
   friendsReceived:{ type: [mongoose.Schema.Types.ObjectId], ref: 'User', default: [] },
   groups:          { type: [String], default: [] },
   groupsOwned:    { type: [String], default: [] },
-  chatroom:       { type: [String], default: [] },
 });
 
 const User = mongoose.model('User', userSchema);
