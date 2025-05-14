@@ -5,7 +5,6 @@ import getSocket from '../socket';
 const fetchChatList = async () => {
   const token = sessionStorage.getItem('token');
   const user = JSON.parse(sessionStorage.getItem('user'));
-  console.log("from socketListner");
   
   // Ensure token and user are present
   if (!token || !user) {
@@ -43,10 +42,19 @@ export const useChatList = () => {
       queryClient.invalidateQueries({ queryKey: ['chatlist'] });
     };
     
+    // Also listen for new messages to update the chat list with latest messages
+    const handleNewMessage = (data) => {
+      console.log('New message received, updating chat list');
+      // Force a refetch of the chat list to get updated lastMessage
+      queryClient.invalidateQueries({ queryKey: ['chatlist'] });
+    };
+    
     socket.on('chat_deleted', handleChatDeleted);
+    socket.on('new_message', handleNewMessage);
     
     return () => {
       socket.off('chat_deleted', handleChatDeleted);
+      socket.off('new_message', handleNewMessage);
     };
   }, [queryClient]);
   

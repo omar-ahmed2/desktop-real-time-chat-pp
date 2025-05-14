@@ -32,7 +32,7 @@ const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading }) => {
   }), [handleUserSelect, searchTerm, chatList, isLoading]);
 
   return (
-    <div className="chat-right-sidebar" className='mobile-chat-container'>
+    <div className='chat-right-sidebar mobile-chat-container'>
 
       <MediaQuery maxWidth={1225}>
           <div className="sidebar-header animate-fade-in">

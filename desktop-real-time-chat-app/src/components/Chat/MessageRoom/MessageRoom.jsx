@@ -5,161 +5,219 @@ import authContext from "../../../authContext";
 import { useContext } from "react";
 
 // Individual message component to prevent full list rerenders
-const MessageItem = memo(({ message, isOwnMessage, displayName, messageTime, index }) => {
-  return (
-    <div
-      className={`message-item ${
-        isOwnMessage ? "own-message" : ""
-      } animate-fade-in`}
-      style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-    >
-      {!isOwnMessage && message.user && (
-        <img
-          src={message.user.avatar || "/default-avatar.png"}
-          alt={displayName}
-          className="message-avatar"
-          loading="lazy"
-        />
-      )}
-      <div className="message-content">
-        {!isOwnMessage && message.user && (
-          <div className="message-user">{displayName}</div>
+const MessageItem = memo(
+  ({ message, isOwnMessage, displayName, messageTime, isNewMessage }) => {
+    return (
+      <div
+        className={`message-item ${
+          isOwnMessage ? "own-message" : ""
+        } animate-fade-in`}
+        style={{ animationDelay: isNewMessage ? "0.1s" : "0s" }}
+      >
+        {!isOwnMessage && (
+          <img
+            src={message.user?.avatar || "/default-avatar.png"}
+            alt={displayName}
+            className="message-avatar"
+            loading="lazy"
+          />
         )}
-        <div className="message-bubble">{message.message}</div>
-        <div className="message-time">{messageTime}</div>
+        <div className="message-content">
+          {!isOwnMessage && <div className="message-user">{displayName}</div>}
+          <div className="message-bubble">{message.message}</div>
+          <div className="message-time">{messageTime}</div>
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
-// Message list component with stricter memoization
-const MessageList = memo(({ messages, currentUserId }) => {
-  // Pre-process messages once to derive all needed data
+const MessageList = memo(({ messages, currentUserId, newMessageIds }) => {
   const processedMessages = useMemo(() => {
     return messages.map((message, index) => {
       const isOwnMessage = message.user?._id === currentUserId;
-      
-      const displayName = message.user ? (
-        message.user.firstName && message.user.lastName
+
+      const displayName = message.user
+        ? message.user.firstName && message.user.lastName
           ? `${message.user.firstName} ${message.user.lastName}`
-          : message.user.name || "Unknown User"
-      ) : "Unknown User";
-      
-      const messageTime = new Date(message.time).toLocaleTimeString([], { 
-        hour: '2-digit', 
-        minute: '2-digit'
+          : message.user.name ||
+            (message.user._id === currentUserId ? "You" : "User")
+        : message.userId === currentUserId
+        ? "You"
+        : "User";
+
+      const messageTime = new Date(message.time).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
       });
-      
+
+      const isNewMessage = newMessageIds.has(message._id); //checks for new message to animate
+
       return {
         message,
         isOwnMessage,
         displayName,
         messageTime,
         id: message._id || `message-${index}`,
-        index
+        isNewMessage,
       };
     });
-  }, [messages, currentUserId]);
-  
+  }, [messages, currentUserId, newMessageIds]);
+
   return (
     <>
-      {processedMessages.map(({ message, isOwnMessage, displayName, messageTime, id, index }) => (
-        <MessageItem
-          key={id}
-          message={message}
-          isOwnMessage={isOwnMessage}
-          displayName={displayName}
-          messageTime={messageTime}
-          index={index}
-        />
-      ))}
+      {processedMessages.map(
+        ({
+          message,
+          isOwnMessage,
+          displayName,
+          messageTime,
+          id,
+          isNewMessage,
+        }) => (
+          <MessageItem
+            key={id}
+            message={message}
+            isOwnMessage={isOwnMessage}
+            displayName={displayName}
+            messageTime={messageTime}
+            isNewMessage={isNewMessage}
+          />
+        )
+      )}
     </>
   );
 });
 
-// Main MessageRoom component with optimized rendering
 const MessageRoom = memo(({ selectedChatId, setSelectedUser }) => {
-  // Get current user from auth context
   const { user } = useContext(authContext);
-  
-  // Extract the current user ID for stable comparison
+
   const currentUserId = useMemo(() => user?._id, [user?._id]);
-  
-  // Stable chatId reference to prevent unnecessary hook executions
+
   const chatId = useMemo(() => selectedChatId, [selectedChatId]);
-  
-  // Fetch chat data using the custom hook
-  const {
-    data: chatData,
-    isLoading,
-    error,
-  } = useChatroom(chatId);
-  
-  // Memoize the messages array to prevent unnecessary re-renders
+
+  const { data: chatData, isLoading, error } = useChatroom(chatId);
+
   const messages = useMemo(() => chatData?.chat || [], [chatData?.chat]);
-  
-  // Update the selected user in the parent component when chat data changes
+
+  const newMessageIdsRef = useRef(new Set()); //to prevent rerender
+  const prevMessageIdsRef = useRef(new Set());
+  const initialRenderRef = useRef(true);
+  const animationTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    if (!messages.length) return;
+
+    if (initialRenderRef.current) {
+      prevMessageIdsRef.current = new Set(messages.map((msg) => msg._id));
+      initialRenderRef.current = false;
+      return;
+    }
+
+    const currentMessageIds = new Set(messages.map((msg) => msg._id));
+
+    currentMessageIds.forEach((id) => {
+      if (!prevMessageIdsRef.current.has(id)) {
+        newMessageIdsRef.current.add(id);
+      }
+    });
+
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+    }
+
+    if (newMessageIdsRef.current.size > 0) {
+      animationTimeoutRef.current = setTimeout(() => {
+        newMessageIdsRef.current = new Set();
+        forceUpdate();
+      }, 1000);
+    }
+
+    prevMessageIdsRef.current = currentMessageIds;
+  }, [messages]);
+
+  useEffect(() => {
+    initialRenderRef.current = true;
+    prevMessageIdsRef.current = new Set();
+    newMessageIdsRef.current = new Set();
+
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+      animationTimeoutRef.current = null;
+    }
+  }, [selectedChatId]);
+
+  const [, forceRender] = React.useState({});
+  const forceUpdate = useCallback(() => forceRender({}), []);
+
   useEffect(() => {
     if (!chatData || isLoading) return;
-    
-    // Find the other user in the chat (not the current user)
+
     if (chatData.participants && chatData.participants.length > 0) {
       const otherUser = chatData.participants.find(
-        participant => participant._id !== currentUserId
+        (participant) => participant._id !== currentUserId
       );
-      
+
       if (otherUser) {
         setSelectedUser({
           _id: otherUser._id,
-          firstName: otherUser.firstName || '',
-          lastName: otherUser.lastName || '',
-          name: otherUser.name || '',
-          avatar: otherUser.avatar || '/default-avatar.png'
+          firstName: otherUser.firstName || "",
+          lastName: otherUser.lastName || "",
+          name: otherUser.name || "",
+          avatar: otherUser.avatar || "/default-avatar.png",
         });
       }
     }
   }, [chatData, isLoading, currentUserId, setSelectedUser]);
-  
+
   const scrollRef = useRef(null);
-  const messageCountRef = useRef(0);
-  
-  // Scroll handler with stable reference
+
   const scrollToBottom = useCallback(() => {
     if (!scrollRef.current) return;
-    
+
     const scrollElement = scrollRef.current;
     scrollElement.scrollTop = scrollElement.scrollHeight;
   }, []);
-  
-  // Only scroll if message count has increased
+
   useEffect(() => {
-    const newMessageCount = messages.length;
-    
-    if (scrollRef.current && !isLoading && newMessageCount > 0 && 
-        (messageCountRef.current === 0 || newMessageCount > messageCountRef.current)) {
-      messageCountRef.current = newMessageCount;
+    if (scrollRef.current && !isLoading && newMessageIdsRef.current.size > 0) {
       scrollToBottom();
     }
-  }, [messages.length, isLoading, scrollToBottom]);
+  }, [isLoading, scrollToBottom, messages]);
+
+  useEffect(() => {
+    if (scrollRef.current && !isLoading && messages.length > 0) {
+      scrollToBottom();
+    }
+  }, [isLoading, messages.length, scrollToBottom]);
 
   if (isLoading) {
     return <div className="message-list loading">Loading messages...</div>;
   }
 
   if (error) {
-    return <div className="message-list error">Error loading messages: {error.message}</div>;
+    return (
+      <div className="message-list error">
+        Error loading messages: {error.message}
+      </div>
+    );
   }
 
   if (!messages.length) {
-    return <div className="message-list empty">No messages in this conversation yet.</div>;
+    return (
+      <div className="message-list empty">
+        No messages in this conversation yet.
+      </div>
+    );
   }
 
   return (
     <div className="message-list" ref={scrollRef}>
       <div className="messages-container">
-        <MessageList 
-          messages={messages} 
-          currentUserId={currentUserId} 
+        <MessageList
+          messages={messages}
+          currentUserId={currentUserId}
+          newMessageIds={newMessageIdsRef.current}
         />
       </div>
     </div>

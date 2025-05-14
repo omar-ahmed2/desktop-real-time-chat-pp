@@ -6,8 +6,10 @@ import { sendFriendRequest, removeFriend } from "../../hooks/useFriendSystem";
 import authContext from "../../authContext";
 import getSocket from "../../socket"; // Import the socket
 import MediaQuery from "react-responsive";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
 const Contacts = () => {
+  const navigate = useNavigate(); // Initialize useNavigate hook
   const { user, addFriend, removeFriendAuth, setUser, fetchUserFromServer } =
     useContext(authContext);
   const { data: users, isloading, error } = useUsers();
@@ -114,6 +116,12 @@ const Contacts = () => {
         break;
     }
     setMenuOpen(null);
+  };
+
+  // New function to handle messaging a friend
+  const handleMessageFriend = (friend) => {
+    // Navigate to the chat page
+    navigate('/chat');
   };
 
   const filteredFriends = searchQuery
@@ -226,7 +234,12 @@ const Contacts = () => {
                     )}
                   </div>
                   <div className="friend-actions">
-                    <button className="message-btn">Message</button>
+                    <button 
+                      className="message-btn"
+                      onClick={() => handleMessageFriend(friend)}
+                    >
+                      Message
+                    </button>
                     <button
                       className="menu-btn"
                       onClick={() => handleMenuClick(friend._id)}

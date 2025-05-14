@@ -1,5 +1,5 @@
-import React, { useContext, useMemo, memo, useCallback } from 'react';
-import { useState } from 'react';
+import React, { useContext, memo, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useChatList } from '../../hooks/useChatList';
 import authContext from "../../authContext";
 
@@ -12,6 +12,9 @@ const ChatItem = memo(({ chatData, onSelectUser, isHolding, handleMouseDown, han
     ? `${displayUser.firstName} ${displayUser.lastName}`
     : displayUser.name || "Unknown User";
   
+  // Fix: Extract message content correctly from lastMessage object
+  const messagePreview = lastMessage?.message || lastMessage?.content || "Start a conversation";
+  
   return (
     <div
       key={_id}
@@ -20,7 +23,7 @@ const ChatItem = memo(({ chatData, onSelectUser, isHolding, handleMouseDown, han
       onMouseLeave={handleMouseLeave}
       onTouchStart={() => handleMouseDown(_id)}
       onTouchEnd={handleMouseUp}
-      onClick={() => onSelectUser(_id)} // Pass just the ID to the parent component
+      onClick={() => onSelectUser(_id, displayUser)} // Pass both ID and user data
       className={`hover:bg-gray-200 transition duration-300 flex items-center gap-3 p-2 cursor-pointer ${
         isHolding ? 'bg-gray-400' : 'bg-white text-black'
       }`}
@@ -44,7 +47,7 @@ const ChatItem = memo(({ chatData, onSelectUser, isHolding, handleMouseDown, han
       <div className="overflow-hidden flex-grow">
         <h4 className="text-base font-medium m-0 truncate">{displayName}</h4>
         <p className="text-sm text-gray-500 m-0 truncate">
-          {lastMessage?.content || "Start a conversation"}
+          {messagePreview}
         </p>
       </div>
     </div>
@@ -52,7 +55,7 @@ const ChatItem = memo(({ chatData, onSelectUser, isHolding, handleMouseDown, han
 });
 
 // Main ChatList component with improved virtualization approach
-const ChatList = memo(({ onSelectUser, searchTerm = '' }) => {
+const ChatList = memo(({ onSelectUser, searchTerm = '', selectedUser }) => {
   const { user } = useContext(authContext);
   const [holdingChatId, setHoldingChatId] = useState(null);
   const { data: chatList, isLoading, error } = useChatList();
@@ -61,8 +64,8 @@ const ChatList = memo(({ onSelectUser, searchTerm = '' }) => {
   const handleMouseUp = useCallback(() => setHoldingChatId(null), []);
   const handleMouseLeave = useCallback(() => setHoldingChatId(null), []);
   
-  // Memoize the processed and filtered chat list
-  const processedChats = useMemo(() => {
+  // Process chat list for display
+  const processedChats = React.useMemo(() => {
     if (!chatList || !user?._id) return [];
     
     // Create a map to track unique chats by participant ID
@@ -86,8 +89,11 @@ const ChatList = memo(({ onSelectUser, searchTerm = '' }) => {
         const otherUserId = otherUser._id?.toString();
         
         if (otherUserId) {
+          // Fix: Check for any lastMessage property available
           if (!uniqueChats.has(otherUserId) || 
-              (chat.lastMessage?.time > uniqueChats.get(otherUserId).lastMessage?.time)) {
+              (chat.lastMessage && uniqueChats.get(otherUserId).lastMessage &&
+               (chat.lastMessage.time > uniqueChats.get(otherUserId).lastMessage.time || 
+                chat.lastMessage.createdAt > uniqueChats.get(otherUserId).lastMessage.createdAt))) {
             uniqueChats.set(otherUserId, {
               ...chat,
               displayUser: otherUser

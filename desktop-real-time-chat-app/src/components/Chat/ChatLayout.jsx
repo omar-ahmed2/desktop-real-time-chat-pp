@@ -1,6 +1,4 @@
-// ChatLayout.jsx - Updated version
-
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import './ChatLayout.css';
 import Sidebar from './Sidebar/Sidebar';
 import Header from './Header/Header';
@@ -17,7 +15,7 @@ const ChatLayout = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   
   // Fetch the chat list - the ChatRightSidebar will use this to set the default chat
-  const { data: chatList, isLoading } = useChatList();
+  const { data: chatList, isLoading} = useChatList();
 
   return (
     <div className="chat-layout-container">
@@ -35,17 +33,20 @@ const ChatLayout = () => {
                   setSelectedUser={setSelectedUser}
                 />
               )}
-              <MessageInput />
+              <MessageInput 
+                chatId={selectedChatId} 
+                selectedUser={selectedUser} 
+              />
             </div>
           </MediaQuery>
 
-          
-
-          <div className="right-sidebar flex flex-col h-full ">
+          <div className="right-sidebar flex flex-col h-full">
             <ChatRightSidebar
               setSelectedChatId={setSelectedChatId}
               chatList={chatList}
               isLoading={isLoading}
+              selectedUser={selectedUser}
+              setSelectedUser={setSelectedUser}
             />
           </div>
           <MediaQuery maxWidth={1225}>
