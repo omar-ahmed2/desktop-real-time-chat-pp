@@ -9,7 +9,7 @@ import MediaQuery from 'react-responsive';
 import { useChatList } from '../../hooks/useChatList'; // Import the hook for chat list
 
 const ChatLayout = () => {
-  // Use a single state variable for the selected chat
+// Use a single state variable for the selected chat
   const [selectedChatId, setSelectedChatId] = useState(null);
   // State for selected user details (name, avatar, etc.)
   const [selectedUser, setSelectedUser] = useState(null);
@@ -22,6 +22,7 @@ const ChatLayout = () => {
   
   // When a chat is selected on mobile, show the chat view
   useEffect(() => {
+    console.log("i wanna cry");
     if (selectedChatId && window.innerWidth <= 600) {
       setIsMobileChatOpen(true);
     }

@@ -5,7 +5,7 @@ import MediaQuery from "react-responsive";
 
 const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [chatID,setChatID]= useState("");
   // Auto-select the first chat when the chat list loads
   // Only do this on desktop, not on mobile
   useEffect(() => {
@@ -16,16 +16,19 @@ const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading }) => {
       window.innerWidth > 600
     ) {
       // Auto-select the first chat from the list
+      if(!chatID ){
       setSelectedChatId(
         chatList[0]._id,
         chatList[0].participants?.find((p) => p._id !== chatList[0].ownerId)
       );
+    }
     }
   }, [chatList, isLoading, setSelectedChatId]);
 
   // Function to handle user selection from the chat list
   const handleUserSelect = (chatId, userData) => {
     if (chatId) {
+      setChatID(chatId);
       // Set the selected chat ID and pass the user data
       setSelectedChatId(chatId, userData);
     }
