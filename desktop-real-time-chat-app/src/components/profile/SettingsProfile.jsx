@@ -6,22 +6,25 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SettingsProfile = () => {
-<<<<<<< HEAD:desktop-real-time-chat-app/src/components/profile/SettingsProfile.jsx
-  const { logout } = useContext(AuthContext);
+  const { logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [profilePic, setProfilePic] = useState(null);
-  const [name, setName] = useState("John Doe");
-=======
-  const { logout , user} = useContext(AuthContext);
-  const [profilePic, setProfilePic] = useState(user.avatar);
-  const [name, setName] = useState(`${user.firstName} ${user.lastName}`);
->>>>>>> f6d8ac7f99ac3cf9ab6bcd9331fab08caa66d8ae:desktop-real-time-chat-app/src/components/Settings/SettingsProfile/SettingsProfile.jsx
-  const [status, setStatus] = useState("Hey there! I am using WhatsApp.");
-  const [phone, setPhone] = useState(user.phone);
+  const [profilePic, setProfilePic] = useState(user?.avatar || null);
+  const [name, setName] = useState(user ? `${user.firstName} ${user.lastName}` : "");
+  const [status, setStatus] = useState("Hey there! I am using Chatty.");
+  const [phone, setPhone] = useState(user?.phone || "");
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        alert("File size should be less than 5MB");
+        return;
+      }
+      const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      if (!validTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG, PNG, or GIF)");
+        return;
+      }
       setProfilePic(URL.createObjectURL(file));
     }
   };
@@ -32,6 +35,11 @@ const SettingsProfile = () => {
 
   const handleBackToChat = () => {
     navigate('/chat');
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   return (
@@ -100,7 +108,7 @@ const SettingsProfile = () => {
           </div>
         </div>
 
-        <button className="logout-btn" onClick={logout}>
+        <button className="logout-btn" onClick={handleLogout}>
           <FaSignOutAlt /> Log Out
         </button>
       </div>
