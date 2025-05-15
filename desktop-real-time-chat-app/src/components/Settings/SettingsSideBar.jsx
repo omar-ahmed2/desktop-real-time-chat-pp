@@ -14,8 +14,6 @@ const Sidebar = ({ selected, onSelect, onBack }) => {
   const sections = [
     { id: "general", label: "General", icon: <FaDesktop /> },
     { id: "account", label: "Account", icon: <FaLock /> },
-    { id: "privacy", label: "Privacy", icon: <FaLock /> },
-    { id: "notifications", label: "Notifications", icon: <FaBell /> },
     { id: "appearance", label: "Appearance", icon: <FaPalette /> },
   ];
 

@@ -22,7 +22,6 @@ const ChatLayout = () => {
   
   // When a chat is selected on mobile, show the chat view
   useEffect(() => {
-    console.log("i wanna cry");
     if (selectedChatId && window.innerWidth <= 600) {
       setIsMobileChatOpen(true);
     }

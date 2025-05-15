@@ -4,11 +4,11 @@ import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import AuthContext from "../../../authContext.jsx";
 import { useContext } from "react";
 const SettingsProfile = () => {
-  const { logout } = useContext(AuthContext);
-  const [profilePic, setProfilePic] = useState(null);
-  const [name, setName] = useState("John Doe");
+  const { logout , user} = useContext(AuthContext);
+  const [profilePic, setProfilePic] = useState(user.avatar);
+  const [name, setName] = useState(`${user.firstName} ${user.lastName}`);
   const [status, setStatus] = useState("Hey there! I am using WhatsApp.");
-  const [phone, setPhone] = useState("+1234567890");
+  const [phone, setPhone] = useState(user.phone);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];

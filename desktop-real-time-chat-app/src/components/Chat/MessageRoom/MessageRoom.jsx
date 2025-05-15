@@ -14,6 +14,7 @@ const MessageItem = memo(
         } animate-fade-in`}
         style={{ animationDelay: isNewMessage ? "0.1s" : "0s" }}
       >
+
         {!isOwnMessage && (
           <img
             src={message.user?.avatar || "/default-avatar.png"}

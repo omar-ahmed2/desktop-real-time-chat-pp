@@ -1,11 +1,17 @@
-
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { io } from "../server.js";
 export const registerUser = async (req, res) => {
-  const { firstName, lastName, email, phone, password, confirmPassword , avatar} =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    password,
+    confirmPassword,
+    avatar,
+  } = req.body;
   console.log(req.body);
   if (
     !firstName ||
@@ -32,12 +38,18 @@ export const registerUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const seed = `${firstName}${lastName}`.toLowerCase().replace(/\s+/g, "");
+    const defaultAvatar = `https://api.dicebear.com/6.x/adventurer/svg?seed=${encodeURIComponent(
+      seed
+    )}`;
+    
+
     const newUser = new User({
       firstName,
       lastName,
       email,
       phone,
-      avatar,
+      avatar: avatar || defaultAvatar,
       password: hashedPassword,
       friends: [],
       friendsSent: [],
@@ -82,7 +94,6 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "10h",
     });
-    
 
     res.status(200).json({ message: "Login successful", user, token });
   } catch (err) {
