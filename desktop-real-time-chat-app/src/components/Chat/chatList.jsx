@@ -14,7 +14,7 @@ const ChatItem = memo(({ chatData, onSelectUser, isHolding, handleMouseDown, han
   
   // Fix: Extract message content correctly from lastMessage object
   const messagePreview = lastMessage?.message || lastMessage?.content || "Start a conversation";
-  
+
   return (
     <div
       key={_id}
