@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "./SettingsProfile.css";
-import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
-import AuthContext from "../../../authContext.jsx";
+import { FaUserCircle, FaSignOutAlt, FaArrowLeft } from "react-icons/fa";
+import AuthContext from "../../authContext.jsx";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 const SettingsProfile = () => {
   const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [profilePic, setProfilePic] = useState(null);
   const [name, setName] = useState("John Doe");
   const [status, setStatus] = useState("Hey there! I am using WhatsApp.");
@@ -21,8 +24,15 @@ const SettingsProfile = () => {
     setProfilePic(null);
   };
 
+  const handleBackToChat = () => {
+    navigate('/chat');
+  };
+
   return (
     <div className="profile-settings">
+      <button className="back-button" onClick={handleBackToChat}>
+        <FaArrowLeft /> Back to Chat
+      </button>
       <div className="profile-header">
         <div className="profile-pic">
           {profilePic ? (

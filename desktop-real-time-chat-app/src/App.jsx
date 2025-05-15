@@ -4,7 +4,7 @@ import SignIn from "./components/login/signup/SignIn/SignIn";
 import SignUp from "./components/login/signup/SignUp/SignUp";
 import Submission from "./components/login/signup/Submission/Submission";
 import ChatLayout from "./components/Chat/ChatLayout";
-import Settings from "./components/Settings/Settings";
+import SettingsProfile from "./components/profile/SettingsProfile";
 import Contacts from "./components/Contacts/Contacts";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -58,10 +58,10 @@ const App = () => {
                 }
               />
               <Route
-                path="/settings"
+                path="/profile"
                 element={
                   <ProtectedRoute>
-                    <Settings />
+                    <SettingsProfile />
                   </ProtectedRoute>
                 }
               />

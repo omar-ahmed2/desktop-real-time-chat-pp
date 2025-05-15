@@ -7,7 +7,7 @@
   background-color: #ffffff;
   border-radius: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  width: 100vw;
+  width: 100%;
   max-width: 600px;
   margin: auto;
   transition: all 0.3s ease;
@@ -15,7 +15,6 @@
   position: relative;
   height: fit-content;
   overflow-y: auto;
-  height: 100%;
 }
 
 .profile-settings:hover {
@@ -35,11 +34,11 @@
 .profile-pic {
   position: relative;
   display: inline-block;
-  width: 120px;
-  height: 120px;
-  margin-bottom: 10px;
-  border-radius: 50%;
-  overflow: hidden;
+  padding: auto;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 60%;
+
 }
 
 .profile-pic img {
@@ -172,124 +171,121 @@ p {
   font-size: 18px;
 }
 
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #b83acf;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
 
+.back-button:hover {
+  background-color: #9b2a8d;
+}
 
-@media (max-width: 1140px) and (min-width: 767px) {
+.back-button svg {
+  font-size: 16px;
+}
+
+/* Media Queries for Responsive Design */
+
+@media (min-width: 1200px) {
   .profile-settings {
-    width: 85vw; /* Adjust width for medium screens */
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 992px) {
+  .profile-settings {
+    width: 75%;
     padding: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adjust shadow for smaller screens */
+  }
+
+  .profile-header {
+    font-size: 22px;
   }
 
   .profile-pic {
-    width: 100px; /* Adjust profile pic size */
+    width: 100px;
     height: 100px;
   }
 
-  .profile-header {
-    font-size: 22px; /* Adjust header font size */
-  }
-
   h3 {
-    font-size: 20px; /* Adjust name font size */
+    font-size: 18px;
   }
 
   p {
-    font-size: 13px; 
-  }
-
-  .editable-field input {
-    font-size: 15px;
-    padding: 10px; 
-  }
-
-  .logout-btn {
-    width: 60%; 
-    font-size: 15px;
-  }
-
-  .photo-buttons .btn {
     font-size: 13px;
-    padding: 6px 10px; 
-  }
-}
-
-
-@media (max-width: 1024px) {
-  .profile-settings {
-    width: 60vw;
-  }
-
-  .profile-pic {
-    width: 150px;
-    height: 150px;
-  }
-
-  .profile-header {
-    font-size: 28px;
-  }
-
-  h3 {
-    font-size: 24px;
-  }
-
-  p {
-    font-size: 16px;
   }
 
   .editable-field input {
-    font-size: 18px;
-    padding: 14px;
-  }
-
-  input {
-    font-size: 16px;
-    width: 100%;
+    font-size: 14px;
+    padding: 10px;
   }
 
   .logout-btn {
-    font-size: 18px;
-    width: 60%;
+    font-size: 14px;
+    width: 70%;
   }
 
   .photo-buttons .btn {
-    font-size: 16px;
-    padding: 10px 14px;
+    font-size: 12px;
+    padding: 6px 10px;
   }
 }
 
-@media (max-width: 950px){
-  
-  .editable-field {
-    width: 100%;
+@media (max-width: 576px) {
+  .profile-settings {
+    width: 95%;
+    padding: 15px;
   }
-  
-}
 
-@media (max-width: 900px){
   .profile-header {
-    font-size: 24px;
-  }
-  h3 {
     font-size: 20px;
   }
-  p {
-    font-size: 14px;
-  }
-  .editable-field input {
+
+
+  h3 {
     font-size: 16px;
-    padding: 12px;
-  }
-  .logout-btn {
-    font-size: 16px;
-    width: 60%;
-  }
-  .photo-buttons .btn {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-  .editable-field {
-    width: 90%;
   }
 
+  p {
+    font-size: 12px;
+  }
+
+  .editable-field input {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .logout-btn {
+    font-size: 12px;
+    width: 80%;
+  }
+
+  .photo-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .photo-buttons .btn {
+    font-size: 12px;
+    padding: 6px 10px;
+    width: 100%; 
+    text-align: center;
+  }
+
+  .back-button {
+    position: static;
+    margin-bottom: 10px;
+  }
 }
