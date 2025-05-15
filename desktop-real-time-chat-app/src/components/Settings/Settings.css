@@ -52,7 +52,9 @@
 
   /* Back button and header appear from top */
   
-  .back-button,
+  .back-button{
+    background: 0;
+  }
   .sidebar_header {
     opacity: 0;
     transform: translateY(-30px);
