@@ -72,7 +72,7 @@ const SettingsProfile = () => {
         <FaArrowLeft /> Back to Chat
       </button>
       <div className="profile-header">
-        <div className="profile-pic">
+        <div className>
           {profilePic ? (
             <img src={profilePic} alt="Profile" />
           ) : (
@@ -86,6 +86,7 @@ const SettingsProfile = () => {
             id="upload-photo"
             onChange={handleImageChange}
             style={{ display: "none" }}
+            className="upload-photo"
           />
           <label htmlFor="upload-photo" className="btn change-btn">
             Change Photo
