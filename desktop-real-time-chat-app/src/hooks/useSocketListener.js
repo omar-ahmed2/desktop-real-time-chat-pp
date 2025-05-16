@@ -172,8 +172,6 @@ const useSocketListeners = () => {
         console.log("this is the user",user);
         queryClient.removeQueries({ queryKey: ["chatlist"] });
         queryClient.invalidateQueries({ queryKey: ["chatlist"] });
-        queryClient.removeQueries({ queryKey: ["chatRoom"] });
-        queryClient.invalidateQueries({ queryKey: ["chatRoom"] });
       }
       await queryClient.refetchQueries({ queryKey: ["users"] });
     });

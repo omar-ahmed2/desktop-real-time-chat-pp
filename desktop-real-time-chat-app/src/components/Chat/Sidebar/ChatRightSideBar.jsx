@@ -1,9 +1,16 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useContext,
+} from "react";
 import ChatList from "../chatList";
 import ChatSearchInput from "../searchbar/ChatSearchInput";
 import MediaQuery from "react-responsive";
-
+import AuthContext from "../../../authContext";
 const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading }) => {
+  const { user } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [chatID, setChatID] = useState("");
 
@@ -18,14 +25,13 @@ const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading }) => {
     ) {
       const firstChat = chatList[0];
       const participant = firstChat.participants?.find(
-        (p) => p._id !== firstChat.ownerId
+        (p) => p._id !== user._id
       );
 
       setSelectedChatId(firstChat._id, participant);
       setChatID(firstChat._id);
     }
   }, [chatList, isLoading, setSelectedChatId, chatID]);
-
   // Use useCallback so handleUserSelect has stable reference for memo
   const handleUserSelect = useCallback(
     (chatId, userData) => {
@@ -60,7 +66,10 @@ const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading }) => {
       </MediaQuery>
 
       <div className="search-container">
-        <ChatSearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <ChatSearchInput
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
       </div>
 
       <div className="flex">

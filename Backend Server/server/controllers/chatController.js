@@ -12,7 +12,7 @@ export const fetchChatList = async (req, res) => {
       participants: userId,
     })
       .select("chatroom participants lastMessage")
-      .populate("participants", "name firstName lastName avatar")
+      .populate("participants", "firstName lastName avatar activity")
       .sort({ "lastMessage.time": -1 });
     console.log(`Found ${chatList.length} chats for user ${userId}`);
 
@@ -32,15 +32,15 @@ export const fetchChat = async (req, res) => {
         .select("chat participants lastMessage")
         .populate({
           path: "chat",
-          select: "id user avatar message time",
+          select: "id avatar message time",
           populate: {
             path: "user",
-            select: "name firstName lastName avatar _id",
+            select: "firstName lastName avatar _id activity",
           },
         })
         .populate({
           path: "participants",
-          select: "name firstName lastName avatar _id",
+          select: "firstName lastName avatar _id activity",
         })
         .sort({ "lastMessage.time": -1 });
     } else if (id) {
@@ -51,12 +51,12 @@ export const fetchChat = async (req, res) => {
           select: "id user avatar message time",
           populate: {
             path: "user",
-            select: "name firstName lastName avatar _id",
+            select: "firstName lastName avatar _id activity",
           },
         })
         .populate({
           path: "participants",
-          select: "name firstName lastName avatar _id",
+          select: "firstName lastName avatar _id activity",
         })
         .sort({ "lastMessage.time": -1 });
     } else {

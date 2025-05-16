@@ -89,7 +89,7 @@ const MessageList = memo(({ messages, currentUserId, newMessageIds }) => {
   );
 });
 
-const MessageRoom = memo(({ selectedChatId, setSelectedUser }) => {
+const MessageRoom = memo(({ selectedChatId }) => {
   const { user } = useContext(authContext);
 
   const currentUserId = useMemo(() => user?._id, [user?._id]);
@@ -147,26 +147,6 @@ const MessageRoom = memo(({ selectedChatId, setSelectedUser }) => {
 
   const [, forceRender] = React.useState({});
   const forceUpdate = useCallback(() => forceRender({}), []);
-
-  useEffect(() => {
-    if (!chatData || isLoading) return;
-
-    if (chatData.participants && chatData.participants.length > 0) {
-      const otherUser = chatData.participants.find(
-        (participant) => participant._id !== currentUserId
-      );
-
-      if (otherUser) {
-        setSelectedUser({
-          _id: otherUser._id,
-          firstName: otherUser.firstName || "",
-          lastName: otherUser.lastName || "",
-          name: otherUser.name || "",
-          avatar: otherUser.avatar || "/default-avatar.png",
-        });
-      }
-    }
-  }, [chatData, isLoading, currentUserId, setSelectedUser]);
 
   const scrollRef = useRef(null);
 

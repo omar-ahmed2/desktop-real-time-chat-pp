@@ -19,7 +19,6 @@ const Contacts = () => {
   const [menuOpen, setMenuOpen] = useState(null);
   const [friends, setFriends] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
-  
   // Fetch suggestions
   useEffect(() => {
     if (Array.isArray(users) && user?.email) {
@@ -53,9 +52,9 @@ const Contacts = () => {
   const emitFriendRequestAccepted = (userId, friendId) => {
     const socket = getSocket();
     // Emit an event to notify the server that a friend request was accepted
-    socket.emit('friend_request_accepted', { 
-      userId, 
-      friendId 
+    socket.emit("friend_request_accepted", {
+      userId,
+      friendId,
     });
     console.log("Friend request accepted between", userId, "and", friendId);
   };
@@ -71,16 +70,19 @@ const Contacts = () => {
           // Update local state to reflect changes
           if (response.user) {
             setUser(response.user);
-            sessionStorage.setItem('user', JSON.stringify(response.user));
-            
+            sessionStorage.setItem("user", JSON.stringify(response.user));
+
             // If they became friends immediately (accepting an existing request)
             if (response.user.friends.includes(personId)) {
               addFriend(personId);
               emitFriendRequestAccepted(user._id, personId);
             }
           }
-          
-          setAddedFriends((prevAddedFriends) => [...prevAddedFriends, personId]);
+
+          setAddedFriends((prevAddedFriends) => [
+            ...prevAddedFriends,
+            personId,
+          ]);
         }
       } catch (error) {
         console.error("Error adding friend:", error);
@@ -99,11 +101,11 @@ const Contacts = () => {
         if (response && !response.user.friends.includes(response.friend._id)) {
           removeFriendAuth(friendId);
           setUser(response.user);
-          sessionStorage.setItem('user', JSON.stringify(response.user));
-          
+          sessionStorage.setItem("user", JSON.stringify(response.user));
+
           // Tell the socket about the friend removal
           const socket = getSocket();
-          socket.emit('friend_removed', { userId: user._id, friendId });
+          socket.emit("friend_removed", { userId: user._id, friendId });
         }
         break;
       case "voice":
@@ -121,7 +123,7 @@ const Contacts = () => {
   // New function to handle messaging a friend
   const handleMessageFriend = (friend) => {
     // Navigate to the chat page
-    navigate('/chat');
+    navigate("/chat");
   };
 
   const filteredFriends = searchQuery
@@ -177,8 +179,8 @@ const Contacts = () => {
     <div className="contacts-page">
       <div className="contacts-main-card">
         <MediaQuery minWidth={1225}>
-            <Sidebar />
-          </MediaQuery>
+          <Sidebar />
+        </MediaQuery>
         <div className="contacts-container">
           <div className="search-container">
             <input
@@ -202,72 +204,89 @@ const Contacts = () => {
             </div>
 
             <div className="friends-list">
-              {filteredFriends.map((friend) => (
-                <div key={friend._id} className="friend-card">
-                  <div className="avatar">
-                    {friend.avatar ? (
-                      <img
-                        src={friend.avatar}
-                        alt={`${friend.firstName} ${friend.lastName}`}
-                        className="friend-avatar"
-                      />
-                    ) : (
-                      <span
-                        style={{ backgroundColor: getAvatarColor(friend._id) }}
+              {filteredFriends.map((friend) => {
+                if (friend.activity != true) {
+                  friend.activity = "";
+                }
+
+                return (
+                  <div key={friend._id} className="friend-card">
+                    <div className="avatar">
+                      {console.log(friend)}
+                      {friend.avatar ? (
+                        <img
+                          src={friend.avatar}
+                          alt={`${friend.firstName} ${friend.lastName}`}
+                          className="friend-avatar"
+                        />
+                      ) : (
+                        <span
+                          style={{
+                            backgroundColor: getAvatarColor(friend._id),
+                          }}
+                        >
+                          {getInitials(
+                            `${friend.firstName} ${friend.lastName}`
+                          )}
+                        </span>
+                      )}
+                      {friend.activity && (
+                        <span className="online-indicator"></span>
+                      )}
+                    </div>
+                    <div className="friend-info">
+                      <h3 className="friend-name">
+                        {`${friend.firstName} ${friend.lastName}`}
+                      </h3>
+                      <p className="friend-email">{friend.email}</p>
+                      {friend.activity ? (
+                        <p className="status online">Online</p>
+                      ) : (
+                        <p className="status offline">Offline</p>
+                      )}
+                    </div>
+                    <div className="friend-actions">
+                      <button
+                        className="message-btn"
+                        onClick={() => handleMessageFriend(friend)}
                       >
-                        {getInitials(`${friend.firstName} ${friend.lastName}`)}
-                      </span>
-                    )}
-                    {friend.online && (
-                      <span className="online-indicator"></span>
-                    )}
+                        Message
+                      </button>
+                      <button
+                        className="menu-btn"
+                        onClick={() => handleMenuClick(friend._id)}
+                      >
+                        ⋮
+                      </button>
+                      {menuOpen === friend._id && (
+                        <div className="friend-menu">
+                          <button
+                            onClick={() =>
+                              handleMenuAction("remove", friend._id)
+                            }
+                          >
+                            Remove Friend
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleMenuAction("voice", friend._id)
+                            }
+                          >
+                            Voice Call
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleMenuAction("video", friend._id)
+                            }
+                          >
+                            Video Call
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div className="friend-info">
-                    <h3 className="friend-name">
-                      {`${friend.firstName} ${friend.lastName}`}
-                    </h3>
-                    <p className="friend-email">{friend.email}</p>
-                    {friend.online ? (
-                      <p className="status online">Online</p>
-                    ) : (
-                      <p className="status offline">Offline</p>
-                    )}
-                  </div>
-                  <div className="friend-actions">
-                    <button 
-                      className="message-btn"
-                      onClick={() => handleMessageFriend(friend)}
-                    >
-                      Message
-                    </button>
-                    <button
-                      className="menu-btn"
-                      onClick={() => handleMenuClick(friend._id)}
-                    >
-                      ⋮
-                    </button>
-                    {menuOpen === friend._id && (
-                      <div className="friend-menu">
-                        <button
-                          onClick={() => handleMenuAction("remove", friend._id)}
-                        >
-                          Remove Friend
-                        </button>
-                        <button
-                          onClick={() => handleMenuAction("voice", friend._id)}
-                        >
-                          Voice Call
-                        </button>
-                        <button
-                          onClick={() => handleMenuAction("video", friend._id)}
-                        >
-                          Video Call
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -332,8 +351,8 @@ const Contacts = () => {
           </div>
         </div>
         <MediaQuery maxWidth={1225}>
-            <Sidebar />
-          </MediaQuery>
+          <Sidebar />
+        </MediaQuery>
       </div>
     </div>
   );

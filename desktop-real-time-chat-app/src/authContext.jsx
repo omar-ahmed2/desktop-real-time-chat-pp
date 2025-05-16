@@ -40,7 +40,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    console.log(user._id);
+    try {
+      await fetch("http://localhost:3000/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user._id,
+        }),
+      });
+    } catch (error) {
+      console.error("Logout request failed:", error);
+    }
     setUser(null);
     setToken(null);
     setTokenExpiration(null);

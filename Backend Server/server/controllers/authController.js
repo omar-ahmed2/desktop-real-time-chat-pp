@@ -93,7 +93,9 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "10h",
     });
-
+    user.activity = "true";
+    await user.save();
+    io.emit("user_update", { userId: user._id });
     res.status(200).json({ message: "Login successful", user, token });
   } catch (err) {
     console.error("Error logging in:", err);
@@ -103,9 +105,8 @@ export const loginUser = async (req, res) => {
 
 export const editUser = async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const { userName, userPhone ,userId} = req.body;
     const user = await User.findById(userId);
-    const { userName, userPhone } = req.body;
     if (!userName && !userPhone) {
       return res
         .status(400)
@@ -122,5 +123,27 @@ export const editUser = async (req, res) => {
   } catch (e) {
     console.log("an error has occured:", e);
     res.status(500).json({ message: "Error editing user", error: err.message });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    const { userId }= req.body;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    if (!userId) {
+      return res.status(400).json({ message: "UserId not found" });
+    }
+    user.activity = "false";
+    await user.save();
+    io.emit("user_update", { userId: user._id });
+    res.status(200).json({ message: "logged out user" });
+  } catch (e) {
+    console.log("an error has occured:", e);
+    res
+      .status(500)
+      .json({ message: "Error logining out user", error: err.message });
   }
 };
