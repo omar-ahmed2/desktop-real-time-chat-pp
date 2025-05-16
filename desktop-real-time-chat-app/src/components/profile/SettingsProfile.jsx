@@ -72,7 +72,7 @@ const SettingsProfile = () => {
         <FaArrowLeft /> Back to Chat
       </button>
       <div className="profile-header">
-        <div className>
+        <div className="profile-pic">
           {profilePic ? (
             <img src={profilePic} alt="Profile" />
           ) : (
