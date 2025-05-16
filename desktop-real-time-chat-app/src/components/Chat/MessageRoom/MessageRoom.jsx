@@ -183,9 +183,11 @@ const MessageRoom = memo(({ selectedChatId }) => {
   if (!messages.length ) {
     return (
       <div className="message-list empty">
-        <p className="flex justify-center align items-center">
-          No messages in this conversation yet.
-        </p>
+        <div className="flex flex-col justify-center align-items-center h-100">
+          <h6 className="justify-self-center w-fit">Welcome, {user.firstName }{user.lastName}  </h6>
+          <div></div>
+          <button className="bg-white">Start your first Chat</button>
+        </div>
       </div>
     );
   }

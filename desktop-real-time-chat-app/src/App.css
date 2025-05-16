@@ -79,9 +79,20 @@ background-color: white !important;
 }
 
                                               /*---------------- utilities -----------------------*/
+.justify-self-center{
+justify-self: center;
+}
+
+.w-fit{
+  width: fit-content;
+}
 
 .flex {
   display: flex;
+}
+.flex-col{
+  flex-direction: column;
+
 }
 
 
