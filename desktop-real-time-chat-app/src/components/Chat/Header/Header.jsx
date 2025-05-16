@@ -18,10 +18,10 @@ const Header = ({
   }
   const socket = getSocket();
   socket.on("user_update", async (updatedUser) => {
+    console.log("selected user is being updated");
     try {
       const token = sessionStorage.getItem("token");
       if (!token) return; // no token, can't fetch
-
       if (selectedUser && selectedUser._id === updatedUser.userId) {
         const res = await fetch(`http://localhost:3000/api/getuser`, {
           method: "POST", // since you need to send a body
