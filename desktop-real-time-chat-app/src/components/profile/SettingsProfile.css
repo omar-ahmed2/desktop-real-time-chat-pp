@@ -11,10 +11,9 @@
   max-width: 600px;
   margin: auto;
   transition: all 0.3s ease;
-  overflow: hidden;
   position: relative;
-  height: fit-content;
   overflow-y: auto;
+  height: 90vh;
 }
 
 .profile-settings:hover {
@@ -53,14 +52,6 @@
   transform: scale(1.1);
 }
 
-/* name */
-h3 {
-  margin: 10px 0 5px;
-  font-size: 22px;
-  font-weight: 600;
-  color: #333;
-}
-
 /* status */
 p {
   color: #777;
@@ -85,6 +76,7 @@ p {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  
 }
 
 .photo-buttons .change-btn {
@@ -104,6 +96,8 @@ p {
 .photo-buttons .remove-btn:hover {
   background-color: #c0392b;
 }
+
+
 
 /* profile fields section */
 .profile-fields {
@@ -143,6 +137,50 @@ p {
   outline: none;
   border-color: #6c5dd3;
   box-shadow: 0 0 0 3px rgba(108, 93, 211, 0.2);
+}
+
+/* name fields row */
+.name-fields-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 20px;
+  width: 90%;
+}
+
+.name-field {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.name-field .editable-field input {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #f0eeff;
+}
+
+.save-btn {
+  padding: 12px 20px;
+  background-color: #533acf;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  width: 50%;
+  margin: 20px auto 0;
+}
+
+.save-btn:active {
+  background-color: #cd7cc3;
 }
 
 /* log out button */
@@ -237,11 +275,17 @@ p {
     width: 70%;
   }
 
+  .save-btn {
+    font-size: 14px;
+    width: 70%;
+  }
+
   .photo-buttons .btn {
     font-size: 12px;
     padding: 6px 10px;
   }
 }
+
 
 @media (max-width: 576px) {
   .profile-settings {
@@ -252,7 +296,6 @@ p {
   .profile-header {
     font-size: 20px;
   }
-
 
   h3 {
     font-size: 16px;
@@ -272,6 +315,11 @@ p {
     width: 80%;
   }
 
+  .save-btn {
+    font-size: 12px;
+    width: 80%;
+  }
+
   .photo-buttons {
     flex-direction: column;
     align-items: center;
@@ -280,7 +328,7 @@ p {
   .photo-buttons .btn {
     font-size: 12px;
     padding: 6px 10px;
-    width: 100%; 
+    width: 100%;
     text-align: center;
   }
 
@@ -288,4 +336,8 @@ p {
     position: static;
     margin-bottom: 10px;
   }
+
+  
 }
+
+

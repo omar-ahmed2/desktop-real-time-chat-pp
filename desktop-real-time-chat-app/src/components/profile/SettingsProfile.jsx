@@ -9,9 +9,8 @@ const SettingsProfile = () => {
   const { logout, user ,setUser} = useContext(AuthContext);
   const navigate = useNavigate();
   const [profilePic, setProfilePic] = useState(user?.avatar || null);
-  const [name, setName] = useState(
-    user ? `${user.firstName} ${user.lastName}` : ""
-  );
+  const [firstName, setFirstName] = useState(user?.firstName || "");
+  const [lastName, setLastName] = useState(user?.lastName || "");
   const [status, setStatus] = useState("Hey there! I am using Chatty.");
   const [phone, setPhone] = useState(user?.phone || "");
 
@@ -95,22 +94,35 @@ const SettingsProfile = () => {
             Remove Photo
           </button>
         </div>
-        <h3>{name}</h3>
+        <h3>
+          {firstName} {lastName}
+        </h3>
         <p>{status}</p>
       </div>
 
       <div className="profile-fields">
-        <div className="field">
-          <label>Name</label>
-          <div className="editable-field">
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+        <div className="field name-fields-row">
+          <div className="field">
+            <label>First Name</label>
+            <div className="editable-field">
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="field">
+            <label>Last Name</label>
+            <div className="editable-field">
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
           </div>
         </div>
-
         <div className="field">
           <label>Status</label>
           <div className="editable-field">
@@ -121,7 +133,6 @@ const SettingsProfile = () => {
             />
           </div>
         </div>
-
         <div className="field">
           <label>Phone</label>
           <div className="editable-field">
@@ -132,7 +143,9 @@ const SettingsProfile = () => {
             />
           </div>
         </div>
-
+        <button className="save-btn" onClick={() => alert("Changes Saved")}>
+          Save Changes
+        </button>
         <button className="logout-btn" onClick={handleLogout}>
           <FaSignOutAlt /> Log Out
         </button>
