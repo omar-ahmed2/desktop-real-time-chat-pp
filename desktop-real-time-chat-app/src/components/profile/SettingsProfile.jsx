@@ -130,6 +130,7 @@ const handleSave = async () => {
             id="upload-photo"
             onChange={handleImageChange}
             style={{ display: "none" }}
+            className="upload-photo"
           />
           <label htmlFor="upload-photo" className="btn change-btn">
             Change Photo

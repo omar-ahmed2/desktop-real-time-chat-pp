@@ -45,6 +45,7 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 50%;
 }
 
 .profile-pic:hover img {
@@ -67,7 +68,10 @@ p {
   margin-top: 10px;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
+
 
 .photo-buttons .btn {
   padding: 8px 12px;
