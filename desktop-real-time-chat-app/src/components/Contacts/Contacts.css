@@ -21,7 +21,7 @@
   overflow: hidden;
   position: relative;
   display: grid;
-  grid-template-columns: 0.7fr 2fr ;
+  grid-template-columns: 0.5fr 2fr ;
   opacity: 0;
   transform: scale(0.98);
   animation: fadeInContacts 0.7s ease-out forwards;
