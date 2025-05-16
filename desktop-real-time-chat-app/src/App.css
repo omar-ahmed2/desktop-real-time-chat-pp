@@ -22,6 +22,11 @@ display: grid  ;
 
 }
 
+.bg-white{
+background-color: white !important;
+}
+
+
 .col-name{
   grid-template-columns: 1fr;
 }

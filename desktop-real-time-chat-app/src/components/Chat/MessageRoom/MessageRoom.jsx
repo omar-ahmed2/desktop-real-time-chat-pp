@@ -180,7 +180,7 @@ const MessageRoom = memo(({ selectedChatId }) => {
       </div>
     );
   }
-  if (!messages.length && chatData) {
+  if (!messages.length ) {
     return (
       <div className="message-list empty">
         <p className="flex justify-center align items-center">

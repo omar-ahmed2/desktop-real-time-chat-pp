@@ -382,7 +382,7 @@ const Groups = () => {
                     e.stopPropagation();
                     openDialog(group.id);
                   }}
-                  className="p-2 hover:bg-purple-100 rounded-full"
+                  className="p-2 hover:bg-purple-100 rounded-full bg-white"
                   aria-label="Edit group"
                 >
                   <img

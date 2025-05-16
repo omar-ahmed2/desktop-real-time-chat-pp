@@ -47,6 +47,7 @@
     .groups-main-card{
       grid-template-columns: 1fr;
       grid-template-rows: 1fr .2fr;
+      
     }
 }
 
