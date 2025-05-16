@@ -95,7 +95,7 @@ export const loginUser = async (req, res) => {
     });
     user.activity = "true";
     await user.save();
-        io.emit("user_update", {
+    io.emit("user_update", {
       userId: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -124,7 +124,7 @@ export const editUser = async (req, res) => {
     if (userFirstName) {
       user.firstName = userFirstName;
     }
-    if(userLastName){
+    if (userLastName) {
       user.lastName = userLastName;
     }
     if (userPhone) {
@@ -134,7 +134,7 @@ export const editUser = async (req, res) => {
       user.email = userEmail;
     }
     await user.save();
-        io.emit("user_update", {
+    io.emit("user_update", {
       userId: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -146,9 +146,9 @@ export const editUser = async (req, res) => {
     });
     res.status(200).json({ message: "Edited" });
   } catch (e) {
-  console.log("an error has occurred:", e);
-  res.status(500).json({ message: "Error editing user", error: e.message });
-}
+    console.log("an error has occurred:", e);
+    res.status(500).json({ message: "Error editing user", error: e.message });
+  }
 };
 
 export const logout = async (req, res) => {
@@ -163,7 +163,7 @@ export const logout = async (req, res) => {
     }
     user.activity = "false";
     await user.save();
-        io.emit("user_update", {
+    io.emit("user_update", {
       userId: user._id,
       firstName: user.firstName,
       lastName: user.lastName,

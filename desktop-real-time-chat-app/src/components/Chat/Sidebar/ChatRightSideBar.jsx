@@ -156,7 +156,6 @@ const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading, setSelectedU
       const participant = firstChat.participants?.find(
         (p) => p._id !== user._id
       );
-
       setSelectedChatId(firstChat._id, participant);
       setChatID(firstChat._id);
       setSelectedUser(participant);

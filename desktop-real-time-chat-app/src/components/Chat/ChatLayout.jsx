@@ -53,8 +53,8 @@ const ChatLayout = () => {
           {/* Main content area for desktop and tablets */}
           <MediaQuery minWidth={601}>
             <div className="main-content animate-fade-in">
-              <Header selectedUser={selectedUser}
-              setSelectedUser={setSelectedUser} />
+              { selectedUser && <Header selectedUser={selectedUser}
+              setSelectedUser={setSelectedUser} />}
               {
                 <MessageRoom 
                   selectedChatId={selectedChatId} 
