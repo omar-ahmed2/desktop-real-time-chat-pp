@@ -95,7 +95,16 @@ export const loginUser = async (req, res) => {
     });
     user.activity = "true";
     await user.save();
-    io.emit("user_update", { userId: user._id });
+        io.emit("user_update", {
+      userId: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      name: user.name,
+      avatar: user.avatar,
+      activity: user.activity,
+      email: user.email,
+      phone: user.phone,
+    });
     res.status(200).json({ message: "Login successful", user, token });
   } catch (err) {
     console.error("Error logging in:", err);
@@ -105,30 +114,46 @@ export const loginUser = async (req, res) => {
 
 export const editUser = async (req, res) => {
   try {
-    const { userName, userPhone ,userId} = req.body;
-    const user = await User.findById(userId);
-    if (!userName && !userPhone) {
+    const { userFirstName, userLastName, userEmail, userPhone } = req.body;
+    const user = await User.findById(req.user.userId);
+    if (!userFirstName && !userLastName && !userPhone && !userEmail) {
       return res
         .status(400)
-        .json({ message: "Provide at least name or phone" });
+        .json({ message: "Provide at least name or phone or email" });
     }
-    if (userName) {
-      const parts = userName.trim().split(" ");
-      const firstName = parts[0] || "";
-      const lastName = parts.length > 1 ? parts[parts.length - 1] : "";
-      user.firstName = firstName;
-      user.lastName = lastName;
+    if (userFirstName) {
+      user.firstName = userFirstName;
     }
-    res.status(200).json({ messege: "Edited" });
+    if(userLastName){
+      user.lastName = userLastName;
+    }
+    if (userPhone) {
+      user.phone = userPhone;
+    }
+    if (userEmail) {
+      user.email = userEmail;
+    }
+    await user.save();
+        io.emit("user_update", {
+      userId: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      name: user.name,
+      avatar: user.avatar,
+      activity: user.activity,
+      email: user.email,
+      phone: user.phone,
+    });
+    res.status(200).json({ message: "Edited" });
   } catch (e) {
-    console.log("an error has occured:", e);
-    res.status(500).json({ message: "Error editing user", error: err.message });
-  }
+  console.log("an error has occurred:", e);
+  res.status(500).json({ message: "Error editing user", error: e.message });
+}
 };
 
 export const logout = async (req, res) => {
   try {
-    const { userId }= req.body;
+    const { userId } = req.body;
     const user = await User.findById(userId);
     if (!user) {
       return res.status(400).json({ message: "User not found" });
@@ -138,7 +163,16 @@ export const logout = async (req, res) => {
     }
     user.activity = "false";
     await user.save();
-    io.emit("user_update", { userId: user._id });
+        io.emit("user_update", {
+      userId: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      name: user.name,
+      avatar: user.avatar,
+      activity: user.activity,
+      email: user.email,
+      phone: user.phone,
+    });
     res.status(200).json({ message: "logged out user" });
   } catch (e) {
     console.log("an error has occured:", e);

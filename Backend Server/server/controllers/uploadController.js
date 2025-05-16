@@ -48,7 +48,16 @@ const uploadAvatar = async (req, res) => {
 
     // Update user avatar path and save
     user.avatar = `http://localhost:3000` + filePath;
-    io.emit("user_update", { userId: req.user.userId});
+        io.emit("user_update", {
+      userId: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      name: user.name,
+      avatar: user.avatar,
+      activity: user.activity,
+      email: user.email,
+      phone: user.phone,
+    });
     await user.save();
 
     res.json({ avatar: filePath });

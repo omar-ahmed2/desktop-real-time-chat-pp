@@ -11,7 +11,7 @@ const SettingsProfile = () => {
   const [profilePic, setProfilePic] = useState(user?.avatar || null);
   const [firstName, setFirstName] = useState(user?.firstName || "");
   const [lastName, setLastName] = useState(user?.lastName || "");
-  const [status, setStatus] = useState("Hey there! I am using Chatty.");
+  const [email, setEmail] = useState(user?.email);
   const [phone, setPhone] = useState(user?.phone || "");
 
   const handleImageChange = async (event) => {
@@ -52,7 +52,52 @@ const SettingsProfile = () => {
       setUser((u) => ({ ...u, avatar: newUrl }));
     }
   };
+const handleSave = async () => {
+  try {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      alert("You must be logged in");
+      return;
+    }
+    const body = {
+      userFirstName: firstName,
+      userLastName: lastName,
+      userEmail: email,  // if your API supports updating status
+      userPhone: phone,
+    };
 
+    const res = await fetch("http://localhost:3000/auth/edituser", {
+      method: "POST", // or POST depending on your API
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert("Failed to save changes: " + errorData.message);
+      return;
+    }
+
+    const data = await res.json();
+
+    // Optionally update global user state with latest data:
+    setUser((u) => ({
+      ...u,
+      firstName,
+      lastName,
+      phone,
+      avatar: profilePic,
+      email, // if you track it globally
+    }));
+
+    alert("Changes saved successfully!");
+  } catch (error) {
+    alert("Error saving changes: " + error.message);
+  }
+};
   const handleRemovePhoto = () => {
     setProfilePic(null);
   };
@@ -63,7 +108,6 @@ const SettingsProfile = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/");
   };
 
   return (
@@ -97,7 +141,7 @@ const SettingsProfile = () => {
         <h3>
           {firstName} {lastName}
         </h3>
-        <p>{status}</p>
+        <p>{email}</p>
       </div>
 
       <div className="profile-fields">
@@ -124,12 +168,12 @@ const SettingsProfile = () => {
           </div>
         </div>
         <div className="field">
-          <label>Status</label>
+          <label>Email</label>
           <div className="editable-field">
             <input
               type="text"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
         </div>
@@ -143,7 +187,7 @@ const SettingsProfile = () => {
             />
           </div>
         </div>
-        <button className="save-btn" onClick={() => alert("Changes Saved")}>
+        <button className="save-btn" onClick={handleSave}>
           Save Changes
         </button>
         <button className="logout-btn" onClick={handleLogout}>

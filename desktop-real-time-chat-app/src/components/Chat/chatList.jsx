@@ -2,6 +2,7 @@ import React, { useContext, memo, useCallback } from 'react';
 import { useState, useEffect } from 'react';
 import { useChatList } from '../../hooks/useChatList';
 import authContext from "../../authContext";
+import ChatLayout from './ChatLayout';
 
 // Optimize styles by using tailwind directly
 const ChatItem = memo(({ chatData, onSelectUser, isHolding, handleMouseDown, handleMouseUp, handleMouseLeave }) => {
@@ -55,7 +56,7 @@ const ChatItem = memo(({ chatData, onSelectUser, isHolding, handleMouseDown, han
 });
 
 // Main ChatList component with improved virtualization approach
-const ChatList = memo(({ onSelectUser, searchTerm = '', selectedUser }) => {
+const ChatList = memo(({ onSelectUser, searchTerm = ''}) => {
   const { user } = useContext(authContext);
   const [holdingChatId, setHoldingChatId] = useState(null);
   const { data: chatList, isLoading, error } = useChatList();
@@ -64,61 +65,49 @@ const ChatList = memo(({ onSelectUser, searchTerm = '', selectedUser }) => {
   const handleMouseLeave = useCallback(() => setHoldingChatId(null), []);
   
   // Process chat list for display
-  const processedChats = React.useMemo(() => {
-    if (!chatList || !user?._id) return [];
+const processedChats = React.useMemo(() => {
+  if (!chatList || !user?._id) return [];
+  
+  const uniqueChats = new Map();
+  
+  chatList.forEach(chat => {
+    const otherParticipants = chat.participants.filter(
+      participant => participant._id?.toString() !== user._id?.toString()
+    );
     
-    // Create a map to track unique chats by participant ID
-    const uniqueChats = new Map();
-    
-    // Process the chat list to prevent duplicate entries
-    chatList.forEach(chat => {
-      // Filter out the current user to get the other participant(s)
-      const otherParticipants = chat.participants.filter(
-        participant => {
-          // Convert to string for safe comparison
-          const participantId = participant._id?.toString();
-          const userId = user._id?.toString();
-          return participantId !== userId;
-        }
-      );
+    if (otherParticipants.length > 0) {
+      const otherUser = otherParticipants[0];
+      const otherUserId = otherUser._id?.toString();
       
-      // If there are other participants, use the first one as the key for this chat
-      if (otherParticipants.length > 0) {
-        const otherUser = otherParticipants[0];
-        const otherUserId = otherUser._id?.toString();
-        
-        if (otherUserId) {
-          // Fix: Check for any lastMessage property available
-          if (!uniqueChats.has(otherUserId) || 
-              (chat.lastMessage && uniqueChats.get(otherUserId).lastMessage &&
-               (chat.lastMessage.time > uniqueChats.get(otherUserId).lastMessage.time || 
-                chat.lastMessage.createdAt > uniqueChats.get(otherUserId).lastMessage.createdAt))) {
-            uniqueChats.set(otherUserId, {
-              ...chat,
-              displayUser: otherUser
-            });
-          }
+      if (otherUserId) {
+        if (!uniqueChats.has(otherUserId) || 
+            (chat.lastMessage && uniqueChats.get(otherUserId).lastMessage &&
+             (chat.lastMessage.time > uniqueChats.get(otherUserId).lastMessage.time || 
+              chat.lastMessage.createdAt > uniqueChats.get(otherUserId).lastMessage.createdAt))) {
+          uniqueChats.set(otherUserId, {
+            ...chat,
+            displayUser: otherUser,
+          });
         }
       }
-    });
-    
-    // Convert the map to an array
-    const chats = Array.from(uniqueChats.values());
-    
-    // Filter based on search term if provided
-    if (searchTerm && searchTerm.trim() !== '') {
-      const normalizedSearchTerm = searchTerm.toLowerCase().trim();
-      return chats.filter(chat => {
-        const displayName = chat.displayUser.firstName && chat.displayUser.lastName 
-          ? `${chat.displayUser.firstName} ${chat.displayUser.lastName}`.toLowerCase()
-          : (chat.displayUser.name || '').toLowerCase();
-        
-        return displayName.includes(normalizedSearchTerm);
-      });
     }
-    
-    return chats;
-  }, [chatList, user?._id, searchTerm]);
+  });
+  
+  const chats = Array.from(uniqueChats.values());
+  
+  if (searchTerm && searchTerm.trim() !== '') {
+    const normalizedSearchTerm = searchTerm.toLowerCase().trim();
+    return chats.filter(chat => {
+      const displayName = chat.displayUser.firstName && chat.displayUser.lastName 
+        ? `${chat.displayUser.firstName} ${chat.displayUser.lastName}`.toLowerCase()
+        : (chat.displayUser.name || '').toLowerCase();
+      
+      return displayName.includes(normalizedSearchTerm);
+    });
+  }
+  
+  return chats;
+}, [chatList, user?._id, searchTerm]);
   
   if (isLoading) {
     return <div className="p-4 text-center">Loading conversations...</div>;
