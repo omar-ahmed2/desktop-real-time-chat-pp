@@ -54,12 +54,12 @@ const ChatLayout = () => {
           <MediaQuery minWidth={601}>
             <div className="main-content animate-fade-in">
               <Header selectedUser={selectedUser} />
-              {selectedChatId && (
+              {
                 <MessageRoom 
                   selectedChatId={selectedChatId} 
                   setSelectedUser={setSelectedUser}
                 />
-              )}
+              }
               <MessageInput 
                 chatId={selectedChatId} 
                 selectedUser={selectedUser} 

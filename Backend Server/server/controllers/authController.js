@@ -42,7 +42,6 @@ export const registerUser = async (req, res) => {
     const defaultAvatar = `https://api.dicebear.com/6.x/adventurer/svg?seed=${encodeURIComponent(
       seed
     )}`;
-    
 
     const newUser = new User({
       firstName,
@@ -99,5 +98,29 @@ export const loginUser = async (req, res) => {
   } catch (err) {
     console.error("Error logging in:", err);
     res.status(500).json({ message: "Error logging in", error: err.message });
+  }
+};
+
+export const editUser = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const user = await User.findById(userId);
+    const { userName, userPhone } = req.body;
+    if (!userName && !userPhone) {
+      return res
+        .status(400)
+        .json({ message: "Provide at least name or phone" });
+    }
+    if (userName) {
+      const parts = userName.trim().split(" ");
+      const firstName = parts[0] || "";
+      const lastName = parts.length > 1 ? parts[parts.length - 1] : "";
+      user.firstName = firstName;
+      user.lastName = lastName;
+    }
+    res.status(200).json({ messege: "Edited" });
+  } catch (e) {
+    console.log("an error has occured:", e);
+    res.status(500).json({ message: "Error editing user", error: err.message });
   }
 };

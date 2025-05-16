@@ -14,7 +14,7 @@ const ChatItem = memo(({ chatData, onSelectUser, isHolding, handleMouseDown, han
   
   // Fix: Extract message content correctly from lastMessage object
   const messagePreview = lastMessage?.message || lastMessage?.content || "Start a conversation";
-
+  
   return (
     <div
       key={_id}
@@ -59,7 +59,6 @@ const ChatList = memo(({ onSelectUser, searchTerm = '', selectedUser }) => {
   const { user } = useContext(authContext);
   const [holdingChatId, setHoldingChatId] = useState(null);
   const { data: chatList, isLoading, error } = useChatList();
-  
   const handleMouseDown = useCallback((id) => setHoldingChatId(id), []);
   const handleMouseUp = useCallback(() => setHoldingChatId(null), []);
   const handleMouseLeave = useCallback(() => setHoldingChatId(null), []);

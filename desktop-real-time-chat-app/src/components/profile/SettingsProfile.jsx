@@ -6,26 +6,51 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SettingsProfile = () => {
-  const { logout, user } = useContext(AuthContext);
+  const { logout, user ,setUser} = useContext(AuthContext);
   const navigate = useNavigate();
   const [profilePic, setProfilePic] = useState(user?.avatar || null);
-  const [name, setName] = useState(user ? `${user.firstName} ${user.lastName}` : "");
+  const [name, setName] = useState(
+    user ? `${user.firstName} ${user.lastName}` : ""
+  );
   const [status, setStatus] = useState("Hey there! I am using Chatty.");
   const [phone, setPhone] = useState(user?.phone || "");
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      if (file.size > 5 * 1024 * 1024) {
         alert("File size should be less than 5MB");
         return;
       }
-      const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      const validTypes = ["image/jpeg", "image/png", "image/gif"];
       if (!validTypes.includes(file.type)) {
         alert("Please upload a valid image file (JPEG, PNG, or GIF)");
         return;
       }
+
+      // Optional: Show preview immediately
       setProfilePic(URL.createObjectURL(file));
+
+      // Prepare form data
+      const formData = new FormData();
+      formData.append("avatar", file);
+
+      const res = await fetch("http://localhost:3000/upload", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+        body: formData,
+      });
+      if (!res.ok) throw new Error("Upload failed");
+
+      const data = await res.json();
+      const ts = Date.now();
+      const newUrl = `http://localhost:3000${data.avatar}?t=${ts}`;
+
+      // immediate preview + global state update
+      setProfilePic(newUrl);
+      setUser((u) => ({ ...u, avatar: newUrl }));
     }
   };
 
@@ -34,12 +59,12 @@ const SettingsProfile = () => {
   };
 
   const handleBackToChat = () => {
-    navigate('/chat');
+    navigate("/chat");
   };
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
   };
 
   return (

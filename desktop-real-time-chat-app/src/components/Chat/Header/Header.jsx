@@ -6,7 +6,6 @@ const Header = ({ selectedUser, onBackClick, showBackButton }) => {
       <div className="chat-header">
         <div className="header-left animate-fade-in">
           <div className="team-info">
-            <span>Select a user to start chatting</span>
           </div>
         </div>
       </div>

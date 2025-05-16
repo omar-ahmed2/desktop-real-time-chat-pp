@@ -76,6 +76,8 @@ const useSocketListeners = () => {
           sessionStorage.setItem("user", JSON.stringify(updatedUser));
           queryClient.removeQueries({ queryKey: ["chatlist"] });
           queryClient.invalidateQueries({ queryKey: ["chatlist"] });
+          queryClient.removeQueries({ queryKey: ["chatRoom"] });
+          queryClient.invalidateQueries({ queryKey: ["chatRoom"] });
         } catch (err) {
           console.error("Error updating user:", err);
         }
@@ -132,8 +134,7 @@ const useSocketListeners = () => {
             };
           } else if (existingChat && existingChat.participants) {
             const otherUser = existingChat.participants.find(
-              (p) =>
-                p._id === data.sender || p._id === data.message.userId
+              (p) => p._id === data.sender || p._id === data.message.userId
             );
             if (otherUser) {
               data.message.user = {
@@ -165,7 +166,17 @@ const useSocketListeners = () => {
         queryClient.invalidateQueries({ queryKey: ["chatlist"] });
       }
     });
-
+    socket.on("user_update", async (data) => {
+      if (user?.friends?.includes(data.userId)) {
+        console.log("This user updated data:", data.userId);
+        console.log("this is the user",user);
+        queryClient.removeQueries({ queryKey: ["chatlist"] });
+        queryClient.invalidateQueries({ queryKey: ["chatlist"] });
+        queryClient.removeQueries({ queryKey: ["chatRoom"] });
+        queryClient.invalidateQueries({ queryKey: ["chatRoom"] });
+      }
+      await queryClient.refetchQueries({ queryKey: ["users"] });
+    });
     socket.on("disconnect", () => {
       console.log("Disconnected from socket server");
     });
@@ -179,6 +190,7 @@ const useSocketListeners = () => {
       socket.off("friend_request_received");
       socket.off("message_sent");
       socket.off("disconnect");
+      socket.off("user_update");
     };
   }, [savedToken, queryClient, user, setUser, fetchUserFromServer]);
 };

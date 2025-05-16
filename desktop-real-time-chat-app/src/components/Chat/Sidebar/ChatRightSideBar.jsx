@@ -1,40 +1,43 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import ChatList from "../chatList";
 import ChatSearchInput from "../searchbar/ChatSearchInput";
 import MediaQuery from "react-responsive";
 
 const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [chatID,setChatID]= useState("");
-  // Auto-select the first chat when the chat list loads
-  // Only do this on desktop, not on mobile
+  const [chatID, setChatID] = useState("");
+
+  // Auto-select the first chat when the chat list loads on desktop only
   useEffect(() => {
     if (
       !isLoading &&
       chatList &&
       chatList.length > 0 &&
-      window.innerWidth > 600
+      window.innerWidth > 600 &&
+      !chatID
     ) {
-      // Auto-select the first chat from the list
-      if(!chatID ){
-      setSelectedChatId(
-        chatList[0]._id,
-        chatList[0].participants?.find((p) => p._id !== chatList[0].ownerId)
+      const firstChat = chatList[0];
+      const participant = firstChat.participants?.find(
+        (p) => p._id !== firstChat.ownerId
       );
-    }
-    }
-  }, [chatList, isLoading, setSelectedChatId]);
 
-  // Function to handle user selection from the chat list
-  const handleUserSelect = (chatId, userData) => {
-    if (chatId) {
-      setChatID(chatId);
-      // Set the selected chat ID and pass the user data
-      setSelectedChatId(chatId, userData);
+      setSelectedChatId(firstChat._id, participant);
+      setChatID(firstChat._id);
     }
-  };
+  }, [chatList, isLoading, setSelectedChatId, chatID]);
 
-  // We're passing the searchTerm to ChatList through an object to avoid unnecessary re-renders
+  // Use useCallback so handleUserSelect has stable reference for memo
+  const handleUserSelect = useCallback(
+    (chatId, userData) => {
+      if (chatId) {
+        setChatID(chatId);
+        setSelectedChatId(chatId, userData);
+      }
+    },
+    [setSelectedChatId]
+  );
+
+  // Memoize props for ChatList to optimize rendering
   const chatListProps = useMemo(
     () => ({
       onSelectUser: handleUserSelect,
@@ -57,10 +60,7 @@ const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading }) => {
       </MediaQuery>
 
       <div className="search-container">
-        <ChatSearchInput
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
+        <ChatSearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
 
       <div className="flex">
@@ -68,7 +68,6 @@ const ChatRightSidebar = ({ setSelectedChatId, chatList, isLoading }) => {
         <h4 className="logo-text">All Chat</h4>
       </div>
 
-      {/* Pass chatList and loading state to ChatList component */}
       <ChatList {...chatListProps} />
     </div>
   );

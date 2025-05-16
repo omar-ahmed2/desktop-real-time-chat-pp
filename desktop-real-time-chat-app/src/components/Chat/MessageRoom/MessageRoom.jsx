@@ -14,7 +14,6 @@ const MessageItem = memo(
         } animate-fade-in`}
         style={{ animationDelay: isNewMessage ? "0.1s" : "0s" }}
       >
-
         {!isOwnMessage && (
           <img
             src={message.user?.avatar || "/default-avatar.png"}
@@ -94,11 +93,9 @@ const MessageRoom = memo(({ selectedChatId, setSelectedUser }) => {
   const { user } = useContext(authContext);
 
   const currentUserId = useMemo(() => user?._id, [user?._id]);
-
   const chatId = useMemo(() => selectedChatId, [selectedChatId]);
 
   const { data: chatData, isLoading, error } = useChatroom(chatId);
-
   const messages = useMemo(() => chatData?.chat || [], [chatData?.chat]);
 
   const newMessageIdsRef = useRef(new Set()); //to prevent rerender
@@ -203,11 +200,21 @@ const MessageRoom = memo(({ selectedChatId, setSelectedUser }) => {
       </div>
     );
   }
-
-  if (!messages.length) {
+  if (!messages.length && chatData) {
     return (
       <div className="message-list empty">
-        No messages in this conversation yet.
+        <p className="flex justify-center align items-center">
+          No messages in this conversation yet.
+        </p>
+      </div>
+    );
+  }
+  if (!chatData && selectedChatId) {
+    return (
+      <div className="message-list empty">
+        <p className="flex justify-center align items-center">
+          This conversation does not exist or has been removed.
+        </p>
       </div>
     );
   }
